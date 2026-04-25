@@ -1,19 +1,19 @@
-##  Modelo de Datos- Restaurant
+##  Modelo de Datos - Restaurante
 
 ### 1. Entidades de Catálogo
-* **Categoria:** uid=197609(Nam) gid=197121 groups=197121 (PK), 
-* **Producto:** uid=197609(Nam) gid=197121 groups=197121 (PK),  (FK), , , , 
-* **Cliente:** uid=197609(Nam) gid=197121 groups=197121 (PK), , 
+* **Categoria:** `id` (PK), `nombre`
+* **Producto:** `id` (PK), `idCategoria` (FK), `codigo`, `nombre`, `descripcion`, `precioVenta`
+* **Cliente:** `id` (PK), `nit`, `razonSocial`
 
 ### 2. Entidades de Personal y Acceso
-* **Empleado:** uid=197609(Nam) gid=197121 groups=197121 (PK), , , , , , , , 
-* **Usuario:** uid=197609(Nam) gid=197121 groups=197121 (PK),  (FK), , , 
+* **Empleado:** `id` (PK), `cedulaIdentidad`, `nombres`, `primerApellido`, `segundoApellido`, `fechaNacimiento`, `direccion`, `celular`, `cargo`
+* **Usuario:** `id` (PK), `idEmpleado` (FK), `usuario`, `clave`, `rol`
 
 ### 3. Entidades de Transacción (Venta)
-* **Venta:** uid=197609(Nam) gid=197121 groups=197121 (PK),  (FK),  (FK), , , 
-* **DetalleVenta:** uid=197609(Nam) gid=197121 groups=197121 (PK),  (FK),  (FK), , , 
+* **Venta:** `id` (PK), `idCliente` (FK), `idEmpleado` (FK), `transaccion`, `fecha`, `total`
+* **DetalleVenta:** `id` (PK), `idVenta` (FK), `idProducto` (FK), `cantidad`, `precioUnitario`, `total`
 
 ### 4. Campos de Auditoría y Control (Presentes en todas las tablas)
-* : Usuario del sistema que creó el registro.
-* : Fecha y hora de creación.
-* : Control de eliminación lógica (-1: Eliminado, 0: Inactivo, 1: Activo).
+* `usuarioRegistro`: Usuario del sistema que creó el registro.
+* `fechaRegistro`: Fecha y hora de creación.
+* `estado`: Control de eliminación lógica (-1: Eliminado, 0: Inactivo, 1: Activo).
