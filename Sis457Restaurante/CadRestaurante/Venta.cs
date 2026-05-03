@@ -23,12 +23,12 @@ namespace CadRestaurante
         public long id { get; set; }
         public int idCliente { get; set; }
         public int idEmpleado { get; set; }
-        public int transaccion { get; set; }
+        public string numeroTransaccion { get; set; }
         public System.DateTime fecha { get; set; }
         public decimal total { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
-        public int estado { get; set; }
+        public short estado { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

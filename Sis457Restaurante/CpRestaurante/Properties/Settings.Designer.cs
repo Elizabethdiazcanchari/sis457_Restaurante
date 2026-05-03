@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sis457Restaurante.Properties
+namespace CpRestaurante.Properties
 {
 
 

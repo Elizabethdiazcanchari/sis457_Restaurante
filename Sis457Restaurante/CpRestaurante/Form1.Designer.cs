@@ -1,4 +1,4 @@
-﻿namespace Sis457Restaurante
+﻿namespace CpRestaurante
 {
     partial class Form1
     {
