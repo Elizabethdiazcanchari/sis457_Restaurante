@@ -10,9 +10,6 @@ GO
 CREATE DATABASE LabRestaurante;
 GO
 
-DROP LOGIN IF EXISTS usrrestaurante;
-GO
-
 CREATE LOGIN [usrrestaurante] WITH PASSWORD = N'123456',
     DEFAULT_DATABASE = [LabRestaurante],
     CHECK_EXPIRATION = OFF,

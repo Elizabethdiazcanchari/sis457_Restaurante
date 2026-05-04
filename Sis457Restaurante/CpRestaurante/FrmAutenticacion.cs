@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CpRestaurante
 {
-    public partial class Form1 : Form
+    public partial class FrmAutenticacion : Form
     {
-        public Form1()
+        public FrmAutenticacion()
         {
             InitializeComponent();
         }
