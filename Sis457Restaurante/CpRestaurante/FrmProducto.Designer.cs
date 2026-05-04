@@ -29,19 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.erpSaldo = new System.Windows.Forms.ErrorProvider(this.components);
-            this.erpUnidadMedida = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpNombre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpCategoria = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpDescripcion = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCodigo = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnBuscar = new System.Windows.Forms.Button();
             this.erpPrecioVenta = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.nudSaldo = new System.Windows.Forms.NumericUpDown();
             this.gbxDatos = new System.Windows.Forms.GroupBox();
             this.nudPrecioVenta = new System.Windows.Forms.NumericUpDown();
             this.lblPrecioVenta = new System.Windows.Forms.Label();
-            this.lblSaldo = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.cbxCategoria = new System.Windows.Forms.ComboBox();
             this.txtCodigo = new System.Windows.Forms.TextBox();
@@ -58,12 +56,13 @@
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnEditar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.erpSaldo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpUnidadMedida)).BeginInit();
+            this.txbNombre = new System.Windows.Forms.TextBox();
+            this.lblNombre = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.erpNombre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCategoria)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpCodigo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSaldo)).BeginInit();
             this.gbxDatos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVenta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
@@ -71,13 +70,13 @@
             this.pnlAcciones.SuspendLayout();
             this.SuspendLayout();
             // 
-            // erpSaldo
+            // erpNombre
             // 
-            this.erpSaldo.ContainerControl = this;
+            this.erpNombre.ContainerControl = this;
             // 
-            // erpUnidadMedida
+            // erpCategoria
             // 
-            this.erpUnidadMedida.ContainerControl = this;
+            this.erpCategoria.ContainerControl = this;
             // 
             // erpDescripcion
             // 
@@ -124,21 +123,14 @@
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = true;
             // 
-            // nudSaldo
-            // 
-            this.nudSaldo.Location = new System.Drawing.Point(544, 15);
-            this.nudSaldo.Name = "nudSaldo";
-            this.nudSaldo.Size = new System.Drawing.Size(142, 20);
-            this.nudSaldo.TabIndex = 9;
-            // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.txbNombre);
+            this.gbxDatos.Controls.Add(this.lblNombre);
             this.gbxDatos.Controls.Add(this.btnCancelar);
             this.gbxDatos.Controls.Add(this.btnGuardar);
-            this.gbxDatos.Controls.Add(this.nudSaldo);
             this.gbxDatos.Controls.Add(this.nudPrecioVenta);
             this.gbxDatos.Controls.Add(this.lblPrecioVenta);
-            this.gbxDatos.Controls.Add(this.lblSaldo);
             this.gbxDatos.Controls.Add(this.txtDescripcion);
             this.gbxDatos.Controls.Add(this.cbxCategoria);
             this.gbxDatos.Controls.Add(this.txtCodigo);
@@ -156,7 +148,7 @@
             // 
             this.nudPrecioVenta.Location = new System.Drawing.Point(544, 45);
             this.nudPrecioVenta.Name = "nudPrecioVenta";
-            this.nudPrecioVenta.Size = new System.Drawing.Size(142, 20);
+            this.nudPrecioVenta.Size = new System.Drawing.Size(168, 20);
             this.nudPrecioVenta.TabIndex = 8;
             // 
             // lblPrecioVenta
@@ -167,15 +159,6 @@
             this.lblPrecioVenta.Size = new System.Drawing.Size(86, 13);
             this.lblPrecioVenta.TabIndex = 7;
             this.lblPrecioVenta.Text = "Precio de Venta:";
-            // 
-            // lblSaldo
-            // 
-            this.lblSaldo.AutoSize = true;
-            this.lblSaldo.Location = new System.Drawing.Point(407, 17);
-            this.lblSaldo.Name = "lblSaldo";
-            this.lblSaldo.Size = new System.Drawing.Size(37, 13);
-            this.lblSaldo.TabIndex = 6;
-            this.lblSaldo.Text = "Saldo:";
             // 
             // txtDescripcion
             // 
@@ -190,9 +173,9 @@
             // 
             this.cbxCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCategoria.FormattingEnabled = true;
-            this.cbxCategoria.Location = new System.Drawing.Point(143, 49);
+            this.cbxCategoria.Location = new System.Drawing.Point(534, 19);
             this.cbxCategoria.Name = "cbxCategoria";
-            this.cbxCategoria.Size = new System.Drawing.Size(215, 21);
+            this.cbxCategoria.Size = new System.Drawing.Size(178, 21);
             this.cbxCategoria.TabIndex = 4;
             // 
             // txtCodigo
@@ -225,11 +208,11 @@
             // lblCategoria
             // 
             this.lblCategoria.AutoSize = true;
-            this.lblCategoria.Location = new System.Drawing.Point(16, 52);
+            this.lblCategoria.Location = new System.Drawing.Point(407, 22);
             this.lblCategoria.Name = "lblCategoria";
-            this.lblCategoria.Size = new System.Drawing.Size(97, 13);
+            this.lblCategoria.Size = new System.Drawing.Size(55, 13);
             this.lblCategoria.TabIndex = 0;
-            this.lblCategoria.Text = "Unidad de Medida:";
+            this.lblCategoria.Text = "Categoria:";
             // 
             // lblTitulo
             // 
@@ -341,6 +324,24 @@
             this.btnEditar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEditar.UseVisualStyleBackColor = true;
             // 
+            // txbNombre
+            // 
+            this.txbNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txbNombre.Location = new System.Drawing.Point(143, 49);
+            this.txbNombre.MaxLength = 20;
+            this.txbNombre.Name = "txbNombre";
+            this.txbNombre.Size = new System.Drawing.Size(215, 20);
+            this.txbNombre.TabIndex = 14;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.Location = new System.Drawing.Point(16, 52);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(47, 13);
+            this.lblNombre.TabIndex = 13;
+            this.lblNombre.Text = "Nombre:";
+            // 
             // FrmProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -356,12 +357,11 @@
             this.Name = "FrmProducto";
             this.Text = ":: Restaurant -  Productos ::";
             this.Load += new System.EventHandler(this.FrmProducto_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.erpSaldo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpUnidadMedida)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpNombre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCategoria)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpCodigo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSaldo)).EndInit();
             this.gbxDatos.ResumeLayout(false);
             this.gbxDatos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecioVenta)).EndInit();
@@ -375,15 +375,13 @@
 
         #endregion
 
-        private System.Windows.Forms.ErrorProvider erpSaldo;
+        private System.Windows.Forms.ErrorProvider erpNombre;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.GroupBox gbxDatos;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.NumericUpDown nudSaldo;
         private System.Windows.Forms.NumericUpDown nudPrecioVenta;
         private System.Windows.Forms.Label lblPrecioVenta;
-        private System.Windows.Forms.Label lblSaldo;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.ComboBox cbxCategoria;
         private System.Windows.Forms.TextBox txtCodigo;
@@ -400,10 +398,12 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnNuevo;
-        private System.Windows.Forms.ErrorProvider erpUnidadMedida;
+        private System.Windows.Forms.ErrorProvider erpCategoria;
         private System.Windows.Forms.ErrorProvider erpDescripcion;
         private System.Windows.Forms.ErrorProvider erpCodigo;
         private System.Windows.Forms.ErrorProvider erpPrecioVenta;
+        private System.Windows.Forms.TextBox txbNombre;
+        private System.Windows.Forms.Label lblNombre;
     }
 }
 
