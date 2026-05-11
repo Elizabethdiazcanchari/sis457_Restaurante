@@ -19,7 +19,7 @@ namespace ClnRestaurante
             }
         }
 
-        public static int modificar(Producto producto)
+        public static int actualizar(Producto producto)
         {
             using (var context = new LabRestauranteEntities())
             {

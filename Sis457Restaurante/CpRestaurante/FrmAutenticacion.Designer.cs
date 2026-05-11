@@ -38,7 +38,7 @@
             this.erpClave = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnIngresar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.erpUsuario)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpClave)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +93,7 @@
             // 
             // btnIngresar
             // 
-            this.btnIngresar.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnIngresar.BackColor = System.Drawing.Color.OrangeRed;
             this.btnIngresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnIngresar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIngresar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -117,22 +117,22 @@
             this.label1.TabIndex = 21;
             this.label1.Text = "Usuario:";
             // 
-            // button1
+            // btnSalir
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.Tomato;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(247, 9);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(25, 25);
-            this.button1.TabIndex = 27;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalir.BackColor = System.Drawing.Color.Tomato;
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
+            this.btnSalir.Location = new System.Drawing.Point(247, 9);
+            this.btnSalir.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(25, 25);
+            this.btnSalir.TabIndex = 27;
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmAutenticacion
             // 
@@ -140,7 +140,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Maroon;
             this.ClientSize = new System.Drawing.Size(285, 464);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtClave);
             this.Controls.Add(this.txtUsuario);
@@ -149,6 +149,7 @@
             this.Controls.Add(this.btnIngresar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmAutenticacion";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Autenticacion";
             ((System.ComponentModel.ISupportInitialize)(this.erpUsuario)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpClave)).EndInit();
@@ -167,6 +168,6 @@
         private System.Windows.Forms.Button btnIngresar;
         private System.Windows.Forms.ErrorProvider erpClave;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSalir;
     }
 }

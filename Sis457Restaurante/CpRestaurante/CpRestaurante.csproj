@@ -112,6 +112,9 @@
     <EmbeddedResource Include="FrmAutenticacion.resx">
       <DependentUpon>FrmAutenticacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmCategoria.resx">
+      <DependentUpon>FrmCategoria.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </EmbeddedResource>

@@ -61,6 +61,7 @@ CREATE TABLE Producto (
     codigo VARCHAR(20) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(250) NULL,
+    stock DECIMAL(10,2) NOT NULL DEFAULT 0 CHECK (stock >= 0),
     precioVenta DECIMAL(10,2) NOT NULL CHECK (precioVenta > 0),
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
@@ -136,6 +137,8 @@ CREATE TABLE DetalleVenta (
 );
 GO
 
+ALTER TABLE Producto ADD imagenUrl VARCHAR(300) NULL;
+GO
 -- ============================
 -- 5. PROCEDIMIENTOS ALMACENADOS
 -- ============================
@@ -152,7 +155,7 @@ GO
 CREATE PROC paProductoListar @parametro VARCHAR(50)
 AS
     SELECT p.id, p.idCategoria, c.nombre AS categoria, p.codigo, 
-           p.nombre, p.descripcion, p.precioVenta, 
+           p.nombre, p.descripcion, p.stock, p.precioVenta, 
            p.usuarioRegistro, p.fechaRegistro, p.estado
     FROM Producto p
     INNER JOIN Categoria c ON c.id = p.idCategoria
@@ -246,17 +249,17 @@ INSERT INTO Categoria (nombre) VALUES ('Bebidas');
 INSERT INTO Categoria (nombre) VALUES ('Postres');
 
 -- Productos
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, precioVenta)
-VALUES (1, 'EN-SO', 'Sopa del Día', 'Sopa casera según temporada', 15.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
+VALUES (1, 'EN-SO', 'Sopa del Día', 'Sopa casera según temporada', 100, 15.00);
 
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, precioVenta)
-VALUES (2, 'PP-LO', 'Lomo Saltado', 'Lomo con verduras salteadas y arroz', 45.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
+VALUES (2, 'PP-LO', 'Lomo Saltado', 'Lomo con verduras salteadas y arroz', 50, 45.00);
 
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, precioVenta)
-VALUES (3, 'BE-JN', 'Jugo Natural', 'Jugo de fruta fresca 500ml', 10.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
+VALUES (3, 'BE-JN', 'Jugo Natural', 'Jugo de fruta fresca 500ml', 100, 10.00);
 
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, precioVenta)
-VALUES (4, 'PS-FL', 'Flan Casero', 'Flan de vainilla con caramelo', 12.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
+VALUES (4, 'PS-FL', 'Flan Casero', 'Flan de vainilla con caramelo', 50, 12.00);
 
 -- Empleados
 INSERT INTO Empleado (cedulaIdentidad, nombres, primerApellido, segundoApellido, fechaNacimiento, direccion, celular, cargo)
