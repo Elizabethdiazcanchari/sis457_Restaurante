@@ -34,6 +34,13 @@ namespace ClnRestaurante
                         return existente.id;
                     }
                 }
+
+                // Asegurar valores requeridos antes de Insert
+                if (string.IsNullOrEmpty(categoria.usuarioRegistro))
+                    categoria.usuarioRegistro = Environment.UserName; // o el usuario actual de la app
+                if (categoria.fechaRegistro == default(DateTime))
+                    categoria.fechaRegistro = DateTime.Now;
+
                 context.Categoria.Add(categoria);
                 context.SaveChanges();
                 return categoria.id;

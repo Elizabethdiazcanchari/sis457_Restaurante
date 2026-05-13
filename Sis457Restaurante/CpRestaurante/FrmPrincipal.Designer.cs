@@ -58,7 +58,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btnCerrarSesion);
@@ -236,31 +236,32 @@
             // 
             // pnContenedor
             // 
-            this.pnContenedor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pnContenedor.BackColor = System.Drawing.Color.Transparent;
             this.pnContenedor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnContenedor.BackgroundImage")));
             this.pnContenedor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnContenedor.Controls.Add(this.lblReloj);
             this.pnContenedor.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnContenedor.Location = new System.Drawing.Point(217, 50);
+            this.pnContenedor.ForeColor = System.Drawing.Color.Transparent;
+            this.pnContenedor.Location = new System.Drawing.Point(217, 46);
             this.pnContenedor.Name = "pnContenedor";
-            this.pnContenedor.Size = new System.Drawing.Size(1083, 600);
+            this.pnContenedor.Size = new System.Drawing.Size(1083, 604);
             this.pnContenedor.TabIndex = 5;
             // 
             // lblReloj
             // 
             this.lblReloj.BackColor = System.Drawing.Color.Transparent;
             this.lblReloj.Font = new System.Drawing.Font("Century Gothic", 50.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReloj.ForeColor = System.Drawing.Color.SaddleBrown;
-            this.lblReloj.Location = new System.Drawing.Point(-14, -4);
+            this.lblReloj.ForeColor = System.Drawing.Color.White;
+            this.lblReloj.Location = new System.Drawing.Point(769, 32);
             this.lblReloj.Name = "lblReloj";
-            this.lblReloj.Size = new System.Drawing.Size(314, 74);
+            this.lblReloj.Size = new System.Drawing.Size(285, 74);
             this.lblReloj.TabIndex = 1;
             this.lblReloj.Text = "xxxx";
             this.lblReloj.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // paBarraTitulo
             // 
-            this.paBarraTitulo.BackColor = System.Drawing.Color.Maroon;
+            this.paBarraTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.paBarraTitulo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.paBarraTitulo.Controls.Add(this.btnMaximizar);
             this.paBarraTitulo.Controls.Add(this.btnRestaurar);
@@ -346,6 +347,7 @@
             this.Controls.Add(this.pnContenedor);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmPrincipal";

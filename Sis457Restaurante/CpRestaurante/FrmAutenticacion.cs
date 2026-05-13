@@ -84,5 +84,15 @@ namespace CpRestaurante
         {
             Application.Exit();
         }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
+            // Creamos una elipse que ocupe todo el tamaño del control
+            gp.AddEllipse(0, 0, pictureBox1.Width - 1, pictureBox1.Height - 1);
+
+            // Asignamos esa región al PictureBox
+            pictureBox1.Region = new Region(gp);
+        }
     }
 }

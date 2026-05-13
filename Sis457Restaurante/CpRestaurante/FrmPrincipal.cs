@@ -109,25 +109,25 @@ namespace CpRestaurante
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            paBarraTitulo.BackColor = Color.Maroon;
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
             AbrirFormulario(new FrmProducto());
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            paBarraTitulo.BackColor = Color.Maroon;
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
             AbrirFormulario(new FrmVentas());
         }
 
         private void btnDetalleVenta_Click(object sender, EventArgs e)
         {
-            paBarraTitulo.BackColor = Color.Maroon;
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
             AbrirFormulario(new FrmVentaDetalle());
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            paBarraTitulo.BackColor = Color.Maroon;
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
             AbrirFormulario(new FrmEmpleado());
         }
 
@@ -139,7 +139,7 @@ namespace CpRestaurante
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            paBarraTitulo.BackColor = Color.Maroon;
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
             AbrirFormulario(new FrmClientes());
         }
     }

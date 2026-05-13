@@ -133,10 +133,10 @@
             // pbImagenProducto
             // 
             this.pbImagenProducto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbImagenProducto.Location = new System.Drawing.Point(242, 423);
+            this.pbImagenProducto.Location = new System.Drawing.Point(242, 401);
             this.pbImagenProducto.Margin = new System.Windows.Forms.Padding(2);
             this.pbImagenProducto.Name = "pbImagenProducto";
-            this.pbImagenProducto.Size = new System.Drawing.Size(88, 54);
+            this.pbImagenProducto.Size = new System.Drawing.Size(110, 76);
             this.pbImagenProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbImagenProducto.TabIndex = 38;
             this.pbImagenProducto.TabStop = false;
@@ -261,7 +261,7 @@
             // 
             // lblAgregarProductos
             // 
-            this.lblAgregarProductos.BackColor = System.Drawing.Color.Brown;
+            this.lblAgregarProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.lblAgregarProductos.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblAgregarProductos.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAgregarProductos.ForeColor = System.Drawing.Color.Black;
@@ -417,7 +417,7 @@
             // 
             this.lblProductos.AutoSize = true;
             this.lblProductos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductos.ForeColor = System.Drawing.Color.Black;
+            this.lblProductos.ForeColor = System.Drawing.Color.White;
             this.lblProductos.Location = new System.Drawing.Point(3, 2);
             this.lblProductos.Name = "lblProductos";
             this.lblProductos.Size = new System.Drawing.Size(295, 38);
@@ -439,7 +439,7 @@
             // 
             // pnListaProductos
             // 
-            this.pnListaProductos.BackColor = System.Drawing.Color.Maroon;
+            this.pnListaProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnListaProductos.Controls.Add(this.lblProductos);
             this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
@@ -501,7 +501,7 @@
             // pnlAgregar
             // 
             this.pnlAgregar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnlAgregar.BackColor = System.Drawing.Color.Brown;
+            this.pnlAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.pnlAgregar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAgregar.Controls.Add(this.lblAgregarProductos);
             this.pnlAgregar.Controls.Add(this.lblImagenInfo);

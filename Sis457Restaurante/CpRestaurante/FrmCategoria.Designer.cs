@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCategoria));
             this.lstCategorias = new System.Windows.Forms.ListBox();
             this.lblAgregarCategoria = new System.Windows.Forms.Label();
-            this.btnSalirCate = new System.Windows.Forms.Button();
             this.btnEliminarCate = new System.Windows.Forms.Button();
             this.lblListaCategorias = new System.Windows.Forms.Label();
             this.lblNombreCategoria = new System.Windows.Forms.Label();
             this.txtNombreCat = new System.Windows.Forms.TextBox();
             this.btnAgregarCate = new System.Windows.Forms.Button();
             this.erpNombreCategoria = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnSalirCate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombreCategoria)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,27 +56,13 @@
             // 
             // lblAgregarCategoria
             // 
-            this.lblAgregarCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAgregarCategoria.ForeColor = System.Drawing.Color.Black;
-            this.lblAgregarCategoria.Location = new System.Drawing.Point(9, 241);
+            this.lblAgregarCategoria.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgregarCategoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblAgregarCategoria.Location = new System.Drawing.Point(62, 243);
             this.lblAgregarCategoria.Name = "lblAgregarCategoria";
             this.lblAgregarCategoria.Size = new System.Drawing.Size(143, 18);
             this.lblAgregarCategoria.TabIndex = 26;
             this.lblAgregarCategoria.Text = "AGREGAR CATEGORIA";
-            // 
-            // btnSalirCate
-            // 
-            this.btnSalirCate.BackColor = System.Drawing.Color.SeaGreen;
-            this.btnSalirCate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnSalirCate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSalirCate.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalirCate.Location = new System.Drawing.Point(12, 410);
-            this.btnSalirCate.Name = "btnSalirCate";
-            this.btnSalirCate.Size = new System.Drawing.Size(235, 23);
-            this.btnSalirCate.TabIndex = 25;
-            this.btnSalirCate.Text = "SALIR";
-            this.btnSalirCate.UseVisualStyleBackColor = false;
-            this.btnSalirCate.Click += new System.EventHandler(this.btnSalirCate_Click);
             // 
             // btnEliminarCate
             // 
@@ -83,7 +70,8 @@
             this.btnEliminarCate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.OrangeRed;
             this.btnEliminarCate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEliminarCate.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarCate.Location = new System.Drawing.Point(12, 370);
+            this.btnEliminarCate.ForeColor = System.Drawing.Color.White;
+            this.btnEliminarCate.Location = new System.Drawing.Point(12, 357);
             this.btnEliminarCate.Name = "btnEliminarCate";
             this.btnEliminarCate.Size = new System.Drawing.Size(235, 23);
             this.btnEliminarCate.TabIndex = 24;
@@ -93,9 +81,9 @@
             // 
             // lblListaCategorias
             // 
-            this.lblListaCategorias.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListaCategorias.ForeColor = System.Drawing.Color.Black;
-            this.lblListaCategorias.Location = new System.Drawing.Point(13, 9);
+            this.lblListaCategorias.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListaCategorias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblListaCategorias.Location = new System.Drawing.Point(12, 9);
             this.lblListaCategorias.Name = "lblListaCategorias";
             this.lblListaCategorias.Size = new System.Drawing.Size(235, 26);
             this.lblListaCategorias.TabIndex = 23;
@@ -104,7 +92,7 @@
             // lblNombreCategoria
             // 
             this.lblNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreCategoria.ForeColor = System.Drawing.Color.Black;
+            this.lblNombreCategoria.ForeColor = System.Drawing.Color.White;
             this.lblNombreCategoria.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblNombreCategoria.Location = new System.Drawing.Point(9, 270);
             this.lblNombreCategoria.Name = "lblNombreCategoria";
@@ -122,10 +110,11 @@
             // 
             // btnAgregarCate
             // 
-            this.btnAgregarCate.BackColor = System.Drawing.Color.Gray;
+            this.btnAgregarCate.BackColor = System.Drawing.Color.Lime;
             this.btnAgregarCate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
             this.btnAgregarCate.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAgregarCate.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarCate.ForeColor = System.Drawing.Color.White;
             this.btnAgregarCate.Location = new System.Drawing.Point(12, 322);
             this.btnAgregarCate.Name = "btnAgregarCate";
             this.btnAgregarCate.Size = new System.Drawing.Size(235, 23);
@@ -138,15 +127,31 @@
             // 
             this.erpNombreCategoria.ContainerControl = this;
             // 
+            // btnSalirCate
+            // 
+            this.btnSalirCate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalirCate.BackColor = System.Drawing.Color.Brown;
+            this.btnSalirCate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalirCate.FlatAppearance.BorderSize = 0;
+            this.btnSalirCate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.btnSalirCate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalirCate.Image = ((System.Drawing.Image)(resources.GetObject("btnSalirCate.Image")));
+            this.btnSalirCate.Location = new System.Drawing.Point(222, 9);
+            this.btnSalirCate.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSalirCate.Name = "btnSalirCate";
+            this.btnSalirCate.Size = new System.Drawing.Size(25, 25);
+            this.btnSalirCate.TabIndex = 29;
+            this.btnSalirCate.UseVisualStyleBackColor = false;
+            // 
             // FrmCategoria
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Maroon;
-            this.ClientSize = new System.Drawing.Size(257, 443);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.ClientSize = new System.Drawing.Size(257, 397);
+            this.Controls.Add(this.btnSalirCate);
             this.Controls.Add(this.lstCategorias);
             this.Controls.Add(this.lblAgregarCategoria);
-            this.Controls.Add(this.btnSalirCate);
             this.Controls.Add(this.btnEliminarCate);
             this.Controls.Add(this.lblListaCategorias);
             this.Controls.Add(this.lblNombreCategoria);
@@ -159,6 +164,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmCategoria";
+            this.Load += new System.EventHandler(this.FrmCategoria_Load);
             ((System.ComponentModel.ISupportInitialize)(this.erpNombreCategoria)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -169,12 +175,12 @@
 
         private System.Windows.Forms.ListBox lstCategorias;
         private System.Windows.Forms.Label lblAgregarCategoria;
-        private System.Windows.Forms.Button btnSalirCate;
         private System.Windows.Forms.Button btnEliminarCate;
         private System.Windows.Forms.Label lblListaCategorias;
         private System.Windows.Forms.Label lblNombreCategoria;
         private System.Windows.Forms.TextBox txtNombreCat;
         private System.Windows.Forms.Button btnAgregarCate;
         private System.Windows.Forms.ErrorProvider erpNombreCategoria;
+        private System.Windows.Forms.Button btnSalirCate;
     }
 }

@@ -16,5 +16,20 @@ namespace CpRestaurante
         {
             InitializeComponent();
         }
+
+        private void txtCambio_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardarVenta_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAgregarVenta_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

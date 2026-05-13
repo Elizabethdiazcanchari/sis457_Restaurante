@@ -21,6 +21,7 @@ namespace CpRestaurante
         private void CargarCategoriasListBox()
         {
             var categorias = CategoriaCln.listar();
+            lstCategorias.DataSource = null;
             lstCategorias.DataSource = categorias;
             lstCategorias.ValueMember = "id";
             lstCategorias.DisplayMember = "nombre";
