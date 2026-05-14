@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="CategoriaCln.cs" />
     <Compile Include="ClienteCln.cs" />
+    <Compile Include="DetalleVentaCln.cs" />
     <Compile Include="EmpleadoCln.cs" />
     <Compile Include="ProductoCln.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
