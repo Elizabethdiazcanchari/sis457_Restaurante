@@ -158,7 +158,7 @@
             this.btnDetalleVenta.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnDetalleVenta.Size = new System.Drawing.Size(283, 40);
             this.btnDetalleVenta.TabIndex = 41;
-            this.btnDetalleVenta.Text = "   Detalle de Ventas";
+            this.btnDetalleVenta.Text = "Registrar Venta";
             this.btnDetalleVenta.UseVisualStyleBackColor = true;
             this.btnDetalleVenta.Click += new System.EventHandler(this.btnDetalleVenta_Click);
             // 
