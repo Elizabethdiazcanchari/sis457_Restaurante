@@ -282,7 +282,7 @@
             // 
             // pnListaProductos
             // 
-            this.pnListaProductos.BackColor = System.Drawing.Color.Peru;
+            this.pnListaProductos.BackColor = System.Drawing.Color.Navy;
             this.pnListaProductos.Controls.Add(this.lblPedidos);
             this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
@@ -322,6 +322,7 @@
             this.Controls.Add(this.btnGuardarVenta);
             this.Controls.Add(this.btnAgregarVenta);
             this.Controls.Add(this.pnListaProductos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmVentaDetalle";
             this.Text = "FrmVentaDetalle";
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleVenta)).EndInit();
