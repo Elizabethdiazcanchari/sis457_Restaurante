@@ -157,6 +157,7 @@
             this.Controls.Add(this.txtPrecioUnitario);
             this.Controls.Add(this.nudCantidad);
             this.Controls.Add(this.cbxProducto);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmSeleccionarProducto";
             this.Text = "FrmSeleccionarProducto";
             ((System.ComponentModel.ISupportInitialize)(this.nudCantidad)).EndInit();

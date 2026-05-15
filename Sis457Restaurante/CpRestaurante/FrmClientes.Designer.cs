@@ -88,11 +88,12 @@
             this.btnCerrarAgregar.Size = new System.Drawing.Size(25, 25);
             this.btnCerrarAgregar.TabIndex = 24;
             this.btnCerrarAgregar.UseVisualStyleBackColor = false;
+            this.btnCerrarAgregar.Click += new System.EventHandler(this.btnCerrarAgregar_Click);
             // 
             // pnlAgregar
             // 
             this.pnlAgregar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pnlAgregar.BackColor = System.Drawing.Color.Brown;
+            this.pnlAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnlAgregar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAgregar.Controls.Add(this.btnCerrarAgregar);
             this.pnlAgregar.Controls.Add(this.btnCancelar);
@@ -104,7 +105,7 @@
             this.pnlAgregar.Controls.Add(this.txtNombres);
             this.pnlAgregar.Controls.Add(this.txtApellidos);
             this.pnlAgregar.Controls.Add(this.btnGuardar);
-            this.pnlAgregar.Location = new System.Drawing.Point(321, 111);
+            this.pnlAgregar.Location = new System.Drawing.Point(329, 131);
             this.pnlAgregar.Name = "pnlAgregar";
             this.pnlAgregar.Size = new System.Drawing.Size(405, 347);
             this.pnlAgregar.TabIndex = 39;
@@ -127,13 +128,14 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // lblAgregarClientes
             // 
-            this.lblAgregarClientes.BackColor = System.Drawing.Color.Brown;
+            this.lblAgregarClientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.lblAgregarClientes.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblAgregarClientes.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAgregarClientes.ForeColor = System.Drawing.Color.Black;
+            this.lblAgregarClientes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.lblAgregarClientes.Location = new System.Drawing.Point(0, 0);
             this.lblAgregarClientes.Name = "lblAgregarClientes";
             this.lblAgregarClientes.Size = new System.Drawing.Size(403, 76);
@@ -144,9 +146,9 @@
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.BackColor = System.Drawing.Color.Crimson;
+            this.lblDescripcion.BackColor = System.Drawing.Color.Transparent;
             this.lblDescripcion.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescripcion.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblDescripcion.ForeColor = System.Drawing.Color.Gray;
             this.lblDescripcion.Location = new System.Drawing.Point(98, 207);
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(81, 18);
@@ -156,21 +158,21 @@
             // lblNombres
             // 
             this.lblNombres.AutoSize = true;
-            this.lblNombres.BackColor = System.Drawing.Color.Crimson;
+            this.lblNombres.BackColor = System.Drawing.Color.Transparent;
             this.lblNombres.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombres.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblNombres.Location = new System.Drawing.Point(98, 159);
+            this.lblNombres.ForeColor = System.Drawing.Color.Gray;
+            this.lblNombres.Location = new System.Drawing.Point(47, 161);
             this.lblNombres.Name = "lblNombres";
-            this.lblNombres.Size = new System.Drawing.Size(78, 18);
+            this.lblNombres.Size = new System.Drawing.Size(107, 18);
             this.lblNombres.TabIndex = 25;
-            this.lblNombres.Text = "Nombres:";
+            this.lblNombres.Text = "Razon Social:";
             // 
             // lblCodigo
             // 
             this.lblCodigo.AutoSize = true;
-            this.lblCodigo.BackColor = System.Drawing.Color.Crimson;
+            this.lblCodigo.BackColor = System.Drawing.Color.Transparent;
             this.lblCodigo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigo.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCodigo.ForeColor = System.Drawing.Color.Gray;
             this.lblCodigo.Location = new System.Drawing.Point(9, 105);
             this.lblCodigo.Name = "lblCodigo";
             this.lblCodigo.Size = new System.Drawing.Size(166, 18);
@@ -220,6 +222,7 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // dgvClientes
             // 
@@ -235,7 +238,7 @@
             this.dgvClientes.ReadOnly = true;
             this.dgvClientes.RowHeadersWidth = 51;
             this.dgvClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvClientes.Size = new System.Drawing.Size(1028, 482);
+            this.dgvClientes.Size = new System.Drawing.Size(1044, 482);
             this.dgvClientes.TabIndex = 32;
             // 
             // lblProductos
@@ -277,7 +280,7 @@
             this.pnListaProductos.ForeColor = System.Drawing.Color.Transparent;
             this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
             this.pnListaProductos.Name = "pnListaProductos";
-            this.pnListaProductos.Size = new System.Drawing.Size(1034, 45);
+            this.pnListaProductos.Size = new System.Drawing.Size(1050, 45);
             this.pnListaProductos.TabIndex = 35;
             // 
             // btnEditar
@@ -298,6 +301,7 @@
             this.btnEditar.Text = "Editar";
             this.btnEditar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnEliminar
             // 
@@ -316,6 +320,7 @@
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // btnAgregar
             // 
@@ -334,12 +339,13 @@
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // FrmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.ClientSize = new System.Drawing.Size(1050, 600);
             this.Controls.Add(this.pnlAgregar);
             this.Controls.Add(this.dgvClientes);
             this.Controls.Add(this.txtBuscar);
@@ -348,8 +354,11 @@
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmClientes";
             this.Text = "FrmClientes";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmClientes_FormClosing);
+            this.Load += new System.EventHandler(this.FrmClientes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.erpApellidos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpCedulaIdentidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).EndInit();
