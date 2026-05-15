@@ -42,7 +42,7 @@
             // 
             // pnListaProductos
             // 
-            this.pnListaProductos.BackColor = System.Drawing.Color.Brown;
+            this.pnListaProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnListaProductos.Controls.Add(this.lblPedidos);
             this.pnListaProductos.Controls.Add(this.btnAgregarProducto);
             this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
@@ -56,7 +56,7 @@
             this.lblPedidos.AutoSize = true;
             this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
             this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPedidos.ForeColor = System.Drawing.Color.Black;
+            this.lblPedidos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.lblPedidos.Location = new System.Drawing.Point(3, 0);
             this.lblPedidos.Name = "lblPedidos";
             this.lblPedidos.Size = new System.Drawing.Size(300, 38);
@@ -73,7 +73,7 @@
             this.btnAgregarProducto.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnAgregarProducto.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarProducto.Image")));
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(879, 6);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(868, 6);
             this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(0);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(155, 30);
@@ -96,7 +96,7 @@
             this.dgvDetalleVentas.ReadOnly = true;
             this.dgvDetalleVentas.RowHeadersWidth = 51;
             this.dgvDetalleVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetalleVentas.Size = new System.Drawing.Size(1026, 476);
+            this.dgvDetalleVentas.Size = new System.Drawing.Size(1024, 476);
             this.dgvDetalleVentas.TabIndex = 53;
             // 
             // txtBuscar
@@ -130,6 +130,7 @@
             this.Controls.Add(this.dgvDetalleVentas);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.pctBuscar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmVentas";
             this.Text = "FrmVentas";
             this.pnListaProductos.ResumeLayout(false);
