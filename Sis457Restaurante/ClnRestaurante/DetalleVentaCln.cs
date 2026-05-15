@@ -9,7 +9,7 @@ namespace ClnRestaurante
 {
     public class DetalleVentaCln
     {
-        public static int crear(DetalleVenta detalle)
+        public static long crear(DetalleVenta detalle)
         {
             using (var context = new LabRestauranteEntities())
             {
