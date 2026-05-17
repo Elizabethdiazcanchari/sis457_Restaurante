@@ -16,10 +16,10 @@ namespace CpRestaurante
         private readonly int _idVenta;
         private int idVenta;
 
-        public FrmDetalleVenta()
+        public FrmDetalleVenta(int value)
         {
             InitializeComponent();
-            _idVenta = idVenta;
+            _idVenta = value;
             Load += FrmReporte_Load;
         }
 
@@ -28,9 +28,9 @@ namespace CpRestaurante
             CargarPedido(_idVenta);
         }
 
-        private void CargarPedido(int idPedido)
+        private void CargarPedido(int idVenta)
         {
-            var pedido = VentaCln.obtenerUno(idPedido);
+            var pedido = VentaCln.obtenerUno(idVenta);
             if (pedido == null)
             {
                 MessageBox.Show("No se encontró la cabecera del pedido.", "Aviso",
@@ -40,12 +40,12 @@ namespace CpRestaurante
             }
 
             var cliente = ClienteCln.obtenerUno(pedido.idCliente);
-            var detalles = DetalleVentaCln.listarPorPedido(idPedido);
+            var detalles = DetalleVentaCln.listarPorVenta(idVenta);
 
             // Cabecera
             lblTransaccion.Text = pedido.numeroTransaccion;
             lblCliente.Text = cliente != null
-                ? $"{cliente.razonSocial} ({cliente.nitId})"
+                ? $"{cliente.razonSocial} ({cliente.ciNit})"
                 : "(Cliente no disponible)";
             // Muestra el usuario que registró en cabecera (evita cargar navegación)
             lblUsuario.Text = pedido.usuarioRegistro;
@@ -70,6 +70,11 @@ namespace CpRestaurante
 
             var total = detalles.Sum(x => x.total);
             lblTotal.Text = total.ToString();
+        }
+
+        private void btnSalirCate_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

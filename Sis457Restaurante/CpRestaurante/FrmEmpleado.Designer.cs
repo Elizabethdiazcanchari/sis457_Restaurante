@@ -35,8 +35,12 @@
             this.btnCerrarAgregar = new System.Windows.Forms.Button();
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.pnlAgregar = new System.Windows.Forms.Panel();
+            this.lblAgregarEmpleados = new System.Windows.Forms.Label();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaNacimiento = new System.Windows.Forms.Label();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.lblUsuario = new System.Windows.Forms.Label();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.cbxCargo = new System.Windows.Forms.ComboBox();
             this.lblCargo = new System.Windows.Forms.Label();
             this.txtCelular = new System.Windows.Forms.TextBox();
@@ -44,7 +48,6 @@
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtSegundoApellido = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lblAgregarEmpleados = new System.Windows.Forms.Label();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.lblSegundoApellido = new System.Windows.Forms.Label();
             this.lblPrimerApellido = new System.Windows.Forms.Label();
@@ -54,7 +57,6 @@
             this.txtPrimerApellido = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.erpDireccion = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.btnEditar = new System.Windows.Forms.Button();
             this.dgvEmpleados = new System.Windows.Forms.DataGridView();
             this.pnListaEmpleados = new System.Windows.Forms.Panel();
@@ -65,8 +67,7 @@
             this.erpCargo = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpNombres = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnAgregar = new System.Windows.Forms.Button();
-            this.lblFechaNacimiento = new System.Windows.Forms.Label();
-            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.erpFechaNacimiento = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.pnlAgregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.erpDireccion)).BeginInit();
@@ -77,6 +78,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.erpCelular)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpCargo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpFechaNacimiento)).BeginInit();
             this.SuspendLayout();
             // 
             // pctBuscar
@@ -160,6 +162,38 @@
             this.pnlAgregar.Size = new System.Drawing.Size(427, 523);
             this.pnlAgregar.TabIndex = 37;
             // 
+            // lblAgregarEmpleados
+            // 
+            this.lblAgregarEmpleados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.lblAgregarEmpleados.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblAgregarEmpleados.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgregarEmpleados.ForeColor = System.Drawing.Color.DimGray;
+            this.lblAgregarEmpleados.Location = new System.Drawing.Point(0, 0);
+            this.lblAgregarEmpleados.Name = "lblAgregarEmpleados";
+            this.lblAgregarEmpleados.Size = new System.Drawing.Size(425, 76);
+            this.lblAgregarEmpleados.TabIndex = 30;
+            this.lblAgregarEmpleados.Text = "AGREGAR EMPLEADOS";
+            this.lblAgregarEmpleados.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(190, 234);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(208, 20);
+            this.dtpFechaNacimiento.TabIndex = 44;
+            // 
+            // lblFechaNacimiento
+            // 
+            this.lblFechaNacimiento.AutoSize = true;
+            this.lblFechaNacimiento.BackColor = System.Drawing.Color.Transparent;
+            this.lblFechaNacimiento.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaNacimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblFechaNacimiento.Location = new System.Drawing.Point(12, 236);
+            this.lblFechaNacimiento.Name = "lblFechaNacimiento";
+            this.lblFechaNacimiento.Size = new System.Drawing.Size(172, 18);
+            this.lblFechaNacimiento.TabIndex = 43;
+            this.lblFechaNacimiento.Text = "Fecha de Nacimiento:";
+            // 
             // txtUsuario
             // 
             this.txtUsuario.Location = new System.Drawing.Point(190, 344);
@@ -179,6 +213,16 @@
             this.lblUsuario.Size = new System.Drawing.Size(66, 18);
             this.lblUsuario.TabIndex = 41;
             this.lblUsuario.Text = "Usuario:";
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
+            this.txtBuscar.Location = new System.Drawing.Point(78, 19);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(268, 13);
+            this.txtBuscar.TabIndex = 38;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // cbxCargo
             // 
@@ -263,19 +307,6 @@
             this.btnCancelar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // lblAgregarEmpleados
-            // 
-            this.lblAgregarEmpleados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblAgregarEmpleados.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblAgregarEmpleados.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAgregarEmpleados.ForeColor = System.Drawing.Color.DimGray;
-            this.lblAgregarEmpleados.Location = new System.Drawing.Point(0, 0);
-            this.lblAgregarEmpleados.Name = "lblAgregarEmpleados";
-            this.lblAgregarEmpleados.Size = new System.Drawing.Size(425, 76);
-            this.lblAgregarEmpleados.TabIndex = 30;
-            this.lblAgregarEmpleados.Text = "AGREGAR EMPLEADOS";
-            this.lblAgregarEmpleados.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDireccion
             // 
@@ -377,16 +408,6 @@
             // erpDireccion
             // 
             this.erpDireccion.ContainerControl = this;
-            // 
-            // txtBuscar
-            // 
-            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(78, 19);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(268, 13);
-            this.txtBuscar.TabIndex = 38;
-            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // btnEditar
             // 
@@ -494,24 +515,9 @@
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // lblFechaNacimiento
+            // erpFechaNacimiento
             // 
-            this.lblFechaNacimiento.AutoSize = true;
-            this.lblFechaNacimiento.BackColor = System.Drawing.Color.Transparent;
-            this.lblFechaNacimiento.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFechaNacimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.lblFechaNacimiento.Location = new System.Drawing.Point(12, 236);
-            this.lblFechaNacimiento.Name = "lblFechaNacimiento";
-            this.lblFechaNacimiento.Size = new System.Drawing.Size(172, 18);
-            this.lblFechaNacimiento.TabIndex = 43;
-            this.lblFechaNacimiento.Text = "Fecha de Nacimiento:";
-            // 
-            // dtpFechaNacimiento
-            // 
-            this.dtpFechaNacimiento.Location = new System.Drawing.Point(190, 234);
-            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            this.dtpFechaNacimiento.Size = new System.Drawing.Size(208, 20);
-            this.dtpFechaNacimiento.TabIndex = 44;
+            this.erpFechaNacimiento.ContainerControl = this;
             // 
             // FrmEmpleado
             // 
@@ -541,6 +547,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.erpCelular)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpCargo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpFechaNacimiento)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -584,5 +591,6 @@
         private System.Windows.Forms.ErrorProvider erpNombres;
         private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.Label lblFechaNacimiento;
+        private System.Windows.Forms.ErrorProvider erpFechaNacimiento;
     }
 }

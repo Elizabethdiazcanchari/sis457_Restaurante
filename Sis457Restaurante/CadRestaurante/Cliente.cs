@@ -21,7 +21,7 @@ namespace CadRestaurante
         }
     
         public int id { get; set; }
-        public string nitId { get; set; }
+        public string ciNit { get; set; }
         public string razonSocial { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }

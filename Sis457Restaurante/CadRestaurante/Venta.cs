@@ -14,8 +14,6 @@ namespace CadRestaurante
     
     public partial class Venta
     {
-        public int idUsuario;
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Venta()
         {
@@ -26,8 +24,6 @@ namespace CadRestaurante
         public int idCliente { get; set; }
         public int idEmpleado { get; set; }
         public string numeroTransaccion { get; set; }
-        public System.DateTime fecha { get; set; }
-        public decimal total { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
         public short estado { get; set; }

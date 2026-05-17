@@ -30,6 +30,7 @@ namespace ClnRestaurante
                     existente.codigo = producto.codigo;
                     existente.nombre = producto.nombre;
                     existente.descripcion = producto.descripcion;
+                    existente.imagenUrl = producto.imagenUrl;
                     existente.precioVenta = producto.precioVenta;
                     existente.usuarioRegistro = producto.usuarioRegistro;
                     return context.SaveChanges();

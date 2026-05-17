@@ -200,7 +200,6 @@ AS
     SELECT v.id, v.numeroTransaccion,
            c.razonSocial AS cliente,
            e.nombres + ' ' + ISNULL(e.primerApellido,'') AS empleado,
-           v.fecha, v.total,
            v.usuarioRegistro, v.fechaRegistro, v.estado
     FROM Venta v
     INNER JOIN Cliente c ON c.id = v.idCliente
@@ -235,24 +234,24 @@ INSERT INTO Categoria (nombre) VALUES ('Bebidas');
 INSERT INTO Categoria (nombre) VALUES ('Postres');
 
 -- Productos
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
-VALUES (1, 'EN-SO', 'Sopa del Día', 'Sopa casera según temporada', 100, 15.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, imagenUrl, stock, precioVenta)
+VALUES (1, 'EN-SO', 'Sopa del Día', 'Sopa casera según temporada', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV5aLM32iOFa2AHOOGSI7ap4Bssv7n5QMP0g&s', 100, 15.00);
 
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
-VALUES (2, 'PP-LO', 'Lomo Saltado', 'Lomo con verduras salteadas y arroz', 50, 45.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, imagenUrl, stock, precioVenta)
+VALUES (2, 'PP-LO', 'Lomo Saltado', 'Lomo con verduras salteadas y arroz', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScdKektOHQt38KzCvPsYFZWy_OZwUBgMC6eA&s', 50, 45.00);
 
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
-VALUES (3, 'BE-JN', 'Jugo Natural', 'Jugo de fruta fresca 500ml', 100, 10.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, imagenUrl, stock, precioVenta)
+VALUES (3, 'BE-JN', 'Jugo Natural', 'Jugo de fruta fresca 500ml', '', 100, 10.00);
 
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta)
-VALUES (4, 'PS-FL', 'Flan Casero', 'Flan de vainilla con caramelo', 50, 12.00);
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, imagenUrl, stock, precioVenta)
+VALUES (4, 'PS-FL', 'Flan Casero', 'Flan de vainilla con caramelo', '', 50, 12.00);
 
 -- Empleados
 INSERT INTO Empleado (cedulaIdentidad, nombres, primerApellido, segundoApellido, fechaNacimiento, direccion, celular, cargo)
-VALUES ('1234567', 'Carlos', 'Mamani', 'Quispe', '1990-05-15', 'Av. 6 de Agosto 123', 71234567, 'Mesero');
+VALUES ('1234567', 'Jhoselin', 'Figueroa ', 'Colque', '1990-05-15', 'Av. 6 de Agosto 123', 71234567, 'Mesero');
 
 INSERT INTO Empleado (cedulaIdentidad, nombres, primerApellido, segundoApellido, fechaNacimiento, direccion, celular, cargo)
-VALUES ('7654321', 'Ana', 'Flores', 'Ramos', '1988-03-20', 'Calle Potosí 456', 76543210, 'Administrador');
+VALUES ('7654321', 'Elizabeth ', 'Diaz ', 'Canchari', '1988-03-20', 'Calle Potosí 456', 76543210, 'Administrador');
 
 -- Clientes
 INSERT INTO Cliente (ciNit, razonSocial) VALUES ('1234567', 'Juan Pérez');
@@ -265,6 +264,23 @@ VALUES (1, 'jhoselin', 'I0HCOO/NSSY6WOS9POP5XW==');
 INSERT INTO Usuario (idEmpleado, usuario, clave)
 VALUES (2, 'elizabet', 'I0HCOO/NSSY6WOS9POP5XW==');
 
+-- Ventas
+INSERT INTO Venta (idCliente, idEmpleado) VALUES (1, 1);
+INSERT INTO Venta (idCliente, idEmpleado) VALUES (2, 2);
+
+-- Detalles de Venta
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario)
+VALUES (1, 1, 2, 15.00);
+
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario)
+VALUES (1, 2, 1, 45.00);
+
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario)
+VALUES (2, 3, 3, 10.00);
+
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario)
+VALUES (2, 4, 2, 12.00);
+
 -- 7. CONSULTAS DE PRUEBA
 
 SELECT * FROM Categoria;
@@ -272,6 +288,8 @@ SELECT * FROM Producto;
 SELECT * FROM Empleado;
 SELECT * FROM Cliente;
 SELECT * FROM Usuario;
+SELECT * FROM Venta;
+SELECT * FROM DetalleVenta;
 
 EXEC paCategoriaListar '';
 EXEC paProductoListar '';

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDetalleVenta));
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@
             this.lblUsuario = new System.Windows.Forms.Label();
             this.lblCliente = new System.Windows.Forms.Label();
             this.lblTransaccion = new System.Windows.Forms.Label();
+            this.btnSalirCate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalle)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,12 +161,30 @@
             this.lblTransaccion.Size = new System.Drawing.Size(183, 24);
             this.lblTransaccion.TabIndex = 16;
             // 
+            // btnSalirCate
+            // 
+            this.btnSalirCate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSalirCate.BackColor = System.Drawing.Color.Brown;
+            this.btnSalirCate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalirCate.FlatAppearance.BorderSize = 0;
+            this.btnSalirCate.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.btnSalirCate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalirCate.Image = ((System.Drawing.Image)(resources.GetObject("btnSalirCate.Image")));
+            this.btnSalirCate.Location = new System.Drawing.Point(605, 9);
+            this.btnSalirCate.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSalirCate.Name = "btnSalirCate";
+            this.btnSalirCate.Size = new System.Drawing.Size(25, 25);
+            this.btnSalirCate.TabIndex = 30;
+            this.btnSalirCate.UseVisualStyleBackColor = false;
+            this.btnSalirCate.Click += new System.EventHandler(this.btnSalirCate_Click);
+            // 
             // FrmDetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.ClientSize = new System.Drawing.Size(639, 366);
+            this.Controls.Add(this.btnSalirCate);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -199,5 +219,6 @@
         private System.Windows.Forms.Label lblUsuario;
         private System.Windows.Forms.Label lblCliente;
         private System.Windows.Forms.Label lblTransaccion;
+        private System.Windows.Forms.Button btnSalirCate;
     }
 }

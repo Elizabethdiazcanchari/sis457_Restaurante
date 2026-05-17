@@ -28,11 +28,11 @@ namespace CpRestaurante
             dgvClientes.DataSource = lista;
             dgvClientes.Columns["id"].Visible = false;
             dgvClientes.Columns["estado"].Visible = false;
-            dgvClientes.Columns["nitId"].HeaderText = "NIT/CI";
+            dgvClientes.Columns["ciNit"].HeaderText = "CI/NIT";
             dgvClientes.Columns["razonSocial"].HeaderText = "Razón Social";
             dgvClientes.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
             dgvClientes.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
-            if (lista.Count > 0) dgvClientes.CurrentCell = dgvClientes.Rows[0].Cells["nitId"];
+            if (lista.Count > 0) dgvClientes.CurrentCell = dgvClientes.Rows[0].Cells["ciNit"];
             btnEditar.Enabled = lista.Count > 0;
             btnEliminar.Enabled = lista.Count > 0;
         }
@@ -68,15 +68,13 @@ namespace CpRestaurante
             listar();
             pnlAgregar.Visible = false;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
-            txtCedulaIdentidad.KeyPress += Util.onlyNumbers;
-            txtNombres.KeyPress += Util.onlyLetters;
-            txtApellidos.KeyPress += Util.onlyLetters;
+            txtCiNit.KeyPress += Util.onlyNumbers;
+            txtRazonSocial.KeyPress += Util.onlyLetters;
         }
         private void limpiar()
         {
-            txtCedulaIdentidad.Clear();
-            txtNombres.Clear();
-            txtApellidos.Clear();
+            txtCiNit.Clear();
+            txtRazonSocial.Clear();
         }
         private void mostrarPanelAgregar()
         {
@@ -104,23 +102,17 @@ namespace CpRestaurante
         private bool validar()
         {
             bool esValido = true;
-            erpCedulaIdentidad.SetError(txtCedulaIdentidad, "");
-            erpNombres.SetError(txtNombres, "");
-            erpApellidos.SetError(txtApellidos, "");
+            erpCiNit.SetError(txtCiNit, "");
+            erpRazonSocial.SetError(txtRazonSocial, "");
 
-            if (string.IsNullOrEmpty(txtCedulaIdentidad.Text))
+            if (string.IsNullOrEmpty(txtCiNit.Text))
             {
-                erpCedulaIdentidad.SetError(txtCedulaIdentidad, "El campo CI es obligatorio");
+                erpCiNit.SetError(txtCiNit, "El campo CI es obligatorio");
                 esValido = false;
             }
-            if (string.IsNullOrEmpty(txtNombres.Text))
+            if (string.IsNullOrEmpty(txtRazonSocial.Text))
             {
-                erpNombres.SetError(txtNombres, "El campo Nombres es obligatorio");
-                esValido = false;
-            }
-            if (string.IsNullOrEmpty(txtApellidos.Text) && string.IsNullOrEmpty(txtApellidos.Text))
-            {
-                erpApellidos.SetError(txtApellidos, "Debe introducir al un apellido");
+                erpRazonSocial.SetError(txtRazonSocial, "El campo Nombres es obligatorio");
                 esValido = false;
             }
             return esValido;
@@ -131,7 +123,7 @@ namespace CpRestaurante
             modoEdicion = false; ;
             limpiar();
             mostrarPanelAgregar();
-            txtCedulaIdentidad.Focus();
+            txtCiNit.Focus();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -139,8 +131,8 @@ namespace CpRestaurante
             if (validar())
             {
                 var cliente = new Cliente();
-                cliente.nitId = txtCedulaIdentidad.Text.Trim();
-                cliente.razonSocial = txtNombres.Text.Trim();
+                cliente.ciNit = txtCiNit.Text.Trim();
+                cliente.razonSocial = txtRazonSocial.Text.Trim();
                 cliente.usuarioRegistro = Util.usuario.usuario1;
 
                 if (!modoEdicion)
@@ -167,10 +159,10 @@ namespace CpRestaurante
             int index = dgvClientes.CurrentCell.RowIndex;
             int id = Convert.ToInt32(dgvClientes.Rows[index].Cells["id"].Value);
             var cliente = ClienteCln.obtenerUno(id);
-            txtCedulaIdentidad.Text = cliente.nitId;
-            txtNombres.Text = cliente.razonSocial;
+            txtCiNit.Text = cliente.ciNit;
+            txtRazonSocial.Text = cliente.razonSocial;
             mostrarPanelAgregar();
-            txtCedulaIdentidad.Focus();
+            txtCiNit.Focus();
             modoEdicion = true;
         }
 
@@ -178,8 +170,8 @@ namespace CpRestaurante
         {
             int index = dgvClientes.CurrentCell.RowIndex;
             int id = Convert.ToInt32(dgvClientes.Rows[index].Cells["id"].Value);
-            string nitId = dgvClientes.Rows[index].Cells["nitId"].Value.ToString();
-            DialogResult dialog = MessageBox.Show($"¿Está seguro de eliminar al Cliente con {nitId}?",
+            string razonSocial = dgvClientes.Rows[index].Cells["razonSocial"].Value.ToString();
+            DialogResult dialog = MessageBox.Show($"¿Está seguro de eliminar al Cliente con {razonSocial}?",
                 "::: Restaurant - Mensaje :::", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {

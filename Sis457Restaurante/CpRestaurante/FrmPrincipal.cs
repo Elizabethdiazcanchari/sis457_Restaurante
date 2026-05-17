@@ -116,13 +116,13 @@ namespace CpRestaurante
         private void btnVentas_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmVentas());
+            AbrirFormulario(new FrmReporte());
         }
 
         private void btnDetalleVenta_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmReporte());
+            AbrirFormulario(new FrmVenta());
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)

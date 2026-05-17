@@ -66,6 +66,7 @@ namespace CpRestaurante
             txtNombres.Clear();
             txtPrimerApellido.Clear();
             txtSegundoApellido.Clear();
+            dtpFechaNacimiento.Value = DateTime.Now;
             txtDireccion.Clear();
             txtCelular.Clear();
             txtUsuario.Clear();
@@ -100,6 +101,7 @@ namespace CpRestaurante
             erpCedulaIdentidad.SetError(txtCedulaIdentidad, "");
             erpNombres.SetError(txtNombres, "");
             erpApellidos.SetError(txtPrimerApellido, "");
+            erpFechaNacimiento.SetError(dtpFechaNacimiento, "");
             erpDireccion.SetError(txtDireccion, "");
             erpCelular.SetError(txtCelular, "");
             erpCargo.SetError(cbxCargo, "");
@@ -118,6 +120,11 @@ namespace CpRestaurante
             {
                 erpApellidos.SetError(txtPrimerApellido, "Debe introducir al menos un apellido");
                 erpApellidos.SetError(txtSegundoApellido, "Debe introducir al menos un apellido");
+                esValido = false;
+            }
+            if (dtpFechaNacimiento.Value.Date >= DateTime.Now.Date)
+            {
+                erpFechaNacimiento.SetError(dtpFechaNacimiento, "La fecha de nacimiento debe ser anterior a la fecha actual");
                 esValido = false;
             }
             if (string.IsNullOrEmpty(txtDireccion.Text))
@@ -156,6 +163,7 @@ namespace CpRestaurante
                 empleado.nombres = txtNombres.Text.Trim();
                 empleado.primerApellido = txtPrimerApellido.Text.Trim();
                 empleado.segundoApellido = txtSegundoApellido.Text.Trim();
+                empleado.fechaNacimiento = dtpFechaNacimiento.Value.Date;
                 empleado.direccion = txtDireccion.Text.Trim();
                 empleado.celular = Convert.ToInt64(txtCelular.Text);
                 empleado.cargo = cbxCargo.Text;
@@ -198,6 +206,7 @@ namespace CpRestaurante
             txtNombres.Text = empleado.nombres;
             txtPrimerApellido.Text = empleado.primerApellido;
             txtSegundoApellido.Text = empleado.segundoApellido;
+            dtpFechaNacimiento.Value = empleado.fechaNacimiento;
             txtDireccion.Text = empleado.direccion;
             txtCelular.Text = empleado.celular.ToString();
             txtUsuario.Text = usuario;

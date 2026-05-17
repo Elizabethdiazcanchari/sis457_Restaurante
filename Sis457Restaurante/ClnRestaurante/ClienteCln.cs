@@ -23,7 +23,7 @@ namespace ClnRestaurante
             using (var context = new LabRestauranteEntities())
             {
                 var existente = context.Cliente.Find(cliente.id);
-                existente.nitId = cliente.nitId;
+                existente.ciNit = cliente.ciNit;
                 existente.razonSocial = cliente.razonSocial;
                 existente.usuarioRegistro = cliente.usuarioRegistro;
                 return context.SaveChanges();

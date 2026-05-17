@@ -19,7 +19,7 @@ namespace ClnRestaurante
             }
         }
 
-        public static List<DetalleVenta> listarPorPedido(int idVenta)
+        public static List<DetalleVenta> listarPorVenta(int idVenta)
         {
             using (var context = new LabRestauranteEntities())
             {

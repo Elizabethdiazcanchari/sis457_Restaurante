@@ -30,19 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmClientes));
-            this.erpApellidos = new System.Windows.Forms.ErrorProvider(this.components);
-            this.erpCedulaIdentidad = new System.Windows.Forms.ErrorProvider(this.components);
-            this.erpNombres = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpCiNit = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnCerrarAgregar = new System.Windows.Forms.Button();
             this.pnlAgregar = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblAgregarClientes = new System.Windows.Forms.Label();
-            this.lblDescripcion = new System.Windows.Forms.Label();
-            this.lblNombres = new System.Windows.Forms.Label();
-            this.lblCodigo = new System.Windows.Forms.Label();
-            this.txtCedulaIdentidad = new System.Windows.Forms.TextBox();
-            this.txtNombres = new System.Windows.Forms.TextBox();
-            this.txtApellidos = new System.Windows.Forms.TextBox();
+            this.lblRazonSocial = new System.Windows.Forms.Label();
+            this.lblCiNit = new System.Windows.Forms.Label();
+            this.txtCiNit = new System.Windows.Forms.TextBox();
+            this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
             this.lblProductos = new System.Windows.Forms.Label();
@@ -52,26 +49,21 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.erpApellidos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpCedulaIdentidad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCiNit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpRazonSocial)).BeginInit();
             this.pnlAgregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.pnListaProductos.SuspendLayout();
             this.SuspendLayout();
             // 
-            // erpApellidos
+            // erpCiNit
             // 
-            this.erpApellidos.ContainerControl = this;
+            this.erpCiNit.ContainerControl = this;
             // 
-            // erpCedulaIdentidad
+            // erpRazonSocial
             // 
-            this.erpCedulaIdentidad.ContainerControl = this;
-            // 
-            // erpNombres
-            // 
-            this.erpNombres.ContainerControl = this;
+            this.erpRazonSocial.ContainerControl = this;
             // 
             // btnCerrarAgregar
             // 
@@ -98,12 +90,10 @@
             this.pnlAgregar.Controls.Add(this.btnCerrarAgregar);
             this.pnlAgregar.Controls.Add(this.btnCancelar);
             this.pnlAgregar.Controls.Add(this.lblAgregarClientes);
-            this.pnlAgregar.Controls.Add(this.lblDescripcion);
-            this.pnlAgregar.Controls.Add(this.lblNombres);
-            this.pnlAgregar.Controls.Add(this.lblCodigo);
-            this.pnlAgregar.Controls.Add(this.txtCedulaIdentidad);
-            this.pnlAgregar.Controls.Add(this.txtNombres);
-            this.pnlAgregar.Controls.Add(this.txtApellidos);
+            this.pnlAgregar.Controls.Add(this.lblRazonSocial);
+            this.pnlAgregar.Controls.Add(this.lblCiNit);
+            this.pnlAgregar.Controls.Add(this.txtCiNit);
+            this.pnlAgregar.Controls.Add(this.txtRazonSocial);
             this.pnlAgregar.Controls.Add(this.btnGuardar);
             this.pnlAgregar.Location = new System.Drawing.Point(329, 131);
             this.pnlAgregar.Name = "pnlAgregar";
@@ -143,66 +133,47 @@
             this.lblAgregarClientes.Text = "AGREGAR CLIENTES";
             this.lblAgregarClientes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblDescripcion
+            // lblRazonSocial
             // 
-            this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.BackColor = System.Drawing.Color.Transparent;
-            this.lblDescripcion.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescripcion.ForeColor = System.Drawing.Color.Gray;
-            this.lblDescripcion.Location = new System.Drawing.Point(98, 207);
-            this.lblDescripcion.Name = "lblDescripcion";
-            this.lblDescripcion.Size = new System.Drawing.Size(81, 18);
-            this.lblDescripcion.TabIndex = 26;
-            this.lblDescripcion.Text = "Apellidos:";
+            this.lblRazonSocial.AutoSize = true;
+            this.lblRazonSocial.BackColor = System.Drawing.Color.Transparent;
+            this.lblRazonSocial.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRazonSocial.ForeColor = System.Drawing.Color.Gray;
+            this.lblRazonSocial.Location = new System.Drawing.Point(47, 161);
+            this.lblRazonSocial.Name = "lblRazonSocial";
+            this.lblRazonSocial.Size = new System.Drawing.Size(107, 18);
+            this.lblRazonSocial.TabIndex = 25;
+            this.lblRazonSocial.Text = "Razon Social:";
             // 
-            // lblNombres
+            // lblCiNit
             // 
-            this.lblNombres.AutoSize = true;
-            this.lblNombres.BackColor = System.Drawing.Color.Transparent;
-            this.lblNombres.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombres.ForeColor = System.Drawing.Color.Gray;
-            this.lblNombres.Location = new System.Drawing.Point(47, 161);
-            this.lblNombres.Name = "lblNombres";
-            this.lblNombres.Size = new System.Drawing.Size(107, 18);
-            this.lblNombres.TabIndex = 25;
-            this.lblNombres.Text = "Razon Social:";
+            this.lblCiNit.AutoSize = true;
+            this.lblCiNit.BackColor = System.Drawing.Color.Transparent;
+            this.lblCiNit.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCiNit.ForeColor = System.Drawing.Color.Gray;
+            this.lblCiNit.Location = new System.Drawing.Point(78, 104);
+            this.lblCiNit.Name = "lblCiNit";
+            this.lblCiNit.Size = new System.Drawing.Size(56, 18);
+            this.lblCiNit.TabIndex = 23;
+            this.lblCiNit.Text = "CI/NIT:";
             // 
-            // lblCodigo
+            // txtCiNit
             // 
-            this.lblCodigo.AutoSize = true;
-            this.lblCodigo.BackColor = System.Drawing.Color.Transparent;
-            this.lblCodigo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigo.ForeColor = System.Drawing.Color.Gray;
-            this.lblCodigo.Location = new System.Drawing.Point(9, 105);
-            this.lblCodigo.Name = "lblCodigo";
-            this.lblCodigo.Size = new System.Drawing.Size(166, 18);
-            this.lblCodigo.TabIndex = 23;
-            this.lblCodigo.Text = "Cedula de Identidad:";
+            this.txtCiNit.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCiNit.Location = new System.Drawing.Point(171, 105);
+            this.txtCiNit.MaxLength = 30;
+            this.txtCiNit.Name = "txtCiNit";
+            this.txtCiNit.Size = new System.Drawing.Size(221, 20);
+            this.txtCiNit.TabIndex = 22;
             // 
-            // txtCedulaIdentidad
+            // txtRazonSocial
             // 
-            this.txtCedulaIdentidad.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCedulaIdentidad.Location = new System.Drawing.Point(184, 105);
-            this.txtCedulaIdentidad.MaxLength = 30;
-            this.txtCedulaIdentidad.Name = "txtCedulaIdentidad";
-            this.txtCedulaIdentidad.Size = new System.Drawing.Size(208, 20);
-            this.txtCedulaIdentidad.TabIndex = 22;
-            // 
-            // txtNombres
-            // 
-            this.txtNombres.Location = new System.Drawing.Point(184, 159);
-            this.txtNombres.MaxLength = 100;
-            this.txtNombres.Name = "txtNombres";
-            this.txtNombres.Size = new System.Drawing.Size(208, 20);
-            this.txtNombres.TabIndex = 21;
-            // 
-            // txtApellidos
-            // 
-            this.txtApellidos.Location = new System.Drawing.Point(184, 207);
-            this.txtApellidos.MaxLength = 250;
-            this.txtApellidos.Name = "txtApellidos";
-            this.txtApellidos.Size = new System.Drawing.Size(208, 20);
-            this.txtApellidos.TabIndex = 20;
+            this.txtRazonSocial.Location = new System.Drawing.Point(171, 159);
+            this.txtRazonSocial.MaxLength = 100;
+            this.txtRazonSocial.Multiline = true;
+            this.txtRazonSocial.Name = "txtRazonSocial";
+            this.txtRazonSocial.Size = new System.Drawing.Size(221, 62);
+            this.txtRazonSocial.TabIndex = 21;
             // 
             // btnGuardar
             // 
@@ -359,9 +330,8 @@
             this.Text = "FrmClientes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmClientes_FormClosing);
             this.Load += new System.EventHandler(this.FrmClientes_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.erpApellidos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpCedulaIdentidad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCiNit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpRazonSocial)).EndInit();
             this.pnlAgregar.ResumeLayout(false);
             this.pnlAgregar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
@@ -374,18 +344,14 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ErrorProvider erpApellidos;
         private System.Windows.Forms.Panel pnlAgregar;
         private System.Windows.Forms.Button btnCerrarAgregar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblAgregarClientes;
-        private System.Windows.Forms.Label lblDescripcion;
-        private System.Windows.Forms.Label lblNombres;
-        private System.Windows.Forms.Label lblCodigo;
-        private System.Windows.Forms.TextBox txtCedulaIdentidad;
-        private System.Windows.Forms.TextBox txtNombres;
-        private System.Windows.Forms.TextBox txtApellidos;
+        private System.Windows.Forms.Label lblRazonSocial;
+        private System.Windows.Forms.Label lblCiNit;
+        private System.Windows.Forms.TextBox txtCiNit;
+        private System.Windows.Forms.TextBox txtRazonSocial;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.DataGridView dgvClientes;
         private System.Windows.Forms.TextBox txtBuscar;
@@ -395,7 +361,7 @@
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnAgregar;
-        private System.Windows.Forms.ErrorProvider erpCedulaIdentidad;
-        private System.Windows.Forms.ErrorProvider erpNombres;
+        private System.Windows.Forms.ErrorProvider erpCiNit;
+        private System.Windows.Forms.ErrorProvider erpRazonSocial;
     }
 }

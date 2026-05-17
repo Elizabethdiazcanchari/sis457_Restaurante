@@ -142,6 +142,7 @@
             this.btnSalirCate.Size = new System.Drawing.Size(25, 25);
             this.btnSalirCate.TabIndex = 29;
             this.btnSalirCate.UseVisualStyleBackColor = false;
+            this.btnSalirCate.Click += new System.EventHandler(this.btnSalirCate_Click);
             // 
             // FrmCategoria
             // 
