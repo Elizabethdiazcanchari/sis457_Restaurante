@@ -1,6 +1,4 @@
--- ============================
 -- 1. CREAR BASE DE DATOS Y LOGIN
--- ============================
 USE master;
 GO
 
@@ -24,9 +22,8 @@ GO
 ALTER ROLE [db_owner] ADD MEMBER [usrrestaurante];
 GO
 
--- ============================
 -- 2. ELIMINAR OBJETOS EXISTENTES
--- ============================
+
 DROP TABLE IF EXISTS DetalleVenta;
 DROP TABLE IF EXISTS Venta;
 DROP TABLE IF EXISTS Usuario;
@@ -43,9 +40,7 @@ DROP PROC IF EXISTS paVentaListar;
 DROP PROC IF EXISTS paDetalleVentaListar;
 GO
 
--- ============================
 -- 3. TABLAS PRINCIPALES
--- ============================
 
 CREATE TABLE Categoria (
     id INT PRIMARY KEY IDENTITY(1,1),
@@ -61,6 +56,7 @@ CREATE TABLE Producto (
     codigo VARCHAR(20) NOT NULL,
     nombre VARCHAR(100) NOT NULL,
     descripcion VARCHAR(250) NULL,
+    imagenUrl VARCHAR(300) NULL,
     stock DECIMAL(10,2) NOT NULL DEFAULT 0 CHECK (stock >= 0),
     precioVenta DECIMAL(10,2) NOT NULL CHECK (precioVenta > 0),
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
@@ -71,7 +67,7 @@ CREATE TABLE Producto (
 
 CREATE TABLE Cliente (
     id INT PRIMARY KEY IDENTITY(1,1),
-    nitId VARCHAR(20) NOT NULL UNIQUE,
+    ciNit VARCHAR(20) NOT NULL UNIQUE,
     razonSocial VARCHAR(100) NOT NULL,
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
@@ -104,17 +100,13 @@ CREATE TABLE Usuario (
     CONSTRAINT fk_Usuario_Empleado FOREIGN KEY (idEmpleado) REFERENCES Empleado(id)
 );
 
--- ============================
 -- 4. TABLAS DE VENTAS
--- ============================
 
 CREATE TABLE Venta (
     id BIGINT PRIMARY KEY IDENTITY(1,1),
     idCliente INT NOT NULL,
     idEmpleado INT NOT NULL,
     numeroTransaccion AS ('VEN-' + CAST(id AS VARCHAR(10))),
-    fecha DATE NOT NULL DEFAULT GETDATE(),
-    total DECIMAL(10,2) NOT NULL DEFAULT 0 CHECK (total >= 0),
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
@@ -137,11 +129,7 @@ CREATE TABLE DetalleVenta (
 );
 GO
 
-ALTER TABLE Producto ADD imagenUrl VARCHAR(300) NULL;
-GO
--- ============================
 -- 5. PROCEDIMIENTOS ALMACENADOS
--- ============================
 
 CREATE PROC paCategoriaListar @parametro VARCHAR(50)
 AS
@@ -167,11 +155,11 @@ GO
 
 CREATE PROC paClienteListar @parametro VARCHAR(50)
 AS
-    SELECT c.id, c.nitId, c.razonSocial, 
+    SELECT c.id, c.ciNit, c.razonSocial, 
            c.usuarioRegistro, c.fechaRegistro, c.estado
     FROM Cliente c
     WHERE c.estado <> -1
-      AND (c.nitId + c.razonSocial) LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
+      AND (c.ciNit + c.razonSocial) LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
     ORDER BY c.razonSocial ASC;
 GO
 
@@ -238,9 +226,7 @@ AS
     ORDER BY dv.id ASC;
 GO
 
--- ============================
 -- 6. DATOS DE PRUEBA
--- ============================
 
 -- Categorías
 INSERT INTO Categoria (nombre) VALUES ('Entradas');
@@ -269,8 +255,8 @@ INSERT INTO Empleado (cedulaIdentidad, nombres, primerApellido, segundoApellido,
 VALUES ('7654321', 'Ana', 'Flores', 'Ramos', '1988-03-20', 'Calle Potosí 456', 76543210, 'Administrador');
 
 -- Clientes
-INSERT INTO Cliente (nitId, razonSocial) VALUES ('1234567', 'Juan Pérez');
-INSERT INTO Cliente (nitId, razonSocial) VALUES ('9876543', 'Empresa ABC S.R.L.');
+INSERT INTO Cliente (ciNit, razonSocial) VALUES ('1234567', 'Juan Pérez');
+INSERT INTO Cliente (ciNit, razonSocial) VALUES ('9876543', 'Empresa ABC S.R.L.');
 
 -- Usuarios
 INSERT INTO Usuario (idEmpleado, usuario, clave)
@@ -279,9 +265,8 @@ VALUES (1, 'jhoselin', 'I0HCOO/NSSY6WOS9POP5XW==');
 INSERT INTO Usuario (idEmpleado, usuario, clave)
 VALUES (2, 'elizabet', 'I0HCOO/NSSY6WOS9POP5XW==');
 
--- ============================
 -- 7. CONSULTAS DE PRUEBA
--- ============================
+
 SELECT * FROM Categoria;
 SELECT * FROM Producto;
 SELECT * FROM Empleado;
