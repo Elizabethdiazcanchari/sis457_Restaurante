@@ -13,11 +13,11 @@ using System.Windows.Forms;
 
 namespace CpRestaurante
 {
-    public partial class FrmVentaDetalle : Form
+    public partial class FrmReporte : Form
     {
         private List<DetalleVenta> detalles = new List<DetalleVenta>();
         private Cliente clienteSeleccionado = null;
-        public FrmVentaDetalle()
+        public FrmReporte()
         {
             InitializeComponent();
             this.Load += FrmVentaDetalle_Load;

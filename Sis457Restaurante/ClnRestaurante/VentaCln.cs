@@ -58,5 +58,29 @@ namespace ClnRestaurante
                 }
             }
         }
+
+        public static List<Venta> listar()
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.Venta.Where(x => x.estado != -1).ToList();
+            }
+        }
+        public static List<paVentaListar_Result> listarPa(string parametro)
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.paVentaListar(parametro).ToList();
+            }
+        }
+
+        // NUEVO: obtener cabecera del pedido por id
+        public static Venta obtenerUno(int id)
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.Venta.Find(id);
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace CpRestaurante
 {
-    partial class FrmVentaDetalle
+    partial class FrmReporte
     {
         /// <summary>
         /// Required designer variable.
@@ -124,6 +124,7 @@
             this.btnBuscarCliente.TabIndex = 5;
             this.btnBuscarCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnBuscarCliente.UseVisualStyleBackColor = false;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // txtCedulaCliente
             // 
@@ -181,6 +182,7 @@
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // txtCambio
             // 
@@ -261,6 +263,7 @@
             this.btnGuardarVenta.Text = "Guardar";
             this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardarVenta.UseVisualStyleBackColor = false;
+            this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
             // btnAgregarVenta
             // 
@@ -279,6 +282,7 @@
             this.btnAgregarVenta.Text = "Agregar Producto";
             this.btnAgregarVenta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregarVenta.UseVisualStyleBackColor = false;
+            this.btnAgregarVenta.Click += new System.EventHandler(this.btnAgregarVenta_Click);
             // 
             // pnListaProductos
             // 
@@ -325,6 +329,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmVentaDetalle";
             this.Text = "FrmVentaDetalle";
+            this.Load += new System.EventHandler(this.FrmVentaDetalle_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleVenta)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

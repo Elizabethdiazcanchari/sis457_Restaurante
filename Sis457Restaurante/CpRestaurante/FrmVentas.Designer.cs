@@ -44,7 +44,6 @@
             // 
             this.pnListaProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnListaProductos.Controls.Add(this.lblPedidos);
-            this.pnListaProductos.Controls.Add(this.btnAgregarProducto);
             this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
             this.pnListaProductos.Name = "pnListaProductos";
@@ -73,12 +72,12 @@
             this.btnAgregarProducto.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnAgregarProducto.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarProducto.Image")));
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(868, 6);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(633, 50);
             this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(0);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(155, 30);
             this.btnAgregarProducto.TabIndex = 40;
-            this.btnAgregarProducto.Text = "Agregar Venta";
+            this.btnAgregarProducto.Text = "VER DETALLE";
             this.btnAgregarProducto.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
             // 
@@ -103,10 +102,11 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(382, 59);
+            this.txtBuscar.Location = new System.Drawing.Point(303, 59);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(268, 13);
             this.txtBuscar.TabIndex = 55;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             // 
             // pctBuscar
             // 
@@ -114,7 +114,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(377, 50);
+            this.pctBuscar.Location = new System.Drawing.Point(298, 50);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -127,12 +127,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 561);
             this.Controls.Add(this.pnListaProductos);
+            this.Controls.Add(this.btnAgregarProducto);
             this.Controls.Add(this.dgvDetalleVentas);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.pctBuscar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmVentas";
             this.Text = "FrmVentas";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmVentas_FormClosing);
+            this.Load += new System.EventHandler(this.FrmVentas_Load);
             this.pnListaProductos.ResumeLayout(false);
             this.pnListaProductos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleVentas)).EndInit();
