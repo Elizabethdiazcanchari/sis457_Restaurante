@@ -236,12 +236,12 @@
             // 
             // pnContenedor
             // 
-            this.pnContenedor.BackColor = System.Drawing.Color.Transparent;
+            this.pnContenedor.BackColor = System.Drawing.Color.Black;
             this.pnContenedor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnContenedor.BackgroundImage")));
             this.pnContenedor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnContenedor.Controls.Add(this.lblReloj);
             this.pnContenedor.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnContenedor.ForeColor = System.Drawing.Color.Transparent;
+            this.pnContenedor.ForeColor = System.Drawing.Color.Black;
             this.pnContenedor.Location = new System.Drawing.Point(217, 46);
             this.pnContenedor.Name = "pnContenedor";
             this.pnContenedor.Size = new System.Drawing.Size(1083, 604);
@@ -250,8 +250,8 @@
             // lblReloj
             // 
             this.lblReloj.BackColor = System.Drawing.Color.Transparent;
-            this.lblReloj.Font = new System.Drawing.Font("Century Gothic", 50.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReloj.ForeColor = System.Drawing.Color.White;
+            this.lblReloj.Font = new System.Drawing.Font("Arial Narrow", 50.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReloj.ForeColor = System.Drawing.Color.Black;
             this.lblReloj.Location = new System.Drawing.Point(769, 32);
             this.lblReloj.Name = "lblReloj";
             this.lblReloj.Size = new System.Drawing.Size(285, 74);

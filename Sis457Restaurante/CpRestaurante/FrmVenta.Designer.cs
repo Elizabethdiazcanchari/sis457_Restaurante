@@ -131,7 +131,7 @@
             this.dtpFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpFecha.CalendarFont = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFecha.Enabled = false;
-            this.dtpFecha.Location = new System.Drawing.Point(267, 46);
+            this.dtpFecha.Location = new System.Drawing.Point(265, 51);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(233, 20);
             this.dtpFecha.TabIndex = 54;
@@ -141,7 +141,7 @@
             this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFecha.AutoSize = true;
             this.lblFecha.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(189, 45);
+            this.lblFecha.Location = new System.Drawing.Point(187, 50);
             this.lblFecha.Name = "lblFecha";
             this.lblFecha.Size = new System.Drawing.Size(73, 22);
             this.lblFecha.TabIndex = 53;
@@ -266,9 +266,9 @@
             this.lblVentas.ForeColor = System.Drawing.Color.LemonChiffon;
             this.lblVentas.Location = new System.Drawing.Point(375, 1);
             this.lblVentas.Name = "lblVentas";
-            this.lblVentas.Size = new System.Drawing.Size(173, 38);
+            this.lblVentas.Size = new System.Drawing.Size(304, 38);
             this.lblVentas.TabIndex = 5;
-            this.lblVentas.Text = "de Ventas";
+            this.lblVentas.Text = "Registro de Ventas";
             // 
             // FrmVenta
             // 

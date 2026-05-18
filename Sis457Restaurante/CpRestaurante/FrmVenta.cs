@@ -196,7 +196,7 @@ namespace CpRestaurante
 
             var venta = new Venta
             {
-                idCliente = clienteSeleccionado.id,
+                idCliente = clienteSeleccionado != null ? clienteSeleccionado.id : 0,
                 idEmpleado = Util.usuario.id,
                 usuarioRegistro = Util.usuario.usuario1,
                 fechaRegistro = DateTime.Now,
@@ -208,6 +208,7 @@ namespace CpRestaurante
                 long idVenta = VentaCln.crearConDetallesYCliente(venta, detalles, clienteNuevo);
                 MessageBox.Show("Venta registrada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarFormulario();
+                clienteSeleccionado = null;
                 ConstruirCatalogoProductos(); // refresca el stock mostrado
             }
             catch (Exception ex)
