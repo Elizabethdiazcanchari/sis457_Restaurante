@@ -105,13 +105,13 @@ CREATE TABLE Usuario (
 CREATE TABLE Venta (
     id BIGINT PRIMARY KEY IDENTITY(1,1),
     idCliente INT NOT NULL,
-    idEmpleado INT NOT NULL,
+    idUsuario INT NOT NULL,
     numeroTransaccion AS ('VEN-' + CAST(id AS VARCHAR(10))),
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
     CONSTRAINT fk_Venta_Cliente FOREIGN KEY (idCliente) REFERENCES Cliente(id),
-    CONSTRAINT fk_Venta_Empleado FOREIGN KEY (idEmpleado) REFERENCES Empleado(id)
+    CONSTRAINT fk_Venta_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
 );
 
 CREATE TABLE DetalleVenta (
@@ -199,13 +199,13 @@ CREATE PROC paVentaListar @parametro VARCHAR(100)
 AS
     SELECT v.id, v.numeroTransaccion,
            c.razonSocial AS cliente,
-           e.nombres + ' ' + ISNULL(e.primerApellido,'') AS empleado,
+           u.usuario AS Usuario,
            v.usuarioRegistro, v.fechaRegistro, v.estado
     FROM Venta v
     INNER JOIN Cliente c ON c.id = v.idCliente
-    INNER JOIN Empleado e ON e.id = v.idEmpleado
+    INNER JOIN Usuario u ON u.id = v.idUsuario
     WHERE v.estado <> -1
-      AND (c.razonSocial + e.nombres + ISNULL(e.primerApellido,'') + v.numeroTransaccion)
+      AND (c.razonSocial + u.usuario + v.numeroTransaccion)
           LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
     ORDER BY v.fechaRegistro DESC;
 GO
@@ -265,8 +265,8 @@ INSERT INTO Usuario (idEmpleado, usuario, clave)
 VALUES (2, 'elizabet', 'I0HCOO/NSSY6WOS9POP5XW==');
 
 -- Ventas
-INSERT INTO Venta (idCliente, idEmpleado) VALUES (1, 1);
-INSERT INTO Venta (idCliente, idEmpleado) VALUES (2, 2);
+INSERT INTO Venta (idCliente, idUsuario) VALUES (1, 1);
+INSERT INTO Venta (idCliente, idUsuario) VALUES (2, 2);
 
 -- Detalles de Venta
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario)
