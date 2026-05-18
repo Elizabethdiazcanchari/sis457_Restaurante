@@ -17,18 +17,42 @@ namespace CpRestaurante
         public FrmCategoria()
         {
             InitializeComponent();
+            this.Load += FrmCategoria_Load;
         }
+
         private void CargarCategoriasListBox()
         {
             var categorias = CategoriaCln.listar();
-            lstCategorias.DataSource = null;
-            lstCategorias.DataSource = categorias;
-            lstCategorias.ValueMember = "id";
-            lstCategorias.DisplayMember = "nombre";
+            lbxCategorias.DataSource = null;
+            lbxCategorias.DataSource = categorias;
+            lbxCategorias.ValueMember = "id";
+            lbxCategorias.DisplayMember = "nombre";
         }
         private void FrmCategoria_Load(object sender, EventArgs e)
         {
+            this.BackColor = Color.FromArgb(243, 244, 246); // Gris claro limpio
+
+            // Estilo para el ListBox
+            lbxCategorias.BackColor = Color.White;
+            lbxCategorias.Font = new Font("Segoe UI", 10);
+            lbxCategorias.BorderStyle = BorderStyle.FixedSingle;
+
+            // Ajustar estilos de los botones a la paleta moderna
+            btnAgregarCate.FlatStyle = FlatStyle.Flat;
+            btnAgregarCate.FlatAppearance.BorderSize = 0;
+            btnAgregarCate.BackColor = Color.FromArgb(37, 99, 235); // Azul acción
+            btnAgregarCate.ForeColor = Color.White;
+            btnAgregarCate.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
+
+            btnEliminarCate.FlatStyle = FlatStyle.Flat;
+            btnEliminarCate.FlatAppearance.BorderSize = 0;
+            btnEliminarCate.BackColor = Color.FromArgb(239, 68, 68); // Rojo peligro suave
+            btnEliminarCate.ForeColor = Color.White;
+            btnEliminarCate.Font = new Font("Segoe UI", 9.5f, FontStyle.Bold);
+
+            // Cargar datos iniciales
             CargarCategoriasListBox();
+
         }
 
         private void btnAgregarCate_Click(object sender, EventArgs e)
@@ -60,7 +84,7 @@ namespace CpRestaurante
 
         private void btnEliminarCate_Click(object sender, EventArgs e)
         {
-            if (lstCategorias.SelectedIndex < 0)
+            if (lbxCategorias.SelectedIndex < 0)
             {
                 MessageBox.Show("Debe seleccionar una categoría antes de eliminarla.",
                                 "::: Restaurant - Mensaje :::",
@@ -70,8 +94,8 @@ namespace CpRestaurante
             }
 
 
-            int idCategoria = Convert.ToInt32(lstCategorias.SelectedValue);
-            string nombreCat = lstCategorias.Text;
+            int idCategoria = Convert.ToInt32(lbxCategorias.SelectedValue);
+            string nombreCat = lbxCategorias.Text;
             DialogResult dialog = MessageBox.Show(
                 $"¿Está seguro que desea dar de baja la categoría “{nombreCat}”?",
                 "::: Restaurant - Confirmación :::",
@@ -100,6 +124,11 @@ namespace CpRestaurante
                 btnAgregarCate_Click(sender, EventArgs.Empty);
                 e.Handled = true;
             }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
