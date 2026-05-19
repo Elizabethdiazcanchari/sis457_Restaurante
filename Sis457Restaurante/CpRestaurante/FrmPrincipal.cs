@@ -22,6 +22,9 @@ namespace CpRestaurante
             tmrReloj.Interval = 1000;
             tmrReloj.Tick += Timer_Tick;
             this.frmAutenticacion = new FrmAutenticacion();
+
+            pnContenedor.BackColor = Color.FromArgb(241, 245, 249);
+            lblReloj.Font = new Font("Segoe UI", 14, FontStyle.Bold);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -40,6 +43,9 @@ namespace CpRestaurante
             {
                 activeForm.Close();
             }
+
+            picBanner.Visible = false;
+
             activeForm = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
@@ -48,6 +54,18 @@ namespace CpRestaurante
             this.pnContenedor.Tag = formulario;
             formulario.BringToFront();
             formulario.Show();
+        }
+
+        private void MostrarInicio()
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+                activeForm = null;
+            }
+            // Volvemos a hacer visible el hermoso banner de comida y las tarjetas
+            picBanner.Visible = true;
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42); // Mantiene tu color corporativo oscuro
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -100,6 +118,7 @@ namespace CpRestaurante
         }
         private void btnHome_Click(object sender, EventArgs e)
         {
+            MostrarInicio();
             if (activeForm != null)
             {
                 activeForm.Close();
@@ -141,6 +160,17 @@ namespace CpRestaurante
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
             AbrirFormulario(new FrmClientes());
+        }
+
+        private void btnInicio_Click(object sender, EventArgs e)
+        {
+            MostrarInicio();
+        }
+
+        private void btnSoporte_Click(object sender, EventArgs e)
+        {
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
+            AbrirFormulario(new FrmSoporte());
         }
     }
 }

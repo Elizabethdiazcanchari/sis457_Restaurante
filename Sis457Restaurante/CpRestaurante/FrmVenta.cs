@@ -134,7 +134,7 @@ namespace CpRestaurante
 
         private void btnAgregarVenta_Click(object sender, EventArgs e)
         {
-            var frm = new FrmSeleccionarProducto();
+            var frm = new FrmSoporte();
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 var detalle = frm.DetalleSeleccionado;

@@ -70,6 +70,14 @@ namespace CpRestaurante
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             txtCiNit.KeyPress += Util.onlyNumbers;
             txtRazonSocial.KeyPress += Util.onlyLetters;
+
+            // Botón Guardar (Cambia a un verde más oscuro al pasar el mouse)
+            btnGuardar.MouseEnter += (s, ev) => btnGuardar.BackColor = Color.FromArgb(22, 163, 74);
+            btnGuardar.MouseLeave += (s, ev) => btnGuardar.BackColor = Color.FromArgb(34, 197, 94);
+
+            // Botón Cancelar (Cambia a un rojo más oscuro al pasar el mouse)
+            btnCancelar.MouseEnter += (s, ev) => btnCancelar.BackColor = Color.FromArgb(220, 38, 38);
+            btnCancelar.MouseLeave += (s, ev) => btnCancelar.BackColor = Color.FromArgb(239, 68, 68);
         }
         private void limpiar()
         {

@@ -12,10 +12,10 @@ using System.Windows.Forms;
 
 namespace CpRestaurante
 {
-    public partial class FrmSeleccionarProducto : Form
+    public partial class FrmSoporte : Form
     {
         public DetalleVenta DetalleSeleccionado { get; private set; }
-        public FrmSeleccionarProducto()
+        public FrmSoporte()
         {
             InitializeComponent();
         }

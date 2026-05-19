@@ -100,11 +100,11 @@
     <Compile Include="FrmProducto.Designer.cs">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSeleccionarProducto.cs">
+    <Compile Include="FrmSoporte.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSeleccionarProducto.Designer.cs">
-      <DependentUpon>FrmSeleccionarProducto.cs</DependentUpon>
+    <Compile Include="FrmSoporte.Designer.cs">
+      <DependentUpon>FrmSoporte.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmVenta.cs">
       <SubType>Form</SubType>
@@ -142,8 +142,8 @@
     <EmbeddedResource Include="FrmProducto.resx">
       <DependentUpon>FrmProducto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSeleccionarProducto.resx">
-      <DependentUpon>FrmSeleccionarProducto.cs</DependentUpon>
+    <EmbeddedResource Include="FrmSoporte.resx">
+      <DependentUpon>FrmSoporte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmVenta.resx">
       <DependentUpon>FrmVenta.cs</DependentUpon>

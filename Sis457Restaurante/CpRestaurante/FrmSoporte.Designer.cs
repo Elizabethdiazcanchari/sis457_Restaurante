@@ -1,6 +1,6 @@
 ﻿namespace CpRestaurante
 {
-    partial class FrmSeleccionarProducto
+    partial class FrmSoporte
     {
         /// <summary>
         /// Required designer variable.
