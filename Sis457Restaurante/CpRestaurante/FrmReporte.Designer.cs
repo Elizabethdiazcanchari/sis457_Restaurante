@@ -55,7 +55,7 @@
             this.lblPedidos.AutoSize = true;
             this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
             this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPedidos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.lblPedidos.ForeColor = System.Drawing.Color.White;
             this.lblPedidos.Location = new System.Drawing.Point(3, 0);
             this.lblPedidos.Name = "lblPedidos";
             this.lblPedidos.Size = new System.Drawing.Size(328, 38);
@@ -64,18 +64,18 @@
             // 
             // btnVerDetalle
             // 
-            this.btnVerDetalle.BackColor = System.Drawing.Color.Yellow;
+            this.btnVerDetalle.BackColor = System.Drawing.Color.Transparent;
             this.btnVerDetalle.FlatAppearance.BorderSize = 0;
             this.btnVerDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
             this.btnVerDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerDetalle.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerDetalle.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVerDetalle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnVerDetalle.Image = ((System.Drawing.Image)(resources.GetObject("btnVerDetalle.Image")));
             this.btnVerDetalle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnVerDetalle.Location = new System.Drawing.Point(855, 50);
             this.btnVerDetalle.Margin = new System.Windows.Forms.Padding(0);
             this.btnVerDetalle.Name = "btnVerDetalle";
-            this.btnVerDetalle.Size = new System.Drawing.Size(155, 30);
+            this.btnVerDetalle.Size = new System.Drawing.Size(141, 30);
             this.btnVerDetalle.TabIndex = 40;
             this.btnVerDetalle.Text = "VER DETALLE";
             this.btnVerDetalle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

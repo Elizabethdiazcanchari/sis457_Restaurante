@@ -95,7 +95,7 @@
             this.pnlAgregar.Controls.Add(this.txtRazonSocial);
             this.pnlAgregar.Controls.Add(this.btnGuardar);
             this.pnlAgregar.Location = new System.Drawing.Point(363, 165);
-            this.pnlAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.pnlAgregar.Name = "pnlAgregar";
             this.pnlAgregar.Padding = new System.Windows.Forms.Padding(20);
             this.pnlAgregar.Size = new System.Drawing.Size(381, 317);
@@ -168,7 +168,7 @@
             this.txtCiNit.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCiNit.ForeColor = System.Drawing.Color.White;
             this.txtCiNit.Location = new System.Drawing.Point(36, 113);
-            this.txtCiNit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCiNit.Margin = new System.Windows.Forms.Padding(4);
             this.txtCiNit.MaxLength = 30;
             this.txtCiNit.Name = "txtCiNit";
             this.txtCiNit.Size = new System.Drawing.Size(257, 27);
@@ -181,7 +181,7 @@
             this.txtRazonSocial.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             this.txtRazonSocial.ForeColor = System.Drawing.Color.White;
             this.txtRazonSocial.Location = new System.Drawing.Point(36, 187);
-            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRazonSocial.Margin = new System.Windows.Forms.Padding(4);
             this.txtRazonSocial.MaxLength = 100;
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(257, 27);
@@ -217,7 +217,7 @@
             this.dgvClientes.BackgroundColor = System.Drawing.Color.SlateGray;
             this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvClientes.Location = new System.Drawing.Point(7, 116);
-            this.dgvClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvClientes.Margin = new System.Windows.Forms.Padding(4);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
             this.dgvClientes.RowHeadersWidth = 51;
@@ -242,7 +242,7 @@
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
             this.txtBuscar.Location = new System.Drawing.Point(672, 78);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(313, 18);
             this.txtBuscar.TabIndex = 34;
@@ -252,7 +252,7 @@
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
             this.pctBuscar.Location = new System.Drawing.Point(666, 67);
-            this.pctBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pctBuscar.Margin = new System.Windows.Forms.Padding(4);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(351, 39);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -266,7 +266,7 @@
             this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnListaProductos.ForeColor = System.Drawing.Color.Transparent;
             this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
-            this.pnListaProductos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnListaProductos.Margin = new System.Windows.Forms.Padding(4);
             this.pnListaProductos.Name = "pnListaProductos";
             this.pnListaProductos.Size = new System.Drawing.Size(1034, 59);
             this.pnListaProductos.TabIndex = 35;
@@ -282,7 +282,7 @@
             this.btnEditar.Image = ((System.Drawing.Image)(resources.GetObject("btnEditar.Image")));
             this.btnEditar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEditar.Location = new System.Drawing.Point(134, 67);
-            this.btnEditar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEditar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Padding = new System.Windows.Forms.Padding(0, 0, 12, 0);
             this.btnEditar.Size = new System.Drawing.Size(113, 39);
@@ -303,7 +303,7 @@
             this.btnEliminar.Image = ((System.Drawing.Image)(resources.GetObject("btnEliminar.Image")));
             this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEliminar.Location = new System.Drawing.Point(259, 67);
-            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEliminar.Margin = new System.Windows.Forms.Padding(4);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(113, 39);
             this.btnEliminar.TabIndex = 37;
@@ -323,7 +323,7 @@
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAgregar.Location = new System.Drawing.Point(9, 67);
-            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(113, 39);
             this.btnAgregar.TabIndex = 33;
@@ -347,7 +347,7 @@
             this.Controls.Add(this.btnAgregar);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FrmClientes";
             this.Text = "FrmClientes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmClientes_FormClosing);

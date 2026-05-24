@@ -66,7 +66,7 @@ namespace CpRestaurante
             txtNombres.Clear();
             txtPrimerApellido.Clear();
             txtSegundoApellido.Clear();
-            dtpFechaNacimiento.Value = DateTime.Now;
+            dtpFechaNacimiento.Value = DateTime.Today.AddYears(-18);
             txtDireccion.Clear();
             txtCelular.Clear();
             txtUsuario.Clear();
@@ -106,6 +106,10 @@ namespace CpRestaurante
             erpCelular.SetError(txtCelular, "");
             erpCargo.SetError(cbxCargo, "");
 
+            DateTime fechaNacimiento = dtpFechaNacimiento.Value.Date;
+            DateTime fechaActual = DateTime.Today;
+            int edad = fechaActual.Year - fechaNacimiento.Year;
+
             if (string.IsNullOrEmpty(txtCedulaIdentidad.Text))
             {
                 erpCedulaIdentidad.SetError(txtCedulaIdentidad, "El campo CI es obligatorio");
@@ -122,9 +126,14 @@ namespace CpRestaurante
                 erpApellidos.SetError(txtSegundoApellido, "Debe introducir al menos un apellido");
                 esValido = false;
             }
-            if (dtpFechaNacimiento.Value.Date >= DateTime.Now.Date)
+            if (fechaNacimiento > fechaActual.AddYears(-edad))
             {
-                erpFechaNacimiento.SetError(dtpFechaNacimiento, "La fecha de nacimiento debe ser anterior a la fecha actual");
+                edad--;
+            }
+
+            if (edad < 18)
+            {
+                erpFechaNacimiento.SetError(dtpFechaNacimiento, $"El empleado debe ser mayor de 18 años. Edad actual: {edad} años.");
                 esValido = false;
             }
             if (string.IsNullOrEmpty(txtDireccion.Text))
@@ -261,6 +270,11 @@ namespace CpRestaurante
                     }
                 });
             }, null, SearchDelay, System.Threading.Timeout.Infinite);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ocultarPanelAgregar();
         }
     }
 }
