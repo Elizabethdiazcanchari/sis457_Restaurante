@@ -76,8 +76,9 @@ namespace CpRestaurante
             dgvProductos.Columns["codigo"].HeaderText = "Código";
             dgvProductos.Columns["nombre"].HeaderText = "Nombre";
             dgvProductos.Columns["descripcion"].HeaderText = "Descripción";
-            dgvProductos.Columns["categoria"].HeaderText = "Categoría";
+            dgvProductos.Columns["categoria"].HeaderText = "Nombre de Categoría";
             dgvProductos.Columns["stock"].HeaderText = "Stock";
+            dgvProductos.Columns["stock"].DefaultCellStyle.Format = "N0";
             dgvProductos.Columns["precioVenta"].HeaderText = "Precio de Venta";
             dgvProductos.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
             dgvProductos.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
@@ -184,6 +185,9 @@ namespace CpRestaurante
 
         private void FrmProductos_Load(object sender, EventArgs e)
         {
+            nudStock.DecimalPlaces = 0;
+            nudStock.Increment = 1;
+
             cargarCategorias();
             listar();
         }
@@ -199,17 +203,22 @@ namespace CpRestaurante
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            cargarCategorias();
+
             int index = dgvProductos.CurrentCell.RowIndex;
             int id = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
             var producto = ProductoCln.obtenerUno(id);
+
             txtCodigo.Text = producto.codigo;
             txtNombre.Text = producto.nombre;
             txtDescripcion.Text = producto.descripcion;
+
             cbxCategoria.SelectedValue = producto.idCategoria;
+
             nudStock.Value = producto.stock;
             nudPrecioVenta.Value = producto.precioVenta;
+
             mostrarPanelAgregar();
-            cargarCategorias();
             txtCodigo.Focus();
             modoEdicion = true;
 
@@ -227,7 +236,7 @@ namespace CpRestaurante
                 producto.nombre = txtNombre.Text.Trim();
                 producto.descripcion = txtDescripcion.Text.Trim();
                 producto.idCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                producto.stock = nudStock.Value;
+                producto.stock = Convert.ToInt32(nudStock.Value);
                 producto.precioVenta = nudPrecioVenta.Value;
                 producto.usuarioRegistro = Util.usuario.usuario1;
 
@@ -254,7 +263,7 @@ namespace CpRestaurante
                     productoExistente.nombre = txtNombre.Text.Trim();
                     productoExistente.descripcion = txtDescripcion.Text.Trim();
                     productoExistente.idCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                    productoExistente.stock = nudStock.Value;
+                    productoExistente.stock = Convert.ToInt32(nudStock.Value);
                     productoExistente.precioVenta = nudPrecioVenta.Value;
                     productoExistente.usuarioRegistro = Util.usuario.usuario1;
                     ProductoCln.actualizar(productoExistente);
@@ -436,6 +445,11 @@ namespace CpRestaurante
                 }
             }
             catch { }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            ocultarPanelAgregar();
         }
     }
 }

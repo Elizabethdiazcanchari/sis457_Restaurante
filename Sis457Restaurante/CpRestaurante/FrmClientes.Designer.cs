@@ -132,7 +132,7 @@
             this.lblAgregarClientes.Name = "lblAgregarClientes";
             this.lblAgregarClientes.Size = new System.Drawing.Size(341, 59);
             this.lblAgregarClientes.TabIndex = 30;
-            this.lblAgregarClientes.Text = "AGREGAR O EDITAR CLIENTES";
+            this.lblAgregarClientes.Text = "AGREGAR/EDITAR CLIENTES";
             this.lblAgregarClientes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblRazonSocial
@@ -230,12 +230,12 @@
             this.lblProductos.AutoSize = true;
             this.lblProductos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProductos.ForeColor = System.Drawing.Color.White;
-            this.lblProductos.Location = new System.Drawing.Point(4, 3);
+            this.lblProductos.Location = new System.Drawing.Point(338, 9);
             this.lblProductos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblProductos.Name = "lblProductos";
-            this.lblProductos.Size = new System.Drawing.Size(267, 38);
+            this.lblProductos.Size = new System.Drawing.Size(318, 38);
             this.lblProductos.TabIndex = 5;
-            this.lblProductos.Text = "Lista de Clientes";
+            this.lblProductos.Text = "Gestion de Clientes";
             // 
             // txtBuscar
             // 

@@ -14,22 +14,25 @@ namespace CpRestaurante
     public partial class FrmPrincipal : Form
     {
         private Form activeForm;
-        FrmAutenticacion frmAutenticacion;
+        private FrmAutenticacion frmAutenticacion;
         public FrmPrincipal()
         {
             InitializeComponent();
+
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
+
             tmrReloj.Enabled = true;
             tmrReloj.Interval = 1000;
             tmrReloj.Tick += Timer_Tick;
             this.frmAutenticacion = new FrmAutenticacion();
 
             pnContenedor.BackColor = Color.FromArgb(241, 245, 249);
-            lblReloj.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+            lblReloj.Font = new Font("Segoe UI", 20, FontStyle.Bold);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            lblReloj.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            lblReloj.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
         [DllImport("user32.Dll", EntryPoint = "ReleaseCapture")]
@@ -50,10 +53,15 @@ namespace CpRestaurante
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
             formulario.Dock = DockStyle.Fill;
+
             this.pnContenedor.Controls.Add(formulario);
             this.pnContenedor.Tag = formulario;
+
             formulario.BringToFront();
             formulario.Show();
+
+            pnContenedor.PerformLayout();
+            formulario.Update();
         }
 
         private void MostrarInicio()
@@ -119,11 +127,6 @@ namespace CpRestaurante
         private void btnHome_Click(object sender, EventArgs e)
         {
             MostrarInicio();
-            if (activeForm != null)
-            {
-                activeForm.Close();
-                activeForm = null;
-            }
         }
 
         private void btnProductos_Click(object sender, EventArgs e)

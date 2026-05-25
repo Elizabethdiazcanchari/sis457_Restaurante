@@ -29,11 +29,11 @@ namespace CpRestaurante
             dgvEmpleados.Columns["id"].Visible = false;
             dgvEmpleados.Columns["idUsuario"].Visible = false;
             dgvEmpleados.Columns["estado"].Visible = false;
-            dgvEmpleados.Columns["usuario"].HeaderText = "Usuario";
             dgvEmpleados.Columns["cedulaIdentidad"].HeaderText = "Cédula de Identidad";
             dgvEmpleados.Columns["nombres"].HeaderText = "Nombres";
             dgvEmpleados.Columns["primerApellido"].HeaderText = "Primer Apellido";
             dgvEmpleados.Columns["segundoApellido"].HeaderText = "Segundo Apellido";
+            dgvEmpleados.Columns["usuario"].HeaderText = "Nombre de Usuario";
             dgvEmpleados.Columns["fechaNacimiento"].HeaderText = "Fecha de Nacimiento";
             dgvEmpleados.Columns["direccion"].HeaderText = "Dirección";
             dgvEmpleados.Columns["celular"].HeaderText = "Celular";
@@ -101,6 +101,7 @@ namespace CpRestaurante
             erpCedulaIdentidad.SetError(txtCedulaIdentidad, "");
             erpNombres.SetError(txtNombres, "");
             erpApellidos.SetError(txtPrimerApellido, "");
+            erpUsuario.SetError(txtUsuario, "");
             erpFechaNacimiento.SetError(dtpFechaNacimiento, "");
             erpDireccion.SetError(txtDireccion, "");
             erpCelular.SetError(txtCelular, "");
@@ -126,6 +127,44 @@ namespace CpRestaurante
                 erpApellidos.SetError(txtSegundoApellido, "Debe introducir al menos un apellido");
                 esValido = false;
             }
+
+            string nombreUsuario = txtUsuario.Text.Trim();
+            if (string.IsNullOrEmpty(nombreUsuario))
+            {
+                erpUsuario.SetError(txtUsuario, "El campo Usuario es obligatorio");
+                esValido = false;
+            }
+            else if (txtUsuario.Text.Contains(" "))
+            {
+                erpUsuario.SetError(txtUsuario, "El nombre de usuario no puede contener espacios en blanco");
+                esValido = false;
+            }
+            else
+            {
+                // Validación de nombres de usuario únicos en la base de datos
+                if (!modoEdicion)
+                {
+                    // Si es un nuevo empleado, verificamos si el usuario ya existe
+                    if (EmpleadoCln.listarPa("").Any(e => e.usuario != null && e.usuario.Equals(nombreUsuario, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        erpUsuario.SetError(txtUsuario, "Este nombre de usuario ya se encuentra registrado");
+                        esValido = false;
+                    }
+                }
+                else
+                {
+                    // Si estamos editando, verificamos que el nombre no lo tenga OTRO empleado diferente
+                    int index = dgvEmpleados.CurrentCell.RowIndex;
+                    int idActual = Convert.ToInt32(dgvEmpleados.Rows[index].Cells["id"].Value);
+
+                    if (EmpleadoCln.listarPa("").Any(e => e.id != idActual && e.usuario != null && e.usuario.Equals(nombreUsuario, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        erpUsuario.SetError(txtUsuario, "Este nombre de usuario ya está asignado a otro empleado");
+                        esValido = false;
+                    }
+                }
+            }
+
             if (fechaNacimiento > fechaActual.AddYears(-edad))
             {
                 edad--;

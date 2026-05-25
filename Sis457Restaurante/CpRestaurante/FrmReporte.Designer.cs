@@ -29,41 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmReporte));
-            this.pnListaProductos = new System.Windows.Forms.Panel();
-            this.lblPedidos = new System.Windows.Forms.Label();
             this.btnVerDetalle = new System.Windows.Forms.Button();
             this.dgvReporte = new System.Windows.Forms.DataGridView();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.pctBuscar = new System.Windows.Forms.PictureBox();
-            this.pnListaProductos.SuspendLayout();
+            this.lblPedidos = new System.Windows.Forms.Label();
+            this.pnListaProductos = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
+            this.pnListaProductos.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // pnListaProductos
-            // 
-            this.pnListaProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.pnListaProductos.Controls.Add(this.lblPedidos);
-            this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
-            this.pnListaProductos.Name = "pnListaProductos";
-            this.pnListaProductos.Size = new System.Drawing.Size(1034, 45);
-            this.pnListaProductos.TabIndex = 54;
-            // 
-            // lblPedidos
-            // 
-            this.lblPedidos.AutoSize = true;
-            this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
-            this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPedidos.ForeColor = System.Drawing.Color.White;
-            this.lblPedidos.Location = new System.Drawing.Point(3, 0);
-            this.lblPedidos.Name = "lblPedidos";
-            this.lblPedidos.Size = new System.Drawing.Size(328, 38);
-            this.lblPedidos.TabIndex = 5;
-            this.lblPedidos.Text = "Gestion de Reportes";
             // 
             // btnVerDetalle
             // 
+            this.btnVerDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerDetalle.BackColor = System.Drawing.Color.Transparent;
             this.btnVerDetalle.FlatAppearance.BorderSize = 0;
             this.btnVerDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
@@ -72,7 +51,7 @@
             this.btnVerDetalle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnVerDetalle.Image = ((System.Drawing.Image)(resources.GetObject("btnVerDetalle.Image")));
             this.btnVerDetalle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVerDetalle.Location = new System.Drawing.Point(855, 50);
+            this.btnVerDetalle.Location = new System.Drawing.Point(855, 57);
             this.btnVerDetalle.Margin = new System.Windows.Forms.Padding(0);
             this.btnVerDetalle.Name = "btnVerDetalle";
             this.btnVerDetalle.Size = new System.Drawing.Size(141, 30);
@@ -86,17 +65,15 @@
             // 
             this.dgvReporte.AllowUserToAddRows = false;
             this.dgvReporte.AllowUserToDeleteRows = false;
-            this.dgvReporte.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvReporte.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReporte.BackgroundColor = System.Drawing.Color.SlateGray;
             this.dgvReporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReporte.Location = new System.Drawing.Point(5, 88);
+            this.dgvReporte.Location = new System.Drawing.Point(5, 96);
             this.dgvReporte.Name = "dgvReporte";
             this.dgvReporte.ReadOnly = true;
             this.dgvReporte.RowHeadersWidth = 51;
             this.dgvReporte.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReporte.Size = new System.Drawing.Size(1024, 470);
+            this.dgvReporte.Size = new System.Drawing.Size(1024, 462);
             this.dgvReporte.TabIndex = 53;
             this.dgvReporte.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReporte_CellDoubleClick);
             // 
@@ -104,23 +81,45 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(140, 59);
+            this.txtBuscar.Location = new System.Drawing.Point(140, 65);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(268, 13);
             this.txtBuscar.TabIndex = 55;
             // 
             // pctBuscar
             // 
-            this.pctBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(135, 50);
+            this.pctBuscar.Location = new System.Drawing.Point(135, 56);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pctBuscar.TabIndex = 56;
             this.pctBuscar.TabStop = false;
+            // 
+            // lblPedidos
+            // 
+            this.lblPedidos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPedidos.AutoSize = true;
+            this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
+            this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPedidos.ForeColor = System.Drawing.Color.White;
+            this.lblPedidos.Location = new System.Drawing.Point(381, 0);
+            this.lblPedidos.Name = "lblPedidos";
+            this.lblPedidos.Size = new System.Drawing.Size(328, 38);
+            this.lblPedidos.TabIndex = 5;
+            this.lblPedidos.Text = "Gestion de Reportes";
+            this.lblPedidos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pnListaProductos
+            // 
+            this.pnListaProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.pnListaProductos.Controls.Add(this.lblPedidos);
+            this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
+            this.pnListaProductos.Name = "pnListaProductos";
+            this.pnListaProductos.Size = new System.Drawing.Size(1034, 45);
+            this.pnListaProductos.TabIndex = 54;
             // 
             // FrmReporte
             // 
@@ -137,22 +136,21 @@
             this.Text = "FrmReportes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmReporte_FormClosing);
             this.Load += new System.EventHandler(this.FrmReporte_Load);
-            this.pnListaProductos.ResumeLayout(false);
-            this.pnListaProductos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).EndInit();
+            this.pnListaProductos.ResumeLayout(false);
+            this.pnListaProductos.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pnListaProductos;
-        private System.Windows.Forms.Label lblPedidos;
         private System.Windows.Forms.Button btnVerDetalle;
         private System.Windows.Forms.DataGridView dgvReporte;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.PictureBox pctBuscar;
+        private System.Windows.Forms.Label lblPedidos;
+        private System.Windows.Forms.Panel pnListaProductos;
     }
 }

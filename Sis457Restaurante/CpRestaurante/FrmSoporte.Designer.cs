@@ -42,11 +42,11 @@
             // 
             this.lblTotal.AutoSize = true;
             this.lblTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.ForeColor = System.Drawing.Color.Gray;
             this.lblTotal.Location = new System.Drawing.Point(432, 337);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(107, 16);
+            this.lblTotal.Size = new System.Drawing.Size(123, 18);
             this.lblTotal.TabIndex = 29;
             this.lblTotal.Text = "📍 Sucre, Bolivia";
             // 
@@ -54,11 +54,11 @@
             // 
             this.lblPrecioUnitario.AutoSize = true;
             this.lblPrecioUnitario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblPrecioUnitario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioUnitario.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrecioUnitario.ForeColor = System.Drawing.Color.Gray;
             this.lblPrecioUnitario.Location = new System.Drawing.Point(397, 279);
             this.lblPrecioUnitario.Name = "lblPrecioUnitario";
-            this.lblPrecioUnitario.Size = new System.Drawing.Size(180, 16);
+            this.lblPrecioUnitario.Size = new System.Drawing.Size(207, 18);
             this.lblPrecioUnitario.TabIndex = 28;
             this.lblPrecioUnitario.Text = "✉️ soporte@restaurant.com";
             // 
@@ -66,11 +66,11 @@
             // 
             this.lblCantidad.AutoSize = true;
             this.lblCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblCantidad.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantidad.ForeColor = System.Drawing.Color.Gray;
             this.lblCantidad.Location = new System.Drawing.Point(358, 226);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(243, 16);
+            this.lblCantidad.Size = new System.Drawing.Size(278, 18);
             this.lblCantidad.TabIndex = 27;
             this.lblCantidad.Text = "📞 Central de Soporte: +591 75647380";
             // 
@@ -111,7 +111,7 @@
             this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
             this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPedidos.ForeColor = System.Drawing.Color.White;
-            this.lblPedidos.Location = new System.Drawing.Point(3, 0);
+            this.lblPedidos.Location = new System.Drawing.Point(375, 0);
             this.lblPedidos.Name = "lblPedidos";
             this.lblPedidos.Size = new System.Drawing.Size(312, 38);
             this.lblPedidos.TabIndex = 5;

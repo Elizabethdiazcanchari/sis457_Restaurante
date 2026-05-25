@@ -640,19 +640,19 @@
   <metadata name="erpPrecioVenta.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <data name="btnEliminar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAItJREFUSEtj
-        GAW0APuB+D8WDBInC2AzjFRMEGDTRComCsAUC4B5hAFIHUkWgMCAWDIdiM8DcTyYx8AQAcQg/nwwj0qW
-        wFJXPpgHoUF8WOoatQSMRy0hCsA0DD9L1gPxeyBOB/MgNIi/HcyjkiWEwOC15DgQwzSRgkH6SAL3gRib
-        QbgwSP0ooBQwMAAA936ngYbpi/IAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="btnAgregar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAFNJREFUSEvt
         jzEKACEMBPP/5p5l6ZO8DFyZQBQtTnZgsBB21ISo8LjjO4+hyBT/izAS2V0inNE9lmFo1TLRC7G5DG35
         SQYjRLaMZSgyxT0RcQVmL0G+OuhPFg33AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="btnCerrar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        vAAADrwBlbxySQAAAIxJREFUOE+tkjsOgCAQRPdscFhLS0tLj2SJ/JY8IoE18SUkMjsz/pCEc+7MF0ai
+        /9CLy3sf4rqzsKB6QytQYVUAX6hSAYNhAeZ9UIGhK4A+Diow5gLs50GFgU9B5ZdgXabf+Loj9vMCGLtH
+        hT4ugGH4jpj3BRhMPw58pSCdUUtQQcGWhXbIjcTgLiLyAGO6hofqDEKFAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="btnGuardar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -662,6 +662,14 @@
         K74w/awu8hz5giQ9pEs8R+oRITWkCzxH2hGBmYsu8BxZHjklPEDLqpFZyiM7eIX7fhtTGnlD5qLcR0Tv
         6HiFI2Smlc8tzFy8whMy0z6ghZmLV7hAZtoztDBziQrMtCOirLNUuEP56bj125jySIbFd1T/T6i8J6Q6
         JF/nxiyt/QHQwMhGVBnBUwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnEliminar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAItJREFUSEtj
+        GAW0APuB+D8WDBInC2AzjFRMEGDTRComCsAUC4B5hAFIHUkWgMCAWDIdiM8DcTyYx8AQAcQg/nwwj0qW
+        wFJXPpgHoUF8WOoatQSMRy0hCsA0DD9L1gPxeyBOB/MgNIi/HcyjkiWEwOC15DgQwzSRgkH6SAL3gRib
+        QbgwSP0ooBQwMAAA936ngYbpi/IAAAAASUVORK5CYII=
 </value>
   </data>
   <metadata name="erpStock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

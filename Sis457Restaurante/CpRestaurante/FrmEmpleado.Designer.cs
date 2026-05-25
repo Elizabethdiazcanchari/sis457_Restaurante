@@ -35,12 +35,11 @@
             this.btnCerrarAgregar = new System.Windows.Forms.Button();
             this.txtNombres = new System.Windows.Forms.TextBox();
             this.pnlAgregar = new System.Windows.Forms.Panel();
-            this.lblAgregarEmpleados = new System.Windows.Forms.Label();
+            this.btnCerrar = new System.Windows.Forms.Button();
             this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.lblFechaNacimiento = new System.Windows.Forms.Label();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.lblUsuario = new System.Windows.Forms.Label();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.cbxCargo = new System.Windows.Forms.ComboBox();
             this.lblCargo = new System.Windows.Forms.Label();
             this.txtCelular = new System.Windows.Forms.TextBox();
@@ -56,6 +55,8 @@
             this.txtCedulaIdentidad = new System.Windows.Forms.TextBox();
             this.txtPrimerApellido = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.lblAgregarEmpleados = new System.Windows.Forms.Label();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.erpDireccion = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnEditar = new System.Windows.Forms.Button();
             this.dgvEmpleados = new System.Windows.Forms.DataGridView();
@@ -68,7 +69,7 @@
             this.erpNombres = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnAgregar = new System.Windows.Forms.Button();
             this.erpFechaNacimiento = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnCerrar = new System.Windows.Forms.Button();
+            this.erpUsuario = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.pnlAgregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.erpDireccion)).BeginInit();
@@ -80,13 +81,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.erpCargo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpFechaNacimiento)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpUsuario)).BeginInit();
             this.SuspendLayout();
             // 
             // pctBuscar
             // 
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(65, 9);
+            this.pctBuscar.Location = new System.Drawing.Point(645, 69);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -98,11 +100,11 @@
             this.lblEmpleados.AutoSize = true;
             this.lblEmpleados.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmpleados.ForeColor = System.Drawing.Color.White;
-            this.lblEmpleados.Location = new System.Drawing.Point(3, 0);
+            this.lblEmpleados.Location = new System.Drawing.Point(440, 5);
             this.lblEmpleados.Name = "lblEmpleados";
-            this.lblEmpleados.Size = new System.Drawing.Size(315, 38);
+            this.lblEmpleados.Size = new System.Drawing.Size(366, 38);
             this.lblEmpleados.TabIndex = 5;
-            this.lblEmpleados.Text = "Lista de Empleados";
+            this.lblEmpleados.Text = "Gestion de Empleados";
             // 
             // btnCerrarAgregar
             // 
@@ -135,12 +137,10 @@
             this.pnlAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnlAgregar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlAgregar.Controls.Add(this.btnCerrar);
-            this.pnlAgregar.Controls.Add(this.lblAgregarEmpleados);
             this.pnlAgregar.Controls.Add(this.dtpFechaNacimiento);
             this.pnlAgregar.Controls.Add(this.lblFechaNacimiento);
             this.pnlAgregar.Controls.Add(this.txtUsuario);
             this.pnlAgregar.Controls.Add(this.lblUsuario);
-            this.pnlAgregar.Controls.Add(this.txtBuscar);
             this.pnlAgregar.Controls.Add(this.cbxCargo);
             this.pnlAgregar.Controls.Add(this.lblCargo);
             this.pnlAgregar.Controls.Add(this.txtCelular);
@@ -158,24 +158,28 @@
             this.pnlAgregar.Controls.Add(this.txtNombres);
             this.pnlAgregar.Controls.Add(this.txtPrimerApellido);
             this.pnlAgregar.Controls.Add(this.btnGuardar);
-            this.pnlAgregar.Controls.Add(this.pctBuscar);
-            this.pnlAgregar.Location = new System.Drawing.Point(319, 51);
+            this.pnlAgregar.Controls.Add(this.lblAgregarEmpleados);
+            this.pnlAgregar.Location = new System.Drawing.Point(324, 92);
             this.pnlAgregar.Name = "pnlAgregar";
-            this.pnlAgregar.Size = new System.Drawing.Size(427, 523);
+            this.pnlAgregar.Size = new System.Drawing.Size(427, 477);
             this.pnlAgregar.TabIndex = 37;
             // 
-            // lblAgregarEmpleados
+            // btnCerrar
             // 
-            this.lblAgregarEmpleados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.lblAgregarEmpleados.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblAgregarEmpleados.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAgregarEmpleados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(115)))), ((int)(((byte)(22)))));
-            this.lblAgregarEmpleados.Location = new System.Drawing.Point(0, 0);
-            this.lblAgregarEmpleados.Name = "lblAgregarEmpleados";
-            this.lblAgregarEmpleados.Size = new System.Drawing.Size(425, 76);
-            this.lblAgregarEmpleados.TabIndex = 30;
-            this.lblAgregarEmpleados.Text = "AGREGAR EMPLEADOS";
-            this.lblAgregarEmpleados.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCerrar.BackColor = System.Drawing.Color.Transparent;
+            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCerrar.FlatAppearance.BorderSize = 0;
+            this.btnCerrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
+            this.btnCerrar.Location = new System.Drawing.Point(388, 9);
+            this.btnCerrar.Margin = new System.Windows.Forms.Padding(0);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(29, 33);
+            this.btnCerrar.TabIndex = 45;
+            this.btnCerrar.UseVisualStyleBackColor = false;
+            this.btnCerrar.Click += new System.EventHandler(this.button1_Click);
             // 
             // dtpFechaNacimiento
             // 
@@ -198,7 +202,7 @@
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(190, 344);
+            this.txtUsuario.Location = new System.Drawing.Point(190, 339);
             this.txtUsuario.MaxLength = 50;
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(208, 20);
@@ -210,21 +214,11 @@
             this.lblUsuario.BackColor = System.Drawing.Color.Transparent;
             this.lblUsuario.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
-            this.lblUsuario.Location = new System.Drawing.Point(117, 344);
+            this.lblUsuario.Location = new System.Drawing.Point(117, 339);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(66, 18);
             this.lblUsuario.TabIndex = 41;
             this.lblUsuario.Text = "Usuario:";
-            // 
-            // txtBuscar
-            // 
-            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(78, 19);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(268, 13);
-            this.txtBuscar.TabIndex = 38;
-            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // cbxCargo
             // 
@@ -275,11 +269,11 @@
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(190, 376);
+            this.txtDireccion.Location = new System.Drawing.Point(190, 372);
             this.txtDireccion.MaxLength = 250;
             this.txtDireccion.Multiline = true;
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(208, 64);
+            this.txtDireccion.Size = new System.Drawing.Size(208, 41);
             this.txtDireccion.TabIndex = 36;
             // 
             // txtSegundoApellido
@@ -292,15 +286,15 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.BackColor = System.Drawing.Color.Maroon;
+            this.btnCancelar.BackColor = System.Drawing.Color.Tomato;
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold);
-            this.btnCancelar.ForeColor = System.Drawing.Color.White;
+            this.btnCancelar.ForeColor = System.Drawing.Color.Black;
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(236, 463);
+            this.btnCancelar.Location = new System.Drawing.Point(239, 427);
             this.btnCancelar.Margin = new System.Windows.Forms.Padding(0);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(120, 39);
@@ -316,7 +310,7 @@
             this.lblDireccion.BackColor = System.Drawing.Color.Transparent;
             this.lblDireccion.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(163)))), ((int)(((byte)(184)))));
-            this.lblDireccion.Location = new System.Drawing.Point(100, 381);
+            this.lblDireccion.Location = new System.Drawing.Point(100, 377);
             this.lblDireccion.Name = "lblDireccion";
             this.lblDireccion.Size = new System.Drawing.Size(85, 18);
             this.lblDireccion.TabIndex = 28;
@@ -389,15 +383,15 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnGuardar.BackColor = System.Drawing.Color.YellowGreen;
             this.btnGuardar.FlatAppearance.BorderSize = 0;
             this.btnGuardar.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardar.ForeColor = System.Drawing.Color.White;
+            this.btnGuardar.ForeColor = System.Drawing.Color.Black;
             this.btnGuardar.Image = ((System.Drawing.Image)(resources.GetObject("btnGuardar.Image")));
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(90, 463);
+            this.btnGuardar.Location = new System.Drawing.Point(93, 427);
             this.btnGuardar.Margin = new System.Windows.Forms.Padding(0);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(120, 39);
@@ -406,6 +400,29 @@
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
+            // lblAgregarEmpleados
+            // 
+            this.lblAgregarEmpleados.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.lblAgregarEmpleados.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblAgregarEmpleados.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgregarEmpleados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(115)))), ((int)(((byte)(22)))));
+            this.lblAgregarEmpleados.Location = new System.Drawing.Point(0, 0);
+            this.lblAgregarEmpleados.Name = "lblAgregarEmpleados";
+            this.lblAgregarEmpleados.Size = new System.Drawing.Size(425, 76);
+            this.lblAgregarEmpleados.TabIndex = 30;
+            this.lblAgregarEmpleados.Text = "AGREGAR/EDITAR EMPLEADOS";
+            this.lblAgregarEmpleados.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
+            this.txtBuscar.Location = new System.Drawing.Point(649, 77);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(268, 13);
+            this.txtBuscar.TabIndex = 38;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // erpDireccion
             // 
@@ -445,7 +462,7 @@
             this.dgvEmpleados.ReadOnly = true;
             this.dgvEmpleados.RowHeadersWidth = 51;
             this.dgvEmpleados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEmpleados.Size = new System.Drawing.Size(1028, 455);
+            this.dgvEmpleados.Size = new System.Drawing.Size(1014, 455);
             this.dgvEmpleados.TabIndex = 36;
             // 
             // pnListaEmpleados
@@ -521,34 +538,23 @@
             // 
             this.erpFechaNacimiento.ContainerControl = this;
             // 
-            // btnCerrar
+            // erpUsuario
             // 
-            this.btnCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCerrar.BackColor = System.Drawing.Color.Transparent;
-            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCerrar.FlatAppearance.BorderSize = 0;
-            this.btnCerrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(251)))), ((int)(((byte)(75)))), ((int)(((byte)(75)))));
-            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(388, 9);
-            this.btnCerrar.Margin = new System.Windows.Forms.Padding(0);
-            this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(29, 33);
-            this.btnCerrar.TabIndex = 45;
-            this.btnCerrar.UseVisualStyleBackColor = false;
-            this.btnCerrar.Click += new System.EventHandler(this.button1_Click);
+            this.erpUsuario.ContainerControl = this;
             // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.ClientSize = new System.Drawing.Size(1034, 578);
             this.Controls.Add(this.pnlAgregar);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.pnListaEmpleados);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnAgregar);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.dgvEmpleados);
+            this.Controls.Add(this.pctBuscar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmEmpleado";
             this.Text = "FrmEmpleado";
@@ -567,7 +573,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.erpCargo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpFechaNacimiento)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpUsuario)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -612,5 +620,6 @@
         private System.Windows.Forms.Label lblFechaNacimiento;
         private System.Windows.Forms.ErrorProvider erpFechaNacimiento;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.ErrorProvider erpUsuario;
     }
 }
