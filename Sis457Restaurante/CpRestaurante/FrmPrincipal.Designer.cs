@@ -48,6 +48,8 @@
             this.btnEmpleados = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
             this.pnContenedor = new System.Windows.Forms.Panel();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -58,12 +60,11 @@
             this.lblReloj = new System.Windows.Forms.Label();
             this.picBanner = new System.Windows.Forms.PictureBox();
             this.paBarraTitulo = new System.Windows.Forms.Panel();
-            this.btnMaximizar = new System.Windows.Forms.Button();
-            this.btnRestaurar = new System.Windows.Forms.Button();
             this.btnMinimizar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.btnMaximizar = new System.Windows.Forms.Button();
+            this.btnRestaurar = new System.Windows.Forms.Button();
             this.tmrReloj = new System.Windows.Forms.Timer(this.components);
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.pnContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -311,6 +312,7 @@
             // 
             this.pnContenedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
             this.pnContenedor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pnContenedor.Controls.Add(this.txtUsuario);
             this.pnContenedor.Controls.Add(this.textBox2);
             this.pnContenedor.Controls.Add(this.textBox5);
             this.pnContenedor.Controls.Add(this.textBox4);
@@ -327,6 +329,35 @@
             this.pnContenedor.Name = "pnContenedor";
             this.pnContenedor.Size = new System.Drawing.Size(1083, 601);
             this.pnContenedor.TabIndex = 5;
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.txtUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsuario.ForeColor = System.Drawing.Color.Transparent;
+            this.txtUsuario.Location = new System.Drawing.Point(428, 225);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(150, 39);
+            this.txtUsuario.TabIndex = 15;
+            this.txtUsuario.Text = "xxxxxx";
+            this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.ForeColor = System.Drawing.Color.Transparent;
+            this.textBox2.Location = new System.Drawing.Point(0, 0);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(1083, 50);
+            this.textBox2.TabIndex = 14;
+            this.textBox2.Text = "Panel de Control";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox5
             // 
@@ -409,7 +440,7 @@
             this.textBox1.ForeColor = System.Drawing.Color.Transparent;
             this.textBox1.Location = new System.Drawing.Point(151, 158);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(366, 50);
+            this.textBox1.Size = new System.Drawing.Size(371, 50);
             this.textBox1.TabIndex = 3;
             this.textBox1.Text = "¡Bienbenido al Sistema!";
             // 
@@ -451,37 +482,6 @@
             this.paBarraTitulo.Size = new System.Drawing.Size(1083, 50);
             this.paBarraTitulo.TabIndex = 6;
             // 
-            // btnMaximizar
-            // 
-            this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMaximizar.FlatAppearance.BorderSize = 0;
-            this.btnMaximizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
-            this.btnMaximizar.Location = new System.Drawing.Point(991, 7);
-            this.btnMaximizar.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMaximizar.Name = "btnMaximizar";
-            this.btnMaximizar.Size = new System.Drawing.Size(39, 36);
-            this.btnMaximizar.TabIndex = 8;
-            this.btnMaximizar.UseVisualStyleBackColor = true;
-            this.btnMaximizar.Click += new System.EventHandler(this.btnMaximizar_Click);
-            // 
-            // btnRestaurar
-            // 
-            this.btnRestaurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRestaurar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRestaurar.FlatAppearance.BorderSize = 0;
-            this.btnRestaurar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRestaurar.Image = ((System.Drawing.Image)(resources.GetObject("btnRestaurar.Image")));
-            this.btnRestaurar.Location = new System.Drawing.Point(991, 7);
-            this.btnRestaurar.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRestaurar.Name = "btnRestaurar";
-            this.btnRestaurar.Size = new System.Drawing.Size(39, 36);
-            this.btnRestaurar.TabIndex = 7;
-            this.btnRestaurar.UseVisualStyleBackColor = true;
-            this.btnRestaurar.Visible = false;
-            this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
-            // 
             // btnMinimizar
             // 
             this.btnMinimizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -513,22 +513,40 @@
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // btnMaximizar
+            // 
+            this.btnMaximizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMaximizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMaximizar.FlatAppearance.BorderSize = 0;
+            this.btnMaximizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaximizar.Image = ((System.Drawing.Image)(resources.GetObject("btnMaximizar.Image")));
+            this.btnMaximizar.Location = new System.Drawing.Point(991, 7);
+            this.btnMaximizar.Margin = new System.Windows.Forms.Padding(0);
+            this.btnMaximizar.Name = "btnMaximizar";
+            this.btnMaximizar.Size = new System.Drawing.Size(39, 36);
+            this.btnMaximizar.TabIndex = 8;
+            this.btnMaximizar.UseVisualStyleBackColor = true;
+            this.btnMaximizar.Click += new System.EventHandler(this.btnMaximizar_Click);
+            // 
+            // btnRestaurar
+            // 
+            this.btnRestaurar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRestaurar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRestaurar.FlatAppearance.BorderSize = 0;
+            this.btnRestaurar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestaurar.Image = ((System.Drawing.Image)(resources.GetObject("btnRestaurar.Image")));
+            this.btnRestaurar.Location = new System.Drawing.Point(991, 7);
+            this.btnRestaurar.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRestaurar.Name = "btnRestaurar";
+            this.btnRestaurar.Size = new System.Drawing.Size(39, 36);
+            this.btnRestaurar.TabIndex = 7;
+            this.btnRestaurar.UseVisualStyleBackColor = true;
+            this.btnRestaurar.Visible = false;
+            this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
+            // 
             // tmrReloj
             // 
             this.tmrReloj.Enabled = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.Transparent;
-            this.textBox2.Location = new System.Drawing.Point(0, 0);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(1083, 50);
-            this.textBox2.TabIndex = 14;
-            this.textBox2.Text = "Panel de Control";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // FrmPrincipal
             // 
@@ -591,5 +609,6 @@
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtUsuario;
     }
 }

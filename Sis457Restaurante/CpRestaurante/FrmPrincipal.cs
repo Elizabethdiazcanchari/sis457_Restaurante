@@ -28,6 +28,30 @@ namespace CpRestaurante
 
             pnContenedor.BackColor = Color.FromArgb(241, 245, 249);
             lblReloj.Font = new Font("Segoe UI", 20, FontStyle.Bold);
+
+            this.Load += FrmPrincipal_Load;
+        }
+
+        private void FrmPrincipal_Load(object sender, EventArgs e)
+        {
+            CargarUsuarioActivo();
+        }
+
+        private void CargarUsuarioActivo()
+        {
+            // Validamos que el objeto de sesión global no esté vacío
+            if (Util.usuario != null && !string.IsNullOrEmpty(Util.usuario.usuario1))
+            {
+                // Reemplaza 'lblUsuario' por el Name real del Label que pusiste encima de "XXXXXX"
+                txtUsuario.Text = Util.usuario.usuario1;
+
+                // Tip opcional: Si quieres mostrar el rol al lado o abajo:
+                // lblRol.Text = Util.usuario.rol; 
+            }
+            else
+            {
+                txtUsuario.Text = "INVITADO";
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -74,6 +98,8 @@ namespace CpRestaurante
             // Volvemos a hacer visible el hermoso banner de comida y las tarjetas
             picBanner.Visible = true;
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42); // Mantiene tu color corporativo oscuro
+
+            CargarUsuarioActivo();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -155,6 +181,8 @@ namespace CpRestaurante
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
+            Util.usuario = null;
+
             this.Hide();
             frmAutenticacion.Show();
         }

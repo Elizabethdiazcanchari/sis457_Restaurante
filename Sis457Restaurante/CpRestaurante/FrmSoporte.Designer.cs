@@ -32,21 +32,21 @@
             this.pnListaProductos = new System.Windows.Forms.Panel();
             this.lblPedidos = new System.Windows.Forms.Label();
             this.pnlContacto = new System.Windows.Forms.Panel();
-            this.lblTituloContacto = new System.Windows.Forms.Label();
-            this.lnkTelefono = new System.Windows.Forms.LinkLabel();
-            this.lnkCorreo = new System.Windows.Forms.LinkLabel();
             this.btnWhatsapp = new System.Windows.Forms.Button();
+            this.lnkCorreo = new System.Windows.Forms.LinkLabel();
+            this.lnkTelefono = new System.Windows.Forms.LinkLabel();
+            this.lblTituloContacto = new System.Windows.Forms.Label();
             this.tbcSoporte = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbModulo = new System.Windows.Forms.ComboBox();
+            this.btnEnviarReporte = new System.Windows.Forms.Button();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.cbPrioridad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.btnEnviarReporte = new System.Windows.Forms.Button();
-            this.txtRespuestaFAQ = new System.Windows.Forms.TextBox();
+            this.cbModulo = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lstPreguntas = new System.Windows.Forms.ListBox();
+            this.txtRespuestaFAQ = new System.Windows.Forms.TextBox();
             this.pnListaProductos.SuspendLayout();
             this.pnlContacto.SuspendLayout();
             this.tbcSoporte.SuspendLayout();
@@ -60,7 +60,7 @@
             this.lblTotal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.lblTotal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
-            this.lblTotal.Location = new System.Drawing.Point(38, 179);
+            this.lblTotal.Location = new System.Drawing.Point(39, 135);
             this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(119, 20);
@@ -84,7 +84,7 @@
             this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
             this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPedidos.ForeColor = System.Drawing.Color.White;
-            this.lblPedidos.Location = new System.Drawing.Point(358, 0);
+            this.lblPedidos.Location = new System.Drawing.Point(363, 9);
             this.lblPedidos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPedidos.Name = "lblPedidos";
             this.lblPedidos.Size = new System.Drawing.Size(441, 38);
@@ -101,33 +101,22 @@
             this.pnlContacto.Controls.Add(this.lblTituloContacto);
             this.pnlContacto.Location = new System.Drawing.Point(26, 84);
             this.pnlContacto.Name = "pnlContacto";
-            this.pnlContacto.Size = new System.Drawing.Size(343, 473);
+            this.pnlContacto.Size = new System.Drawing.Size(352, 266);
             this.pnlContacto.TabIndex = 56;
             // 
-            // lblTituloContacto
+            // btnWhatsapp
             // 
-            this.lblTituloContacto.AutoSize = true;
-            this.lblTituloContacto.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblTituloContacto.ForeColor = System.Drawing.Color.White;
-            this.lblTituloContacto.Location = new System.Drawing.Point(45, 27);
-            this.lblTituloContacto.Name = "lblTituloContacto";
-            this.lblTituloContacto.Size = new System.Drawing.Size(154, 20);
-            this.lblTituloContacto.TabIndex = 0;
-            this.lblTituloContacto.Text = "CONTACTO DIRECTO";
-            // 
-            // lnkTelefono
-            // 
-            this.lnkTelefono.ActiveLinkColor = System.Drawing.Color.MediumBlue;
-            this.lnkTelefono.AutoSize = true;
-            this.lnkTelefono.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkTelefono.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
-            this.lnkTelefono.Location = new System.Drawing.Point(37, 113);
-            this.lnkTelefono.Name = "lnkTelefono";
-            this.lnkTelefono.Size = new System.Drawing.Size(206, 20);
-            this.lnkTelefono.TabIndex = 1;
-            this.lnkTelefono.TabStop = true;
-            this.lnkTelefono.Text = "📞 Central: +591 75647380";
-            this.lnkTelefono.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTelefono_LinkClicked);
+            this.btnWhatsapp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(185)))), ((int)(((byte)(129)))));
+            this.btnWhatsapp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnWhatsapp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWhatsapp.ForeColor = System.Drawing.Color.White;
+            this.btnWhatsapp.Location = new System.Drawing.Point(134, 204);
+            this.btnWhatsapp.Name = "btnWhatsapp";
+            this.btnWhatsapp.Size = new System.Drawing.Size(174, 30);
+            this.btnWhatsapp.TabIndex = 30;
+            this.btnWhatsapp.Text = "SOPORTE POR WHATSAPP";
+            this.btnWhatsapp.UseVisualStyleBackColor = false;
+            this.btnWhatsapp.Click += new System.EventHandler(this.btnWhatsapp_Click);
             // 
             // lnkCorreo
             // 
@@ -136,7 +125,7 @@
             this.lnkCorreo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lnkCorreo.ForeColor = System.Drawing.Color.Gray;
             this.lnkCorreo.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
-            this.lnkCorreo.Location = new System.Drawing.Point(38, 144);
+            this.lnkCorreo.Location = new System.Drawing.Point(39, 100);
             this.lnkCorreo.Name = "lnkCorreo";
             this.lnkCorreo.Size = new System.Drawing.Size(210, 20);
             this.lnkCorreo.TabIndex = 2;
@@ -144,19 +133,30 @@
             this.lnkCorreo.Text = "✉ soporte@restaurant.com";
             this.lnkCorreo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkCorreo_LinkClicked);
             // 
-            // btnWhatsapp
+            // lnkTelefono
             // 
-            this.btnWhatsapp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(185)))), ((int)(((byte)(129)))));
-            this.btnWhatsapp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWhatsapp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWhatsapp.ForeColor = System.Drawing.Color.White;
-            this.btnWhatsapp.Location = new System.Drawing.Point(106, 226);
-            this.btnWhatsapp.Name = "btnWhatsapp";
-            this.btnWhatsapp.Size = new System.Drawing.Size(164, 23);
-            this.btnWhatsapp.TabIndex = 30;
-            this.btnWhatsapp.Text = "SOPORTE POR WHATSAPP";
-            this.btnWhatsapp.UseVisualStyleBackColor = false;
-            this.btnWhatsapp.Click += new System.EventHandler(this.btnWhatsapp_Click);
+            this.lnkTelefono.ActiveLinkColor = System.Drawing.Color.MediumBlue;
+            this.lnkTelefono.AutoSize = true;
+            this.lnkTelefono.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lnkTelefono.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
+            this.lnkTelefono.Location = new System.Drawing.Point(38, 69);
+            this.lnkTelefono.Name = "lnkTelefono";
+            this.lnkTelefono.Size = new System.Drawing.Size(206, 20);
+            this.lnkTelefono.TabIndex = 1;
+            this.lnkTelefono.TabStop = true;
+            this.lnkTelefono.Text = "📞 Central: +591 75647380";
+            this.lnkTelefono.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTelefono_LinkClicked);
+            // 
+            // lblTituloContacto
+            // 
+            this.lblTituloContacto.AutoSize = true;
+            this.lblTituloContacto.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.lblTituloContacto.ForeColor = System.Drawing.Color.White;
+            this.lblTituloContacto.Location = new System.Drawing.Point(38, 24);
+            this.lblTituloContacto.Name = "lblTituloContacto";
+            this.lblTituloContacto.Size = new System.Drawing.Size(154, 20);
+            this.lblTituloContacto.TabIndex = 0;
+            this.lblTituloContacto.Text = "CONTACTO DIRECTO";
             // 
             // tbcSoporte
             // 
@@ -167,7 +167,7 @@
             this.tbcSoporte.Location = new System.Drawing.Point(396, 84);
             this.tbcSoporte.Name = "tbcSoporte";
             this.tbcSoporte.SelectedIndex = 0;
-            this.tbcSoporte.Size = new System.Drawing.Size(580, 500);
+            this.tbcSoporte.Size = new System.Drawing.Size(580, 306);
             this.tbcSoporte.TabIndex = 57;
             // 
             // tabPage1
@@ -181,59 +181,44 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(572, 472);
+            this.tabPage1.Size = new System.Drawing.Size(572, 278);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "REPORTAR INCIDENCIA";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // btnEnviarReporte
             // 
-            this.tabPage2.Controls.Add(this.lstPreguntas);
-            this.tabPage2.Controls.Add(this.txtRespuestaFAQ);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(572, 472);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "PREGUNTAS FRECUENTES";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.btnEnviarReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(36)))), ((int)(((byte)(56)))));
+            this.btnEnviarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnviarReporte.ForeColor = System.Drawing.Color.White;
+            this.btnEnviarReporte.Location = new System.Drawing.Point(333, 225);
+            this.btnEnviarReporte.Name = "btnEnviarReporte";
+            this.btnEnviarReporte.Size = new System.Drawing.Size(215, 31);
+            this.btnEnviarReporte.TabIndex = 36;
+            this.btnEnviarReporte.Text = "ENVIAR INFORME TÉCNICO";
+            this.btnEnviarReporte.UseVisualStyleBackColor = false;
+            this.btnEnviarReporte.Click += new System.EventHandler(this.btnEnviarReporte_Click);
             // 
-            // label1
+            // txtDescripcion
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
-            this.label1.Location = new System.Drawing.Point(65, 24);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 20);
-            this.label1.TabIndex = 31;
-            this.label1.Text = "MÓDULO AFECTADO";
-            // 
-            // cbModulo
-            // 
-            this.cbModulo.FormattingEnabled = true;
-            this.cbModulo.Items.AddRange(new object[] {
-            "Venta (POS), ",
-            "Productos, ",
-            "Clientes, ",
-            "Reportes"});
-            this.cbModulo.Location = new System.Drawing.Point(62, 63);
-            this.cbModulo.Name = "cbModulo";
-            this.cbModulo.Size = new System.Drawing.Size(159, 23);
-            this.cbModulo.TabIndex = 32;
+            this.txtDescripcion.Location = new System.Drawing.Point(18, 98);
+            this.txtDescripcion.Multiline = true;
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDescripcion.Size = new System.Drawing.Size(530, 105);
+            this.txtDescripcion.TabIndex = 35;
             // 
             // cbPrioridad
             // 
+            this.cbPrioridad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPrioridad.FormattingEnabled = true;
             this.cbPrioridad.Items.AddRange(new object[] {
             "Alta (Bloqueante), ",
             "Media, ",
             "Baja"});
-            this.cbPrioridad.Location = new System.Drawing.Point(360, 63);
+            this.cbPrioridad.Location = new System.Drawing.Point(303, 63);
             this.cbPrioridad.Name = "cbPrioridad";
-            this.cbPrioridad.Size = new System.Drawing.Size(159, 23);
+            this.cbPrioridad.Size = new System.Drawing.Size(245, 23);
             this.cbPrioridad.TabIndex = 34;
             // 
             // label2
@@ -249,37 +234,46 @@
             this.label2.TabIndex = 33;
             this.label2.Text = "PRIORIDAD";
             // 
-            // txtDescripcion
+            // cbModulo
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(18, 98);
-            this.txtDescripcion.Multiline = true;
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescripcion.Size = new System.Drawing.Size(530, 180);
-            this.txtDescripcion.TabIndex = 35;
+            this.cbModulo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbModulo.FormattingEnabled = true;
+            this.cbModulo.Items.AddRange(new object[] {
+            "Venta (POS), ",
+            "Productos,",
+            "Empleados,",
+            "Clientes, ",
+            "Reportes,",
+            "Inicio de sesion"});
+            this.cbModulo.Location = new System.Drawing.Point(18, 63);
+            this.cbModulo.Name = "cbModulo";
+            this.cbModulo.Size = new System.Drawing.Size(279, 23);
+            this.cbModulo.TabIndex = 32;
             // 
-            // btnEnviarReporte
+            // label1
             // 
-            this.btnEnviarReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(36)))), ((int)(((byte)(56)))));
-            this.btnEnviarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEnviarReporte.ForeColor = System.Drawing.Color.White;
-            this.btnEnviarReporte.Location = new System.Drawing.Point(333, 284);
-            this.btnEnviarReporte.Name = "btnEnviarReporte";
-            this.btnEnviarReporte.Size = new System.Drawing.Size(215, 31);
-            this.btnEnviarReporte.TabIndex = 36;
-            this.btnEnviarReporte.Text = "ENVIAR INFORME TÉCNICO";
-            this.btnEnviarReporte.UseVisualStyleBackColor = false;
-            this.btnEnviarReporte.Click += new System.EventHandler(this.btnEnviarReporte_Click);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
+            this.label1.Location = new System.Drawing.Point(70, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(156, 20);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "MÓDULO AFECTADO";
             // 
-            // txtRespuestaFAQ
+            // tabPage2
             // 
-            this.txtRespuestaFAQ.BackColor = System.Drawing.Color.White;
-            this.txtRespuestaFAQ.Location = new System.Drawing.Point(21, 156);
-            this.txtRespuestaFAQ.Multiline = true;
-            this.txtRespuestaFAQ.Name = "txtRespuestaFAQ";
-            this.txtRespuestaFAQ.ReadOnly = true;
-            this.txtRespuestaFAQ.Size = new System.Drawing.Size(530, 200);
-            this.txtRespuestaFAQ.TabIndex = 39;
+            this.tabPage2.Controls.Add(this.lstPreguntas);
+            this.tabPage2.Controls.Add(this.txtRespuestaFAQ);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(572, 278);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "PREGUNTAS FRECUENTES";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // lstPreguntas
             // 
@@ -287,17 +281,23 @@
             this.lstPreguntas.ItemHeight = 15;
             this.lstPreguntas.Items.AddRange(new object[] {
             "1. ¿Qué hacer si la ticketera térmica no imprime?",
-            "",
-            "",
             "2. ¿Cómo corregir un pedido mal registrado?",
-            "",
-            "",
             "3. El sistema no calcula el cambio o vuelto."});
-            this.lstPreguntas.Location = new System.Drawing.Point(21, 6);
+            this.lstPreguntas.Location = new System.Drawing.Point(21, 22);
             this.lstPreguntas.Name = "lstPreguntas";
-            this.lstPreguntas.Size = new System.Drawing.Size(530, 139);
+            this.lstPreguntas.Size = new System.Drawing.Size(530, 49);
             this.lstPreguntas.TabIndex = 40;
             this.lstPreguntas.SelectedIndexChanged += new System.EventHandler(this.LstPreguntas_SelectedIndexChanged);
+            // 
+            // txtRespuestaFAQ
+            // 
+            this.txtRespuestaFAQ.BackColor = System.Drawing.Color.White;
+            this.txtRespuestaFAQ.Location = new System.Drawing.Point(21, 100);
+            this.txtRespuestaFAQ.Multiline = true;
+            this.txtRespuestaFAQ.Name = "txtRespuestaFAQ";
+            this.txtRespuestaFAQ.ReadOnly = true;
+            this.txtRespuestaFAQ.Size = new System.Drawing.Size(530, 158);
+            this.txtRespuestaFAQ.TabIndex = 39;
             // 
             // FrmSoporte
             // 

@@ -21,6 +21,44 @@ namespace CpRestaurante
             InitializeComponent();
             // Asociamos el evento de cambio de selección de las preguntas frecuentes
             lstPreguntas.SelectedIndexChanged += LstPreguntas_SelectedIndexChanged;
+            cbPrioridad.SelectedIndexChanged += CbPrioridad_SelectedIndexChanged; // Evento opcional para cambiar color dinámicamente
+
+            ConfigurarComboBoxes();
+        }
+
+        private void ConfigurarComboBoxes()
+        {
+            // 1. Configuración del ComboBox de Módulo
+            cbModulo.Items.Clear();
+            cbModulo.Items.Add("--- Seleccionar Módulo ---"); // Índice 0
+            cbModulo.Items.Add("Inicio de sesión (Autenticación / Permisos)");
+            cbModulo.Items.Add("Venta (POS / Registro de Pedidos)");
+            cbModulo.Items.Add("Productos (Platos / Categorías / Stock)");
+            cbModulo.Items.Add("Empleados (Roles / Turnos / Personal)");
+            cbModulo.Items.Add("Clientes (Historial / Datos de Facturación)");
+            cbModulo.Items.Add("Reportes (Estadísticas / Cierres de Caja)");
+            cbModulo.SelectedIndex = 0; // Muestra el texto por defecto
+
+            // 2. Configuración del ComboBox de Prioridad
+            cbPrioridad.Items.Clear();
+            cbPrioridad.Items.Add("--- Seleccionar Prioridad ---"); // Índice 0
+            cbPrioridad.Items.Add("Alta (Caja Inoperable / Bloqueante)");
+            cbPrioridad.Items.Add("Media (Falla intermitente en el flujo)");
+            cbPrioridad.Items.Add("Baja (Consulta técnica / Duda general)");
+            cbPrioridad.SelectedIndex = 0; // Fuerza a mostrar el texto por defecto
+        }
+
+        // Evento visual: Cambia el color del texto si seleccionan la prioridad Alta para mantener la estética web
+        private void CbPrioridad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbPrioridad.SelectedIndex == 1) // Alta
+            {
+                cbPrioridad.ForeColor = Color.FromArgb(239, 64, 64); // Rojo
+            }
+            else
+            {
+                cbPrioridad.ForeColor = Color.Black;
+            }
         }
 
         // 1. Interacción para abrir el chat de WhatsApp desde el sistema
@@ -72,18 +110,45 @@ namespace CpRestaurante
             }
         }
 
-        // 5. Simulación de envío del formulario técnico
+        // 5. Envío del formulario técnico con validación de ComboBoxes
         private void btnEnviarReporte_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            // Validación 1: Verificar si seleccionó un módulo válido
+            if (cbModulo.SelectedIndex == 0)
             {
-                MessageBox.Show("Por favor, describa el incidente técnico antes de enviar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, seleccione el módulo afectado por la incidencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbModulo.Focus();
                 return;
             }
 
-            // Aquí conectarías con tu capa lógica ClnRestaurante si deseas guardar el ticket en BD
+            // Validación 2: Verificar si seleccionó una prioridad válida
+            if (cbPrioridad.SelectedIndex == 0)
+            {
+                MessageBox.Show("Por favor, seleccione el nivel de prioridad de la operación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbPrioridad.Focus();
+                return;
+            }
+
+            // Validación 3: Descripción vacía
+            if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
+            {
+                MessageBox.Show("Por favor, describa el incidente técnico antes de enviar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDescripcion.Focus();
+                return;
+            }
+
+            // Captura de datos listos para enviar a ClnRestaurante
+            string moduloAfectado = cbModulo.SelectedItem.ToString();
+            string prioridadTickets = cbPrioridad.SelectedItem.ToString();
+            string descripcionProblema = txtDescripcion.Text.Trim();
+
+            // Lógica de guardado...
             MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte en Sucre con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Limpiar el formulario y regresar a los estados por defecto
             txtDescripcion.Clear();
+            cbModulo.SelectedIndex = 0;
+            cbPrioridad.SelectedIndex = 0;
         }
     }
 }
