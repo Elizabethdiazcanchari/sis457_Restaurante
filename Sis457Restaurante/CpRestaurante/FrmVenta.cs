@@ -31,6 +31,16 @@ namespace CpRestaurante
             dtpFecha.Value = DateTime.Now;
             txtCiNit.ReadOnly = false;
             txtRazonSocial.ReadOnly = false;
+
+            txtCiNit.KeyPress += txtCiNit_KeyPress;
+
+            if (flpCatalogoProductos != null)
+            {
+                ActivarDoubleBuffer(flpCatalogoProductos);
+            }
+
+            txtBuscar.KeyPress += txtBuscar_KeyPress;
+
             txtTotal.ReadOnly = true;
             txtCambio.ReadOnly = true;
 
@@ -117,19 +127,6 @@ namespace CpRestaurante
             };
 
             dgvDetalleVenta.Columns.AddRange(colNombre, colCantidad, colPrecio, colTotal, colEliminar);
-        }
-
-        private void btnBuscarCliente_Click(object sender, EventArgs e)
-        {
-            string nit = txtCiNit.Text.Trim();
-            clienteSeleccionado = ClienteCln.listar().FirstOrDefault(c => c.ciNit == nit);
-            if (clienteSeleccionado != null)
-                txtRazonSocial.Text = clienteSeleccionado.razonSocial;
-            else
-            {
-                txtRazonSocial.Clear();
-                MessageBox.Show("Cliente no encontrado", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void btnAgregarVenta_Click(object sender, EventArgs e)
@@ -258,7 +255,7 @@ namespace CpRestaurante
             var venta = new Venta
             {
                 idCliente = clienteSeleccionado != null ? clienteSeleccionado.id : 0,
-                idEmpleado = Util.usuario.id,
+                idUsuario = Util.usuario.id,
                 usuarioRegistro = Util.usuario.usuario1,
                 fechaRegistro = DateTime.Now,
                 estado = 1
@@ -282,10 +279,13 @@ namespace CpRestaurante
         {
             txtCiNit.Clear();
             txtRazonSocial.Clear();
+            txtBuscar.Clear();
             detalles.Clear();
             RefrescarDetalle();
             txtEfectivo.Clear();
             txtCambio.Clear();
+
+            txtCiNit.Focus();
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
@@ -295,7 +295,7 @@ namespace CpRestaurante
             ConstruirCatalogoProductos();
         }
 
-        private void ConstruirCatalogoProductos()
+        private void ConstruirCatalogoProductos(string filtro = "")
         {
             if (flpCatalogoProductos == null) return;
 
@@ -317,6 +317,15 @@ namespace CpRestaurante
                         .Where(x => x != null && x.estado != -1)
                         .ToList();
                 }
+            }
+
+            //Buscar por nombre del producto (si se ingresó un filtro)
+            if (productos != null && !string.IsNullOrWhiteSpace(filtro))
+            {
+                filtro = filtro.ToLower().Trim();
+                productos = productos
+                    .Where(p => p.nombre != null && p.nombre.ToLower().Contains(filtro))
+                    .ToList();
             }
 
             if (productos != null && productos.Count > 0)
@@ -345,10 +354,18 @@ namespace CpRestaurante
 
         private Control CrearCardProducto(Producto p)
         {
+            // Cálculo dinámico para asegurar 3 columnas exactas <<
+            int columnas = 3;
+            int margenTotalPanel = 25; // Espacio para el scrollbar vertical y holguras del FlowLayoutPanel
+            int margenEntreCards = 16; // Padding (8 a la izquierda + 8 a la derecha)
+
+            // Calculamos el ancho de cada tarjeta restando los espacios muertos
+            int anchoCard = (flpCatalogoProductos.Width - margenTotalPanel) / columnas - margenEntreCards;
+
             // --- TARJETA DE PRODUCTO ESTILIZADA ---
             var panel = new Panel
             {
-                Width = 165,
+                Width = anchoCard, // Ahora es dinámico
                 Height = 235,
                 BackColor = Color.White, // Fondo limpio para la card
                 Margin = new Padding(8),
@@ -358,7 +375,7 @@ namespace CpRestaurante
 
             var pb = new PictureBox
             {
-                Width = 145,
+                Width = anchoCard - 20, // 10 píxeles de margen a cada lado
                 Height = 110,
                 Location = new Point(10, 10),
                 SizeMode = PictureBoxSizeMode.Zoom,
@@ -370,7 +387,7 @@ namespace CpRestaurante
             {
                 Text = p.nombre,
                 Location = new Point(10, 128),
-                Width = 145,
+                Width = anchoCard - 20,
                 Height = 32, // Altura suficiente para dos líneas de texto
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
                 ForeColor = Color.FromArgb(31, 41, 55),
@@ -381,7 +398,7 @@ namespace CpRestaurante
             {
                 Text = $"Stock: {p.stock:0.00}",
                 Location = new Point(10, 162),
-                Width = 145,
+                Width = anchoCard - 20,
                 Font = new Font("Segoe UI", 8),
                 ForeColor = Color.FromArgb(107, 114, 128),
                 AutoSize = false
@@ -403,7 +420,7 @@ namespace CpRestaurante
             var btnAgregar = new Button
             {
                 Text = "Agregar",
-                Width = 83,
+                Width = anchoCard - 82, // Se estira dinámicamente según el tamaño de la tarjeta
                 Height = 28,
                 Location = new Point(72, 186),
                 BackColor = Color.FromArgb(37, 99, 235), // Azul moderno
@@ -432,7 +449,10 @@ namespace CpRestaurante
                 var baseDir = Path.Combine(Application.StartupPath, "ImagesProductos");
                 string[] extensiones = { ".jpg", ".png", ".jpeg" };
 
-                // 1) Buscar por ID (recomendado)
+                // Validar que la carpeta de imágenes exista, si no, crearla
+                if (!Directory.Exists(baseDir)) Directory.CreateDirectory(baseDir);
+
+                // 1) Buscar por ID 
                 string ruta = extensiones
                     .Select(ext => Path.Combine(baseDir, p.id.ToString() + ext))
                     .FirstOrDefault(File.Exists);
@@ -442,6 +462,14 @@ namespace CpRestaurante
                 {
                     ruta = extensiones
                         .Select(ext => Path.Combine(baseDir, p.codigo + ext))
+                        .FirstOrDefault(File.Exists);
+                }
+
+                // 3) Si no se encontró ninguna, buscar la imagen por defecto
+                if (ruta == null)
+                {
+                    ruta = extensiones
+                        .Select(ext => Path.Combine(baseDir, "default" + ext))
                         .FirstOrDefault(File.Exists);
                 }
 
@@ -528,6 +556,76 @@ namespace CpRestaurante
             }
 
             RefrescarDetalle();
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Elimina el sonido 'beep' molesto de Windows
+                string criterio = txtBuscar.Text;
+                ConstruirCatalogoProductos(criterio);
+            }
+        }
+
+        private void txtCiNit_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true; // Evita el sonido de alerta por defecto de Windows
+                BuscarClientePorNitCi();
+            }
+        }
+
+        private void BuscarClientePorNitCi()
+        {
+            string ciNit = txtCiNit.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(ciNit))
+            {
+                MessageBox.Show("Por favor, ingrese un CI o NIT para buscar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Aquí lo filtramos usando Linq desde el listado general:
+                var cliente = ClienteCln.listar()
+                    .FirstOrDefault(c => c.ciNit == ciNit && c.estado != -1);
+
+                if (cliente != null)
+                {
+                    clienteSeleccionado = cliente;
+                    txtRazonSocial.Text = cliente.razonSocial;
+
+                    // Opcional: Enfocar directamente el catálogo o el efectivo si el cliente ya existe
+                    txtEfectivo.Focus();
+                }
+                else
+                {
+                    // lo detecte correctamente como cliente provisional / nuevo.
+                    clienteSeleccionado = null;
+                    txtRazonSocial.Clear();
+
+                    MessageBox.Show("Cliente no encontrado. Proceda a registrar la Razón Social de forma manual.",
+                                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txtRazonSocial.Focus();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al buscar el cliente: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ActivarDoubleBuffer(Control control)
+        {
+            System.Reflection.PropertyInfo property = typeof(Control).GetProperty(
+                "DoubleBuffered",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
+            );
+            property?.SetValue(control, true, null);
         }
     }
 }

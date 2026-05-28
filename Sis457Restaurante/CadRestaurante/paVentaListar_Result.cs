@@ -16,7 +16,7 @@ namespace CadRestaurante
         public long id { get; set; }
         public string numeroTransaccion { get; set; }
         public string cliente { get; set; }
-        public string empleado { get; set; }
+        public string Usuario { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
         public short estado { get; set; }

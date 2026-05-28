@@ -91,7 +91,7 @@
           </Key>
           <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idCliente" Type="int" Nullable="false" />
-          <Property Name="idEmpleado" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="numeroTransaccion" Type="varchar" MaxLength="14" StoreGeneratedPattern="Computed" />
           <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
@@ -157,15 +157,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Venta_Empleado">
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+        <Association Name="fk_Venta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empleado">
+            <Principal Role="Usuario">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Venta">
-              <PropertyRef Name="idEmpleado" />
+              <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -218,8 +218,8 @@
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
-          <AssociationSet Name="fk_Venta_Empleado" Association="Self.fk_Venta_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
+          <AssociationSet Name="fk_Venta_Usuario" Association="Self.fk_Venta_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
         </EntityContainer>
@@ -284,7 +284,6 @@
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.fk_Usuario_Empleado" FromRole="Empleado" ToRole="Usuario" />
-          <NavigationProperty Name="Venta" Relationship="Self.fk_Venta_Empleado" FromRole="Empleado" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -316,6 +315,7 @@
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Empleado" Relationship="Self.fk_Usuario_Empleado" FromRole="Usuario" ToRole="Empleado" />
+          <NavigationProperty Name="Venta" Relationship="Self.fk_Venta_Usuario" FromRole="Usuario" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Venta">
           <Key>
@@ -323,14 +323,14 @@
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idCliente" Type="Int32" Nullable="false" />
-          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <Property Name="numeroTransaccion" Type="String" MaxLength="14" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="Self.fk_Venta_Cliente" FromRole="Venta" ToRole="Cliente" />
           <NavigationProperty Name="DetalleVenta" Relationship="Self.fk_DetalleVenta_Venta" FromRole="Venta" ToRole="DetalleVenta" />
-          <NavigationProperty Name="Empleado" Relationship="Self.fk_Venta_Empleado" FromRole="Venta" ToRole="Empleado" />
+          <NavigationProperty Name="Usuario" Relationship="Self.fk_Venta_Usuario" FromRole="Venta" ToRole="Usuario" />
         </EntityType>
         <Association Name="fk_Producto_Categoria">
           <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
@@ -392,15 +392,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Venta_Empleado">
-          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+        <Association Name="fk_Venta_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Empleado">
+            <Principal Role="Usuario">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Venta">
-              <PropertyRef Name="idEmpleado" />
+              <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -432,8 +432,8 @@
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-          <AssociationSet Name="fk_Venta_Empleado" Association="Self.fk_Venta_Empleado">
-            <End Role="Empleado" EntitySet="Empleado" />
+          <AssociationSet Name="fk_Venta_Usuario" Association="Self.fk_Venta_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
           <FunctionImport Name="paCategoriaListar" ReturnType="Collection(LabRestauranteModel.paCategoriaListar_Result)">
@@ -528,7 +528,7 @@
           <Property Type="Int64" Name="id" Nullable="false" />
           <Property Type="String" Name="numeroTransaccion" Nullable="true" MaxLength="14" />
           <Property Type="String" Name="cliente" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="empleado" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="Usuario" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
@@ -630,7 +630,7 @@
               <MappingFragment StoreEntitySet="Venta">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idCliente" ColumnName="idCliente" />
-                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="numeroTransaccion" ColumnName="numeroTransaccion" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
@@ -734,7 +734,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="numeroTransaccion" ColumnName="numeroTransaccion" />
                 <ScalarProperty Name="cliente" ColumnName="cliente" />
-                <ScalarProperty Name="empleado" ColumnName="empleado" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />

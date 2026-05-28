@@ -65,6 +65,9 @@
             // 
             this.dgvReporte.AllowUserToAddRows = false;
             this.dgvReporte.AllowUserToDeleteRows = false;
+            this.dgvReporte.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvReporte.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReporte.BackgroundColor = System.Drawing.Color.SlateGray;
             this.dgvReporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -116,6 +119,7 @@
             // 
             this.pnListaProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
             this.pnListaProductos.Controls.Add(this.lblPedidos);
+            this.pnListaProductos.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnListaProductos.Location = new System.Drawing.Point(0, 0);
             this.pnListaProductos.Name = "pnListaProductos";
             this.pnListaProductos.Size = new System.Drawing.Size(1034, 45);

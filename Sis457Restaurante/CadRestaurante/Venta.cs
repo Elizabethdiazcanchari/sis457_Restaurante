@@ -22,7 +22,7 @@ namespace CadRestaurante
     
         public long id { get; set; }
         public int idCliente { get; set; }
-        public int idEmpleado { get; set; }
+        public int idUsuario { get; set; }
         public string numeroTransaccion { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
@@ -31,6 +31,6 @@ namespace CadRestaurante
         public virtual Cliente Cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleVenta> DetalleVenta { get; set; }
-        public virtual Empleado Empleado { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

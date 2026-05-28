@@ -53,7 +53,7 @@ namespace CpRestaurante
                 HeaderText = "Cantidad",
                 DataPropertyName = "cantidad",
                 Width = 80,
-                DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+                DefaultCellStyle = { Format = "0", Alignment = DataGridViewContentAlignment.MiddleCenter }
             };
 
             var colPrecio = new DataGridViewTextBoxColumn
@@ -109,7 +109,7 @@ namespace CpRestaurante
                 return new
                 {
                     nombreProducto = nombre,  // Corregido
-                    cantidad = d.cantidad,      // Corregido
+                    cantidad = (int)d.cantidad,      // Corregido
                     precioUnitario = d.precioUnitario, // Corregido
                     total = d.total             // Corregido
                 };

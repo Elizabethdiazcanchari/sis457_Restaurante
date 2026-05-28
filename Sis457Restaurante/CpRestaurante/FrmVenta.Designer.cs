@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmVenta));
             this.dgvDetalleVenta = new System.Windows.Forms.DataGridView();
             this.flpCatalogoProductos = new System.Windows.Forms.FlowLayoutPanel();
             this.gbxCliente = new System.Windows.Forms.GroupBox();
@@ -49,10 +50,14 @@
             this.lblVentas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
+            this.pctBuscar = new System.Windows.Forms.PictureBox();
+            this.lblBuscar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleVenta)).BeginInit();
             this.gbxCliente.SuspendLayout();
             this.pnListaProductos.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvDetalleVenta
@@ -71,13 +76,13 @@
             // 
             // flpCatalogoProductos
             // 
+            this.flpCatalogoProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.flpCatalogoProductos.AutoScroll = true;
             this.flpCatalogoProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
-            this.flpCatalogoProductos.Dock = System.Windows.Forms.DockStyle.Right;
-            this.flpCatalogoProductos.Location = new System.Drawing.Point(492, 42);
+            this.flpCatalogoProductos.Location = new System.Drawing.Point(488, 88);
             this.flpCatalogoProductos.Margin = new System.Windows.Forms.Padding(2);
             this.flpCatalogoProductos.Name = "flpCatalogoProductos";
-            this.flpCatalogoProductos.Size = new System.Drawing.Size(542, 519);
+            this.flpCatalogoProductos.Size = new System.Drawing.Size(542, 469);
             this.flpCatalogoProductos.TabIndex = 66;
             // 
             // gbxCliente
@@ -121,6 +126,7 @@
             this.txtCiNit.Size = new System.Drawing.Size(273, 23);
             this.txtCiNit.TabIndex = 6;
             this.txtCiNit.Text = "Ingrese documento...";
+            this.txtCiNit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCiNit_KeyPress);
             // 
             // lblCedulaIdentidad
             // 
@@ -308,13 +314,50 @@
             this.label1.TabIndex = 67;
             this.label1.Text = "Módulo POS";
             // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
+            this.txtBuscar.Location = new System.Drawing.Point(653, 58);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(268, 13);
+            this.txtBuscar.TabIndex = 29;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
+            // 
+            // pctBuscar
+            // 
+            this.pctBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
+            this.pctBuscar.InitialImage = null;
+            this.pctBuscar.Location = new System.Drawing.Point(648, 50);
+            this.pctBuscar.Name = "pctBuscar";
+            this.pctBuscar.Size = new System.Drawing.Size(301, 30);
+            this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pctBuscar.TabIndex = 30;
+            this.pctBuscar.TabStop = false;
+            // 
+            // lblBuscar
+            // 
+            this.lblBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBuscar.AutoSize = true;
+            this.lblBuscar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuscar.Location = new System.Drawing.Point(575, 55);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(64, 19);
+            this.lblBuscar.TabIndex = 68;
+            this.lblBuscar.Text = "Buscar";
+            // 
             // FrmVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
             this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.Controls.Add(this.lblBuscar);
+            this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.pctBuscar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvDetalleVenta);
             this.Controls.Add(this.flpCatalogoProductos);
@@ -335,6 +378,7 @@
             this.pnListaProductos.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,5 +407,8 @@
         private System.Windows.Forms.Label lblVentas;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.PictureBox pctBuscar;
+        private System.Windows.Forms.Label lblBuscar;
     }
 }
