@@ -70,6 +70,7 @@
             this.btnAgregar = new System.Windows.Forms.Button();
             this.erpFechaNacimiento = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpUsuario = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.pnlAgregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.erpDireccion)).BeginInit();
@@ -226,10 +227,7 @@
             this.cbxCargo.FormattingEnabled = true;
             this.cbxCargo.Items.AddRange(new object[] {
             "Administrador",
-            "Cajero",
-            "Cocinero",
-            "Mesero",
-            "Practicante"});
+            "Cajero"});
             this.cbxCargo.Location = new System.Drawing.Point(190, 303);
             this.cbxCargo.Name = "cbxCargo";
             this.cbxCargo.Size = new System.Drawing.Size(208, 21);
@@ -543,6 +541,16 @@
             // 
             this.erpUsuario.ContainerControl = this;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(562, 72);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 25);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Buscar:";
+            // 
             // FrmEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,6 +564,7 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.dgvEmpleados);
             this.Controls.Add(this.pctBuscar);
+            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmEmpleado";
             this.Text = "FrmEmpleado";
@@ -622,5 +631,6 @@
         private System.Windows.Forms.ErrorProvider erpFechaNacimiento;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.ErrorProvider erpUsuario;
+        private System.Windows.Forms.Label label1;
     }
 }

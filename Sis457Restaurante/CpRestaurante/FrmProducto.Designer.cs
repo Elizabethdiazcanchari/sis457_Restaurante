@@ -68,6 +68,7 @@
             this.erpNombre = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlAgregar = new System.Windows.Forms.Panel();
             this.btnCerrar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbImagenProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).BeginInit();
@@ -87,7 +88,7 @@
             // 
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(452, 58);
+            this.pctBuscar.Location = new System.Drawing.Point(510, 58);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -421,7 +422,7 @@
             this.lblProductos.AutoSize = true;
             this.lblProductos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProductos.ForeColor = System.Drawing.Color.White;
-            this.lblProductos.Location = new System.Drawing.Point(458, 6);
+            this.lblProductos.Location = new System.Drawing.Point(381, 4);
             this.lblProductos.Name = "lblProductos";
             this.lblProductos.Size = new System.Drawing.Size(346, 38);
             this.lblProductos.TabIndex = 5;
@@ -431,7 +432,7 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(457, 65);
+            this.txtBuscar.Location = new System.Drawing.Point(515, 65);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(268, 13);
             this.txtBuscar.TabIndex = 26;
@@ -549,12 +550,23 @@
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(427, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 25);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Buscar:";
+            // 
             // FrmProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 600);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAgregarCategoria);
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.pnListaProductos);
@@ -630,6 +642,7 @@
         private System.Windows.Forms.ErrorProvider erpCodigo;
         private System.Windows.Forms.ErrorProvider erpNombre;
         private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -38,10 +38,10 @@
             this.pnListaProductos = new System.Windows.Forms.Panel();
             this.lblVentas = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtCambio = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblAgregar = new System.Windows.Forms.Label();
             this.txtNombreCat = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtCambio = new System.Windows.Forms.TextBox();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.erpNombreCategoria)).BeginInit();
@@ -163,6 +163,33 @@
             this.groupBox1.TabIndex = 58;
             this.groupBox1.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(6, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(316, 18);
+            this.label1.TabIndex = 67;
+            this.label1.Text = "Nombre de la Categoría:";
+            // 
+            // lblAgregar
+            // 
+            this.lblAgregar.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAgregar.ForeColor = System.Drawing.Color.Black;
+            this.lblAgregar.Location = new System.Drawing.Point(6, 16);
+            this.lblAgregar.Name = "lblAgregar";
+            this.lblAgregar.Size = new System.Drawing.Size(316, 18);
+            this.lblAgregar.TabIndex = 66;
+            this.lblAgregar.Text = "AGREGAR/EDITAR CATEGORÍA";
+            // 
+            // txtNombreCat
+            // 
+            this.txtNombreCat.Location = new System.Drawing.Point(6, 63);
+            this.txtNombreCat.Name = "txtNombreCat";
+            this.txtNombreCat.Size = new System.Drawing.Size(316, 23);
+            this.txtNombreCat.TabIndex = 65;
+            // 
             // txtCambio
             // 
             this.txtCambio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -174,33 +201,6 @@
             this.txtCambio.Size = new System.Drawing.Size(101, 16);
             this.txtCambio.TabIndex = 64;
             this.txtCambio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // lblAgregar
-            // 
-            this.lblAgregar.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAgregar.ForeColor = System.Drawing.Color.Black;
-            this.lblAgregar.Location = new System.Drawing.Point(6, 16);
-            this.lblAgregar.Name = "lblAgregar";
-            this.lblAgregar.Size = new System.Drawing.Size(316, 18);
-            this.lblAgregar.TabIndex = 66;
-            this.lblAgregar.Text = "AGREGAR NUEVA CATEGORÍA";
-            // 
-            // txtNombreCat
-            // 
-            this.txtNombreCat.Location = new System.Drawing.Point(6, 63);
-            this.txtNombreCat.Name = "txtNombreCat";
-            this.txtNombreCat.Size = new System.Drawing.Size(316, 23);
-            this.txtNombreCat.TabIndex = 65;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(6, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(316, 18);
-            this.label1.TabIndex = 67;
-            this.label1.Text = "Nombre de la Categoría:";
             // 
             // btnCerrar
             // 

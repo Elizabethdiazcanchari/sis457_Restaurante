@@ -49,6 +49,7 @@
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.erpCiNit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpRazonSocial)).BeginInit();
             this.pnlAgregar.SuspendLayout();
@@ -333,11 +334,22 @@
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(582, 78);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 25);
+            this.label1.TabIndex = 58;
+            this.label1.Text = "Buscar:";
+            // 
             // FrmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pnlAgregar);
             this.Controls.Add(this.dgvClientes);
             this.Controls.Add(this.txtBuscar);
@@ -386,5 +398,6 @@
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.ErrorProvider erpCiNit;
         private System.Windows.Forms.ErrorProvider erpRazonSocial;
+        private System.Windows.Forms.Label label1;
     }
 }

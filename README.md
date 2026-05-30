@@ -95,8 +95,8 @@ Para mantener la consistencia, el rastreo de datos y cumplir con el requisito de
 ---
 
 ## 4. Integrantes del Grupo
-*   **Integrante 1:** Elizabeth Diaz Canchari
-*   **Integrante 2:** Jhoselin Figueroa Colque
+*   **Integrante 1:** Jhoselin Figueroa Colque
+*   **Integrante 2:** Elizabeth Diaz Canchari
 
 **Docente:** Ing. Esnor Noel Enrique Vaca Moreno  
 **Fecha de Exposición:** 01/06/2026

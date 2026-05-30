@@ -35,6 +35,7 @@
             this.pctBuscar = new System.Windows.Forms.PictureBox();
             this.lblPedidos = new System.Windows.Forms.Label();
             this.pnListaProductos = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.pnListaProductos.SuspendLayout();
@@ -84,7 +85,7 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(140, 65);
+            this.txtBuscar.Location = new System.Drawing.Point(161, 65);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(268, 13);
             this.txtBuscar.TabIndex = 55;
@@ -93,7 +94,7 @@
             // 
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(135, 56);
+            this.pctBuscar.Location = new System.Drawing.Point(156, 56);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -125,11 +126,22 @@
             this.pnListaProductos.Size = new System.Drawing.Size(1034, 45);
             this.pnListaProductos.TabIndex = 54;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(73, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 25);
+            this.label1.TabIndex = 57;
+            this.label1.Text = "Buscar:";
+            // 
             // FrmReporte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pnListaProductos);
             this.Controls.Add(this.btnVerDetalle);
             this.Controls.Add(this.dgvReporte);
@@ -156,5 +168,6 @@
         private System.Windows.Forms.PictureBox pctBuscar;
         private System.Windows.Forms.Label lblPedidos;
         private System.Windows.Forms.Panel pnListaProductos;
+        private System.Windows.Forms.Label label1;
     }
 }

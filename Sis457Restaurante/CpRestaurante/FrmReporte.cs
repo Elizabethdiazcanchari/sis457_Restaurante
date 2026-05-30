@@ -38,9 +38,10 @@ namespace CpRestaurante
                 {
                     if (dgvReporte.Columns.Contains("id")) dgvReporte.Columns["id"].Visible = false;
                     if (dgvReporte.Columns.Contains("estado")) dgvReporte.Columns["estado"].Visible = false;
+                    if (dgvReporte.Columns.Contains("usuarioRegistro")) dgvReporte.Columns["usuarioRegistro"].Visible = false;
                     if (dgvReporte.Columns.Contains("numeroTransaccion")) dgvReporte.Columns["numeroTransaccion"].HeaderText = "Nro. Transacción";
                     if (dgvReporte.Columns.Contains("Cliente")) dgvReporte.Columns["Cliente"].HeaderText = "Cliente";
-                    if (dgvReporte.Columns.Contains("Empleado")) dgvReporte.Columns["Empleado"].HeaderText = "Empleado";
+                    if (dgvReporte.Columns.Contains("Usuario")) dgvReporte.Columns["Usuario"].HeaderText = "Empleado";
                     if (dgvReporte.Columns.Contains("fechaRegistro")) dgvReporte.Columns["fechaRegistro"].HeaderText = "Fecha";
                 }
             }
