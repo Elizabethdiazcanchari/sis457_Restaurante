@@ -30,6 +30,7 @@ namespace ClnRestaurante
                     existente.codigo = producto.codigo;
                     existente.nombre = producto.nombre;
                     existente.descripcion = producto.descripcion;
+                    existente.stock = producto.stock;
                     existente.imagenUrl = producto.imagenUrl;
                     existente.precioVenta = producto.precioVenta;
                     existente.usuarioRegistro = producto.usuarioRegistro;
@@ -78,6 +79,28 @@ namespace ClnRestaurante
             using (var context = new LabRestauranteEntities())
             {
                 return context.paProductoListar(parametro.Trim()).ToList();
+            }
+        }
+
+        public static bool existeCodigo(string codigo, int idActual = 0)
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.Producto
+                    .Any(x => x.estado != -1 &&
+                              x.codigo.Trim().ToLower() == codigo.Trim().ToLower() &&
+                              x.id != idActual);
+            }
+        }
+
+        public static bool existeNombre(string nombre, int idActual = 0)
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.Producto
+                    .Any(x => x.estado != -1 &&
+                              x.nombre.Trim().ToLower() == nombre.Trim().ToLower() &&
+                              x.id != idActual);
             }
         }
     }

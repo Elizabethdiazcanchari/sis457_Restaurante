@@ -137,7 +137,7 @@ namespace CpRestaurante
             txtBuscar.Focus();
         }
 
-        private bool validar()
+        private bool validar(int idProductoActual = 0)
         {
             bool esValido = true;
             erpCodigo.SetError(txtCodigo, "");
@@ -152,11 +152,33 @@ namespace CpRestaurante
                 erpCodigo.SetError(txtCodigo, "El campo Código es obligatorio");
                 esValido = false;
             }
+
+            if (!string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                string codigoInsertado = txtCodigo.Text.Trim();
+                if (ProductoCln.existeCodigo(codigoInsertado, idProductoActual))
+                {
+                    erpCodigo.SetError(txtCodigo, "Este código de producto ya se encuentra registrado");
+                    esValido = false;
+                }
+            }
+
             if (string.IsNullOrEmpty(txtNombre.Text))
             {
                 erpNombre.SetError(txtNombre, "El campo Nombre es obligatorio");
                 esValido = false;
             }
+
+            if (!string.IsNullOrEmpty(txtNombre.Text))
+            {
+                string nombreInsertado = txtNombre.Text.Trim();
+                if (ProductoCln.existeNombre(nombreInsertado, idProductoActual))
+                {
+                    erpNombre.SetError(txtNombre, "Este nombre de producto ya se encuentra registrado");
+                    esValido = false;
+                }
+            }
+
             if (string.IsNullOrEmpty(txtDescripcion.Text))
             {
                 erpDescripcion.SetError(txtDescripcion, "El campo Descripción es obligatorio");
@@ -169,7 +191,7 @@ namespace CpRestaurante
                 esValido = false;
             }
 
-            if (nudStock.Value <= 0)
+            if (nudStock.Value < 0)
             {
                 erpStock.SetError(nudStock, "El campo Stock no puede ser menor a 0");
                 esValido = false;
@@ -229,7 +251,14 @@ namespace CpRestaurante
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (validar())
+            int idActual = 0;
+            if (modoEdicion)
+            {
+                int index = dgvProductos.CurrentCell.RowIndex;
+                idActual = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
+            }
+
+            if (validar(idActual))
             {
                 var producto = new Producto();
                 producto.codigo = txtCodigo.Text.Trim();
