@@ -15,9 +15,11 @@ namespace CpRestaurante
 {
     public partial class FrmProducto : Form
     {
+        // Variables de estado globales del formulario
         private bool modoEdicion = false;
+        private int _idProductoEditando = 0;
         private System.Threading.Timer searchTimer;
-        private const int SearchDelay = 500; 
+        private const int SearchDelay = 500;
         private string _rutaImagenSeleccionada = null;
         private bool _quitarImagen = false;
         private string _rutaImagenActual = null;
@@ -33,27 +35,24 @@ namespace CpRestaurante
 
             searchTimer = new System.Threading.Timer(_ =>
             {
-                BeginInvoke((MethodInvoker)delegate
+                if (!this.IsDisposed && this.IsHandleCreated)
                 {
-                    if (!string.IsNullOrWhiteSpace(txtBuscar.Text) || txtBuscar.Text == "")
+                    BeginInvoke((MethodInvoker)delegate
                     {
                         listar();
-                    }
-                });
+                    });
+                }
             }, null, SearchDelay, System.Threading.Timeout.Infinite);
         }
-
         private void FrmProductos_FormClosing(object sender, FormClosingEventArgs e)
         {
             searchTimer?.Dispose();
         }
-
         private void txtBuscar_Enter(object sender, EventArgs e)
         {
             txtBuscar.Text = string.Empty;
             txtBuscar.ForeColor = Color.Black;
         }
-
         private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter) listar();
@@ -65,7 +64,6 @@ namespace CpRestaurante
                 txtBuscar.ForeColor = Color.DimGray;
             }
         }
-
         private void listar()
         {
             var lista = ProductoCln.listarPa(txtBuscar.Text.Trim());
@@ -82,11 +80,11 @@ namespace CpRestaurante
             dgvProductos.Columns["precioVenta"].HeaderText = "Precio de Venta";
             dgvProductos.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
             dgvProductos.Columns["fechaRegistro"].HeaderText = "Fecha Registro";
+
             if (lista.Count > 0) dgvProductos.CurrentCell = dgvProductos.Rows[0].Cells["codigo"];
             btnEditar.Enabled = lista.Count > 0;
             btnEliminar.Enabled = lista.Count > 0;
         }
-
         private void cargarCategorias()
         {
             var categorias = CategoriaCln.listar();
@@ -94,7 +92,6 @@ namespace CpRestaurante
             cbxCategoria.ValueMember = "id";
             cbxCategoria.DisplayMember = "nombre";
         }
-
         private void limpiar()
         {
             txtCodigo.Clear();
@@ -108,6 +105,12 @@ namespace CpRestaurante
             _quitarImagen = false;
             _rutaImagenActual = null;
             LimpiarImagen();
+
+            if (lblImagenInfo != null) lblImagenInfo.Text = "(Sin imagen)";
+
+            // Se reestablecen los estados de edición de forma segura
+            modoEdicion = false;
+            _idProductoEditando = 0;
         }
 
         private void mostrarPanelAgregar()
@@ -122,7 +125,6 @@ namespace CpRestaurante
             btnAgregarCategoria.Enabled = false;
             txtBuscar.Enabled = false;
         }
-
         private void ocultarPanelAgregar()
         {
             pnlAgregar.Visible = false;
@@ -136,7 +138,6 @@ namespace CpRestaurante
 
             txtBuscar.Focus();
         }
-
         private bool validar(int idProductoActual = 0)
         {
             bool esValido = true;
@@ -185,9 +186,9 @@ namespace CpRestaurante
                 esValido = false;
             }
 
-            if (string.IsNullOrEmpty(cbxCategoria.Text))
+            if (cbxCategoria.SelectedIndex == -1)
             {
-                erpDescripcion.SetError(cbxCategoria, "El campo Categoría es obligatorio");
+                erpCategoria.SetError(cbxCategoria, "El campo Categoría es obligatorio");
                 esValido = false;
             }
 
@@ -199,12 +200,11 @@ namespace CpRestaurante
 
             if (nudPrecioVenta.Value <= 0)
             {
-                erpPrecioVenta.SetError(nudPrecioVenta, "El campo Precio de Venta no puede ser menor a 0");
+                erpPrecioVenta.SetError(nudPrecioVenta, "El campo Precio de Venta debe ser mayor a 0");
                 esValido = false;
             }
             return esValido;
         }
-
         private void FrmProductos_Load(object sender, EventArgs e)
         {
             nudStock.DecimalPlaces = 0;
@@ -213,50 +213,47 @@ namespace CpRestaurante
             cargarCategorias();
             listar();
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             modoEdicion = false;
+            _idProductoEditando = 0;
             cargarCategorias();
             limpiar();
             mostrarPanelAgregar();
             txtCodigo.Focus();
         }
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
+            if (dgvProductos.CurrentCell == null) return;
+
             cargarCategorias();
 
             int index = dgvProductos.CurrentCell.RowIndex;
-            int id = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
-            var producto = ProductoCln.obtenerUno(id);
+            // Se resguarda el ID real en la variable global fija antes de que cambie el grid
+            _idProductoEditando = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
+
+            var producto = ProductoCln.obtenerUno(_idProductoEditando);
 
             txtCodigo.Text = producto.codigo;
             txtNombre.Text = producto.nombre;
             txtDescripcion.Text = producto.descripcion;
-
             cbxCategoria.SelectedValue = producto.idCategoria;
-
             nudStock.Value = producto.stock;
             nudPrecioVenta.Value = producto.precioVenta;
 
+            modoEdicion = true;
+
             mostrarPanelAgregar();
             txtCodigo.Focus();
-            modoEdicion = true;
 
             _quitarImagen = false;
             _rutaImagenSeleccionada = null;
             CargarImagenProductoEnPreview(producto);
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            int idActual = 0;
-            if (modoEdicion)
-            {
-                int index = dgvProductos.CurrentCell.RowIndex;
-                idActual = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
-            }
+            // Enviamos el ID recuperado en la edición, o 0 si es un nuevo producto
+            int idActual = modoEdicion ? _idProductoEditando : 0;
 
             if (validar(idActual))
             {
@@ -285,25 +282,24 @@ namespace CpRestaurante
                 }
                 else
                 {
-                    int index = dgvProductos.CurrentCell.RowIndex;
-                    int id = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
-                    var productoExistente = ProductoCln.obtenerUno(id);
-                    productoExistente.codigo = txtCodigo.Text.Trim();
-                    productoExistente.nombre = txtNombre.Text.Trim();
-                    productoExistente.descripcion = txtDescripcion.Text.Trim();
-                    productoExistente.idCategoria = Convert.ToInt32(cbxCategoria.SelectedValue);
-                    productoExistente.stock = Convert.ToInt32(nudStock.Value);
-                    productoExistente.precioVenta = nudPrecioVenta.Value;
+                    var productoExistente = ProductoCln.obtenerUno(_idProductoEditando);
+                    productoExistente.codigo = producto.codigo;
+                    productoExistente.nombre = producto.nombre;
+                    productoExistente.descripcion = producto.descripcion;
+                    productoExistente.idCategoria = producto.idCategoria;
+                    productoExistente.stock = producto.stock;
+                    productoExistente.precioVenta = producto.precioVenta;
                     productoExistente.usuarioRegistro = Util.usuario.usuario1;
+
                     ProductoCln.actualizar(productoExistente);
 
                     if (_quitarImagen)
                     {
-                        EliminarImagenesProducto(id, productoExistente.codigo, baseDir);
+                        EliminarImagenesProducto(_idProductoEditando, productoExistente.codigo, baseDir);
                     }
                     else if (!string.IsNullOrWhiteSpace(_rutaImagenSeleccionada))
                     {
-                        ReemplazarImagenProducto(id, productoExistente.codigo, baseDir, _rutaImagenSeleccionada);
+                        ReemplazarImagenProducto(_idProductoEditando, productoExistente.codigo, baseDir, _rutaImagenSeleccionada);
                     }
                 }
 
@@ -314,24 +310,27 @@ namespace CpRestaurante
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             ocultarPanelAgregar();
+            limpiar();
         }
-
         private void btnCerrarAgregar_Click(object sender, EventArgs e)
         {
             ocultarPanelAgregar();
+            limpiar();
         }
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (dgvProductos.CurrentCell == null) return;
+
             int index = dgvProductos.CurrentCell.RowIndex;
             int id = Convert.ToInt32(dgvProductos.Rows[index].Cells["id"].Value);
             string nombre = dgvProductos.Rows[index].Cells["nombre"].Value.ToString();
+
             DialogResult dialog = MessageBox.Show($"¿Está seguro de eliminar el Producto {nombre}?",
                 "::: Restaurant - Mensaje :::", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (dialog == DialogResult.Yes)
             {
                 ProductoCln.eliminar(id, Util.usuario.usuario1);
@@ -340,12 +339,10 @@ namespace CpRestaurante
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
             new FrmCategoria().ShowDialog();
         }
-
         private void btnSeleccionarImagen_Click(object sender, EventArgs e)
         {
             if (ofdImagen == null) return;
@@ -361,7 +358,6 @@ namespace CpRestaurante
                     lblImagenInfo.Text = Path.GetFileName(_rutaImagenSeleccionada);
             }
         }
-
         private void btnQuitarImagen_Click(object sender, EventArgs e)
         {
             _rutaImagenSeleccionada = null;
@@ -370,7 +366,6 @@ namespace CpRestaurante
             LimpiarImagen();
             if (lblImagenInfo != null) lblImagenInfo.Text = "(Sin imagen)";
         }
-
         private void LimpiarImagen()
         {
             var img = pbImagenProducto.Image;
@@ -412,7 +407,7 @@ namespace CpRestaurante
                         .FirstOrDefault(File.Exists);
                 }
 
-                _rutaImagenActual = ruta; 
+                _rutaImagenActual = ruta;
                 if (ruta != null)
                 {
                     MostrarImagenPreview(ruta);
@@ -430,15 +425,12 @@ namespace CpRestaurante
         {
             if (string.IsNullOrWhiteSpace(rutaNueva) || !File.Exists(rutaNueva)) return;
 
-            // 1) Eliminar existentes (por ID y por código) para evitar duplicados y extensiones sobrantes
             EliminarImagenesProducto(idProducto, codigo, baseDir);
 
-            // 2) Copiar nueva por ID
             string ext = Path.GetExtension(rutaNueva).ToLowerInvariant();
             if (ext != ".jpg" && ext != ".jpeg" && ext != ".png") return;
 
             string destinoId = Path.Combine(baseDir, idProducto + ext);
-            // Evitar copiar archivo sobre sí mismo
             if (!string.Equals(Path.GetFullPath(rutaNueva), Path.GetFullPath(destinoId), StringComparison.OrdinalIgnoreCase))
             {
                 File.Copy(rutaNueva, destinoId, true);
@@ -450,7 +442,6 @@ namespace CpRestaurante
             {
                 string[] exts = { ".jpg", ".jpeg", ".png" };
 
-                // Por ID
                 foreach (var ext in exts)
                 {
                     var path = Path.Combine(baseDir, idProducto + ext);
@@ -460,7 +451,6 @@ namespace CpRestaurante
                     }
                 }
 
-                // Por código (compatibilidad)
                 if (!string.IsNullOrWhiteSpace(codigo))
                 {
                     foreach (var ext in exts)
@@ -475,10 +465,10 @@ namespace CpRestaurante
             }
             catch { }
         }
-
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             ocultarPanelAgregar();
+            limpiar();
         }
     }
 }
