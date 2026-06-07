@@ -13,6 +13,8 @@ namespace ClnRestaurante
         {
             if (venta == null) throw new ArgumentNullException(nameof(venta));
             if (detalles == null) throw new ArgumentNullException(nameof(detalles));
+            if (detalles.Count == 0) throw new InvalidOperationException("No se puede registrar una venta sin detalles.");
+
             using (var context = new LabRestauranteEntities())
             {
                 using (var trx = context.Database.BeginTransaction())
@@ -36,11 +38,17 @@ namespace ClnRestaurante
                             }
                         }
 
-                        // 2) Insertar la venta
-                        context.Venta.Add(venta);
-                        context.SaveChanges(); // Genera el ID de la venta
+                        // Validar campos obligatorios de la infraestructura de tu DB para Venta
+                        if (string.IsNullOrWhiteSpace(venta.tipoPedido))
+                            venta.tipoPedido = "LLEVAR"; // Por defecto si se procesa directo en caja rápida
 
-                        // 3) Agregar detalles y actualizar stock
+                        // 2) Insertar la venta (Cabecera)
+                        context.Venta.Add(venta);
+                        context.SaveChanges(); // Genera el ID de la venta (venta.id)
+
+                        decimal totalVentaCalulado = 0;
+
+                        // 3) Agregar detalles y validar/actualizar stock por código
                         foreach (var det in detalles)
                         {
                             det.idVenta = venta.id;
@@ -52,27 +60,47 @@ namespace ClnRestaurante
                             if (producto == null)
                                 throw new InvalidOperationException($"Producto con id {det.idProducto} no encontrado.");
 
+                            // Validación estricta de Stock
                             if (producto.stock < det.cantidad)
-                                throw new InvalidOperationException($"Stock insuficiente para el producto {producto.nombre} (id {producto.id}).");
+                                throw new InvalidOperationException($"Stock insuficiente para el producto '{producto.nombre}'. Disponible: {producto.stock}, Solicitado: {det.cantidad}");
 
+                            // CONTROL DE STOCK POR C# (Quitar esta línea si decides usar el Trigger AFTER INSERT en SQL Server)
                             producto.stock -= det.cantidad;
+
+                            // Acumulamos el total para el módulo de pagos (cantidad * precioUnitario)
+                            totalVentaCalulado += det.cantidad * det.precioUnitario;
+
                             context.DetalleVenta.Add(det);
                         }
 
+                        // 4) REGISTRO OBLIGATORIO DEL PAGO (Módulo 3.6 de tu DB)
+                        // Como especificas que por ahora solo se paga en efectivo (ID 1)
+                        var pagoEfectivo = new PagoVenta
+                        {
+                            idVenta = venta.id,
+                            idMetodoPago = 1, // 1 = Efectivo según tu requerimiento
+                            monto = totalVentaCalulado,
+                            usuarioRegistro = venta.usuarioRegistro,
+                            fechaRegistro = DateTime.Now,
+                            estado = 1
+                        };
+                        context.PagoVenta.Add(pagoEfectivo);
+
+                        // Guardamos todos los cambios de detalles y del pago
                         context.SaveChanges();
-                        trx.Commit(); // Guarda todo en conjunto de forma segura
+
+                        trx.Commit(); // Consolida la transacción de forma segura
                         return venta.id;
                     }
                     catch
                     {
-                        trx.Rollback(); // Si algo falla, deshace la venta, el stock y el cliente nuevo
+                        trx.Rollback(); // Si algo falla, deshace la venta, el stock, el pago y el cliente nuevo
                         throw;
                     }
                 }
             }
         }
 
-        // Se mantiene el método anterior por compatibilidad con otros formularios
         public static long crearConDetalles(Venta venta, List<DetalleVenta> detalles)
         {
             return crearConDetallesYCliente(venta, detalles, null);

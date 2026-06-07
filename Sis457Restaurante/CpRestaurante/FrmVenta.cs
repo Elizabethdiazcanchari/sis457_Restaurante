@@ -354,32 +354,33 @@ namespace CpRestaurante
 
         private Control CrearCardProducto(Producto p)
         {
-            // Cálculo dinámico para asegurar 3 columnas exactas <<
             int columnas = 3;
-            int margenTotalPanel = 25; // Espacio para el scrollbar vertical y holguras del FlowLayoutPanel
-            int margenEntreCards = 16; // Padding (8 a la izquierda + 8 a la derecha)
+            int margenTotalPanel = 25;
+            int margenEntreCards = 16;
 
-            // Calculamos el ancho de cada tarjeta restando los espacios muertos
             int anchoCard = (flpCatalogoProductos.Width - margenTotalPanel) / columnas - margenEntreCards;
 
-            // --- TARJETA DE PRODUCTO ESTILIZADA ---
+            // Determinar si el producto tiene stock disponible
+            bool tieneStock = p.stock > 0;
+
             var panel = new Panel
             {
-                Width = anchoCard, // Ahora es dinámico
+                Width = anchoCard,
                 Height = 235,
-                BackColor = Color.White, // Fondo limpio para la card
+                // Si no tiene stock, se pinta un fondo gris sutil de "deshabilitado"
+                BackColor = tieneStock ? Color.White : Color.FromArgb(243, 244, 246),
                 Margin = new Padding(8),
-                BorderStyle = BorderStyle.None, // Quitamos el borde tosco antiguo
+                BorderStyle = BorderStyle.None,
                 Tag = p.id
             };
 
             var pb = new PictureBox
             {
-                Width = anchoCard - 20, // 10 píxeles de margen a cada lado
+                Width = anchoCard - 20,
                 Height = 110,
                 Location = new Point(10, 10),
                 SizeMode = PictureBoxSizeMode.Zoom,
-                BackColor = Color.FromArgb(243, 244, 246)
+                BackColor = tieneStock ? Color.FromArgb(243, 244, 246) : Color.FromArgb(229, 231, 235)
             };
             CargarImagenProducto(p, pb);
 
@@ -388,47 +389,65 @@ namespace CpRestaurante
                 Text = p.nombre,
                 Location = new Point(10, 128),
                 Width = anchoCard - 20,
-                Height = 32, // Altura suficiente para dos líneas de texto
+                Height = 32,
                 Font = new Font("Segoe UI", 9, FontStyle.Bold),
-                ForeColor = Color.FromArgb(31, 41, 55),
+                // Texto más claro si está agotado
+                ForeColor = tieneStock ? Color.FromArgb(31, 41, 55) : Color.DarkGray,
                 AutoSize = false
             };
 
             var lblStock = new Label
             {
-                Text = $"Stock: {p.stock:0.00}",
+                Text = tieneStock ? $"Stock: {p.stock:0.00}" : "AGOTADO",
                 Location = new Point(10, 162),
                 Width = anchoCard - 20,
-                Font = new Font("Segoe UI", 8),
-                ForeColor = Color.FromArgb(107, 114, 128),
+                Font = new Font("Segoe UI", 8, FontStyle.Bold),
+                // Rojo si está agotado, gris si tiene stock
+                ForeColor = tieneStock ? Color.FromArgb(107, 114, 128) : Color.FromArgb(239, 68, 68),
                 AutoSize = false
             };
 
-            int maxCantidad = (int)Math.Max(1, Math.Min((double)p.stock, int.MaxValue));
+            int maxCantidad = (int)Math.Max(1, System.Convert.ToDouble(p.stock));
             var nudCantidad = new NumericUpDown
             {
                 Minimum = 1,
-                Maximum = maxCantidad,
+                Maximum = 999,
                 Value = 1,
                 Width = 52,
                 Location = new Point(10, 188),
                 Font = new Font("Segoe UI", 9),
-                Tag = p.id
+                Tag = p.id,
+                Enabled = tieneStock // Deshabilitar control de cantidad si no hay stock
             };
 
-            // Botón "Agregar" rediseñado en Azul Corporativo Acción
+            // Validar mediante evento si el usuario escribe un número fuera de rango manualmente
+            /*nudCantidad.Validating += (s, ev) =>
+            {
+                NumericUpDown currentNud = s as NumericUpDown;
+                if (currentNud != null)
+                {
+                    if (currentNud.Value < currentNud.Minimum || currentNud.Value > currentNud.Maximum)
+                    {
+                        MessageBox.Show($"La cantidad debe estar entre {currentNud.Minimum} y {currentNud.Maximum} (Stock disponible).",
+                                        "Cantidad fuera de rango", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        currentNud.Value = currentNud.Minimum; // Reestablece al mínimo seguro
+                    }
+                }
+            };*/
+
             var btnAgregar = new Button
             {
-                Text = "Agregar",
-                Width = anchoCard - 82, // Se estira dinámicamente según el tamaño de la tarjeta
+                Text = tieneStock ? "Agregar" : "Sin Stock",
+                Width = anchoCard - 82,
                 Height = 28,
                 Location = new Point(72, 186),
-                BackColor = Color.FromArgb(37, 99, 235), // Azul moderno
+                // Si no tiene stock se vuelve gris, si tiene stock usa el azul corporativo
+                BackColor = tieneStock ? Color.FromArgb(37, 99, 235) : Color.FromArgb(156, 163, 175),
                 ForeColor = Color.White,
                 Font = new Font("Segoe UI", 8.5f, FontStyle.Bold),
                 FlatStyle = FlatStyle.Flat,
                 Tag = new Tuple<int, NumericUpDown>(p.id, nudCantidad),
-                Enabled = p.stock > 0
+                Enabled = tieneStock // Bloqueado si el stock es cero
             };
             btnAgregar.FlatAppearance.BorderSize = 0;
             btnAgregar.Click += BtnAgregarProductoCatalogo_Click;
@@ -507,25 +526,59 @@ namespace CpRestaurante
                 var producto = ProductoCln.obtenerUno(idProducto);
                 if (producto == null)
                 {
-                    MessageBox.Show("Producto no encontrado.", "Aviso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cantidad <= 0)
-                {
-                    MessageBox.Show("Cantidad inválida.", "Aviso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                if (cantidad > (int)producto.stock)
-                {
-                    MessageBox.Show("Cantidad supera el stock disponible.", "Aviso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Producto no encontrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+                if (producto.stock <= 0)
+                {
+                    MessageBox.Show("Este producto se encuentra agotado y no puede ser añadido.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 1. Alerta si la cantidad seleccionada en la tarjeta supera el stock físico real
+                if (cantidad > Convert.ToInt32(producto.stock))
+                {
+                    MessageBox.Show($"La cantidad solicitada ({cantidad}) no está disponible.\n" +
+                                    $"El stock actual de '{producto.nombre}' es de {Convert.ToInt32(producto.stock)} unidades.",
+                                    "Cantidad No Disponible", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    nud.Value = Convert.ToInt32(producto.stock);
+
+                    return; 
+                }
+
+                // 2. Alerta considerando lo que ya metió previamente a la tabla (carrito)
+                var existente = detalles.FirstOrDefault(d => d.idProducto == producto.id);
+                if (existente != null)
+                {
+                    double nuevaCantidadAcumulada = (double)existente.cantidad + (double)cantidad;
+                    if (nuevaCantidadAcumulada > (double)producto.stock)
+                    {
+                        int saldoPermitido = Convert.ToInt32(producto.stock) - Convert.ToInt32(existente.cantidad);
+
+                        if (saldoPermitido <= 0)
+                        {
+                            MessageBox.Show($"No puedes agregar más unidades. Ya tienes todas las existencias disponibles ({Convert.ToInt32(existente.cantidad)}) añadidas al carrito.",
+                                            "Stock Agotado en Carrito", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            nud.Value = 1;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Cantidad no disponible. Ya tienes {Convert.ToInt32(existente.cantidad)} unidades en el carrito.\n" +
+                                            $"Solo te quedan {saldoPermitido} unidades permitidas para agregar.",
+                                            "Cantidad No Disponible", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                            nud.Value = saldoPermitido;
+                        }
+
+                        return; 
+                    }
+                }
+
+                // Si pasó ambos filtros limpiecito, recién procesa el agregado real
                 AgregarDetalleProducto(producto, cantidad);
-                nud.Value = 1; // Resetea la cantidad seleccionada a 1 tras agregar con éxito
+                nud.Value = 1; // Resetea el control a 1 para el siguiente pedido limpio
             }
         }
 
@@ -534,13 +587,8 @@ namespace CpRestaurante
             var existente = detalles.FirstOrDefault(d => d.idProducto == producto.id);
             if (existente != null)
             {
+                // Como las validaciones ya se hicieron arriba en el botón "Click", aquí entra directo y seguro
                 double nuevaCantidad = (double)existente.cantidad + (double)cantidad;
-                if (nuevaCantidad > (double)producto.stock)
-                {
-                    MessageBox.Show("La cantidad acumulada excede el stock disponible.", "Aviso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
                 existente.cantidad = (decimal)(double)nuevaCantidad;
                 existente.total = existente.cantidad * existente.precioUnitario;
             }
@@ -626,6 +674,23 @@ namespace CpRestaurante
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
             );
             property?.SetValue(control, true, null);
+        }
+
+        private void btnBuscarCliente_Click(object sender, EventArgs e)
+        {
+            BuscarClientePorNitCi();
+        }
+
+        private void btnRecargarCatalogoProducto_Click(object sender, EventArgs e)
+        {
+            txtBuscar.Clear();
+            ConstruirCatalogoProductos();
+        }
+
+        private void btnBuscarProducto_Click(object sender, EventArgs e)
+        {
+            string criterio = txtBuscar.Text.Trim();
+            ConstruirCatalogoProductos(criterio);
         }
     }
 }

@@ -32,6 +32,7 @@
             this.dgvDetalleVenta = new System.Windows.Forms.DataGridView();
             this.flpCatalogoProductos = new System.Windows.Forms.FlowLayoutPanel();
             this.gbxCliente = new System.Windows.Forms.GroupBox();
+            this.btnBuscarCliente = new System.Windows.Forms.Button();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.lblRazonSocial = new System.Windows.Forms.Label();
             this.txtCiNit = new System.Windows.Forms.TextBox();
@@ -53,6 +54,8 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.pctBuscar = new System.Windows.Forms.PictureBox();
             this.lblBuscar = new System.Windows.Forms.Label();
+            this.btnRecargarCatalogoProducto = new System.Windows.Forms.Button();
+            this.btnBuscarProducto = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetalleVenta)).BeginInit();
             this.gbxCliente.SuspendLayout();
             this.pnListaProductos.SuspendLayout();
@@ -88,6 +91,7 @@
             // gbxCliente
             // 
             this.gbxCliente.BackColor = System.Drawing.Color.White;
+            this.gbxCliente.Controls.Add(this.btnBuscarCliente);
             this.gbxCliente.Controls.Add(this.txtRazonSocial);
             this.gbxCliente.Controls.Add(this.lblRazonSocial);
             this.gbxCliente.Controls.Add(this.txtCiNit);
@@ -99,6 +103,17 @@
             this.gbxCliente.TabIndex = 55;
             this.gbxCliente.TabStop = false;
             this.gbxCliente.Text = "Datos del Cliente";
+            // 
+            // btnBuscarCliente
+            // 
+            this.btnBuscarCliente.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBuscarCliente.BackgroundImage")));
+            this.btnBuscarCliente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBuscarCliente.Location = new System.Drawing.Point(419, 22);
+            this.btnBuscarCliente.Name = "btnBuscarCliente";
+            this.btnBuscarCliente.Size = new System.Drawing.Size(32, 30);
+            this.btnBuscarCliente.TabIndex = 9;
+            this.btnBuscarCliente.UseVisualStyleBackColor = true;
+            this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
             // 
             // txtRazonSocial
             // 
@@ -123,7 +138,7 @@
             // 
             this.txtCiNit.Location = new System.Drawing.Point(179, 27);
             this.txtCiNit.Name = "txtCiNit";
-            this.txtCiNit.Size = new System.Drawing.Size(273, 23);
+            this.txtCiNit.Size = new System.Drawing.Size(234, 23);
             this.txtCiNit.TabIndex = 6;
             this.txtCiNit.Text = "Ingrese documento...";
             this.txtCiNit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCiNit_KeyPress);
@@ -319,7 +334,7 @@
             this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(653, 58);
+            this.txtBuscar.Location = new System.Drawing.Point(619, 58);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(268, 13);
             this.txtBuscar.TabIndex = 29;
@@ -330,7 +345,7 @@
             this.pctBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(648, 50);
+            this.pctBuscar.Location = new System.Drawing.Point(614, 50);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -342,11 +357,35 @@
             this.lblBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBuscar.AutoSize = true;
             this.lblBuscar.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBuscar.Location = new System.Drawing.Point(575, 55);
+            this.lblBuscar.Location = new System.Drawing.Point(541, 55);
             this.lblBuscar.Name = "lblBuscar";
             this.lblBuscar.Size = new System.Drawing.Size(64, 19);
             this.lblBuscar.TabIndex = 68;
             this.lblBuscar.Text = "Buscar";
+            // 
+            // btnRecargarCatalogoProducto
+            // 
+            this.btnRecargarCatalogoProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRecargarCatalogoProducto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRecargarCatalogoProducto.BackgroundImage")));
+            this.btnRecargarCatalogoProducto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRecargarCatalogoProducto.Location = new System.Drawing.Point(969, 49);
+            this.btnRecargarCatalogoProducto.Name = "btnRecargarCatalogoProducto";
+            this.btnRecargarCatalogoProducto.Size = new System.Drawing.Size(34, 33);
+            this.btnRecargarCatalogoProducto.TabIndex = 10;
+            this.btnRecargarCatalogoProducto.UseVisualStyleBackColor = true;
+            this.btnRecargarCatalogoProducto.Click += new System.EventHandler(this.btnRecargarCatalogoProducto_Click);
+            // 
+            // btnBuscarProducto
+            // 
+            this.btnBuscarProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscarProducto.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBuscarProducto.BackgroundImage")));
+            this.btnBuscarProducto.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnBuscarProducto.Location = new System.Drawing.Point(928, 48);
+            this.btnBuscarProducto.Name = "btnBuscarProducto";
+            this.btnBuscarProducto.Size = new System.Drawing.Size(35, 33);
+            this.btnBuscarProducto.TabIndex = 69;
+            this.btnBuscarProducto.UseVisualStyleBackColor = true;
+            this.btnBuscarProducto.Click += new System.EventHandler(this.btnBuscarProducto_Click);
             // 
             // FrmVenta
             // 
@@ -354,6 +393,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(243)))), ((int)(((byte)(244)))), ((int)(((byte)(246)))));
             this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.Controls.Add(this.btnBuscarProducto);
+            this.Controls.Add(this.btnRecargarCatalogoProducto);
             this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.label1);
@@ -410,5 +451,8 @@
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.PictureBox pctBuscar;
         private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.Button btnBuscarCliente;
+        private System.Windows.Forms.Button btnRecargarCatalogoProducto;
+        private System.Windows.Forms.Button btnBuscarProducto;
     }
 }

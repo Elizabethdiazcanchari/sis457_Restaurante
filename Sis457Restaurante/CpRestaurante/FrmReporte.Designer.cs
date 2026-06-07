@@ -46,7 +46,7 @@
             this.btnVerDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerDetalle.BackColor = System.Drawing.Color.Transparent;
             this.btnVerDetalle.FlatAppearance.BorderSize = 0;
-            this.btnVerDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gold;
+            this.btnVerDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
             this.btnVerDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerDetalle.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVerDetalle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
