@@ -5,6 +5,10 @@ GO
 DROP DATABASE IF EXISTS LabRestaurante;
 GO
 
+--DROP USER usrrestaurante;
+DROP LOGIN usrrestaurante;
+GO
+
 CREATE DATABASE LabRestaurante;
 GO
 
@@ -24,13 +28,22 @@ GO
 
 -- 2. ELIMINAR OBJETOS EXISTENTES
 
+DROP TABLE IF EXISTS PagoVenta;
+DROP TABLE IF EXISTS MetodoPago;
 DROP TABLE IF EXISTS DetalleVenta;
 DROP TABLE IF EXISTS Venta;
+DROP TABLE IF EXISTS DetalleCompra;
+DROP TABLE IF EXISTS Compra;
+DROP TABLE IF EXISTS Proveedor;
 DROP TABLE IF EXISTS Usuario;
 DROP TABLE IF EXISTS Empleado;
 DROP TABLE IF EXISTS Cliente;
+DROP TABLE IF EXISTS Mesa;
+DROP TABLE IF EXISTS Sala;
 DROP TABLE IF EXISTS Producto;
 DROP TABLE IF EXISTS Categoria;
+
+-- Eliminar Procedimientos
 DROP PROC IF EXISTS paCategoriaListar;
 DROP PROC IF EXISTS paProductoListar;
 DROP PROC IF EXISTS paClienteListar;
@@ -40,8 +53,8 @@ DROP PROC IF EXISTS paVentaListar;
 DROP PROC IF EXISTS paDetalleVentaListar;
 GO
 
--- 3. TABLAS PRINCIPALES
-
+-- 3. BASE DE DATOS ERP/POS PARA RESTAURANTE
+-- 3.1. MÓDULO DE INVENTARIO Y CONFIGURACIÓN DE PRODUCTOS
 CREATE TABLE Categoria (
     id INT PRIMARY KEY IDENTITY(1,1),
     nombre VARCHAR(50) NOT NULL UNIQUE,
@@ -65,6 +78,28 @@ CREATE TABLE Producto (
     CONSTRAINT fk_Producto_Categoria FOREIGN KEY (idCategoria) REFERENCES Categoria(id)
 );
 
+-- 3.2. MÓDULO DE SALAS Y MESAS (INFRAESTRUCTURA DEL RESTAURANTE)
+CREATE TABLE Sala (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(50) NOT NULL UNIQUE, -- Ejemplo: 'Planta Alta', 'Terraza'
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE Mesa (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    idSala INT NOT NULL,
+    numero VARCHAR(10) NOT NULL,        -- Ejemplo: 'Mesa 1', 'Mesa 2'
+    capacidad INT NOT NULL DEFAULT 4,
+    estadoMesa VARCHAR(20) NOT NULL DEFAULT 'DISPONIBLE', -- DISPONIBLE, OCUPADA, RESERVADA
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_Mesa_Sala FOREIGN KEY (idSala) REFERENCES Sala(id)
+);
+
+-- 3.3. MÓDULO DE ACTORES (CLIENTES, EMPLEADOS Y USUARIOS)
 CREATE TABLE Cliente (
     id INT PRIMARY KEY IDENTITY(1,1),
     ciNit VARCHAR(20) NOT NULL UNIQUE,
@@ -83,7 +118,7 @@ CREATE TABLE Empleado (
     fechaNacimiento DATE NOT NULL,
     direccion VARCHAR(250) NOT NULL,
     celular BIGINT NOT NULL,
-    cargo VARCHAR(50) NOT NULL,
+    cargo VARCHAR(50) NOT NULL, -- Ejemplo: 'Mesero', 'Cajero', 'Administrador'
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1
@@ -100,18 +135,60 @@ CREATE TABLE Usuario (
     CONSTRAINT fk_Usuario_Empleado FOREIGN KEY (idEmpleado) REFERENCES Empleado(id)
 );
 
--- 4. TABLAS DE VENTAS
+-- 3.4. MÓDULO DE COMPRAS Y PROVEEDORES (ABASTECIMIENTO / ERP)
+CREATE TABLE Proveedor (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nit VARCHAR(20) NOT NULL UNIQUE,
+    razonSocial VARCHAR(100) NOT NULL,
+    contacto VARCHAR(50) NULL,
+    telefono BIGINT NULL,
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1
+);
 
+CREATE TABLE Compra (
+    id BIGINT PRIMARY KEY IDENTITY(1,1),
+    idProveedor INT NOT NULL,
+    idUsuario INT NOT NULL, -- Usuario que registra el ingreso de mercadería
+    nroFacturaNota VARCHAR(20) NOT NULL,
+    fechaCompra DATE NOT NULL DEFAULT CAST(GETDATE() AS DATE),
+    totalCompra DECIMAL(10,2) NOT NULL DEFAULT 0 CHECK (totalCompra >= 0),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_Compra_Proveedor FOREIGN KEY (idProveedor) REFERENCES Proveedor(id),
+    CONSTRAINT fk_Compra_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
+);
+
+CREATE TABLE DetalleCompra (
+    id BIGINT PRIMARY KEY IDENTITY(1,1),
+    idCompra BIGINT NOT NULL,
+    idProducto INT NOT NULL,
+    cantidad DECIMAL(10,2) NOT NULL CHECK (cantidad > 0),
+    precioCosto DECIMAL(10,2) NOT NULL CHECK (precioCosto > 0),
+    subtotal AS (cantidad * precioCosto) PERSISTED,
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_DetalleCompra_Compra FOREIGN KEY (idCompra) REFERENCES Compra(id),
+    CONSTRAINT fk_DetalleCompra_Producto FOREIGN KEY (idProducto) REFERENCES Producto(id)
+);
+
+-- 3.5. TABLAS DE VENTAS (CON EXTENSIONES PARA RESTAURANTE)
 CREATE TABLE Venta (
     id BIGINT PRIMARY KEY IDENTITY(1,1),
     idCliente INT NOT NULL,
-    idUsuario INT NOT NULL,
+    idUsuario INT NOT NULL, -- Cajero/Mesero que procesa la transacción
+    idMesa INT NULL,       -- NULL significa que es Pedido para llevar o Delivery
+    tipoPedido VARCHAR(20) NOT NULL DEFAULT 'MESA', -- Valores: MESA, LLEVAR, DELIVERY
     numeroTransaccion AS ('VEN-' + CAST(id AS VARCHAR(10))),
     usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
     fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
     estado SMALLINT NOT NULL DEFAULT 1,
     CONSTRAINT fk_Venta_Cliente FOREIGN KEY (idCliente) REFERENCES Cliente(id),
-    CONSTRAINT fk_Venta_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(id)
+    CONSTRAINT fk_Venta_Usuario FOREIGN KEY (idUsuario) REFERENCES Usuario(id),
+    CONSTRAINT fk_Venta_Mesa FOREIGN KEY (idMesa) REFERENCES Mesa(id)
 );
 
 CREATE TABLE DetalleVenta (
@@ -127,9 +204,30 @@ CREATE TABLE DetalleVenta (
     CONSTRAINT fk_DetalleVenta_Venta FOREIGN KEY (idVenta) REFERENCES Venta(id),
     CONSTRAINT fk_DetalleVenta_Producto FOREIGN KEY (idProducto) REFERENCES Producto(id)
 );
+
+-- 3.6. MÓDULO DE PAGOS MÚLTIPLES
+CREATE TABLE MetodoPago (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    nombre VARCHAR(50) NOT NULL UNIQUE, -- Ejemplo: 'Efectivo', 'Tarjeta', 'QR', 'PedidosYa'
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE PagoVenta (
+    id BIGINT PRIMARY KEY IDENTITY(1,1),
+    idVenta BIGINT NOT NULL,
+    idMetodoPago INT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL CHECK (monto > 0),
+    usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER_NAME(),
+    fechaRegistro DATETIME NOT NULL DEFAULT GETDATE(),
+    estado SMALLINT NOT NULL DEFAULT 1,
+    CONSTRAINT fk_PagoVenta_Venta FOREIGN KEY (idVenta) REFERENCES Venta(id),
+    CONSTRAINT fk_PagoVenta_Metodo FOREIGN KEY (idMetodoPago) REFERENCES MetodoPago(id)
+);
 GO
 
--- 5. PROCEDIMIENTOS ALMACENADOS
+-- 4. PROCEDIMIENTOS ALMACENADOS
 
 CREATE PROC paCategoriaListar @parametro VARCHAR(50)
 AS
@@ -200,10 +298,13 @@ AS
     SELECT v.id, v.numeroTransaccion,
            c.razonSocial AS cliente,
            u.usuario AS Usuario,
+           ISNULL(m.numero, 'N/A') AS mesa,
+           v.tipoPedido,
            v.usuarioRegistro, v.fechaRegistro, v.estado
     FROM Venta v
     INNER JOIN Cliente c ON c.id = v.idCliente
     INNER JOIN Usuario u ON u.id = v.idUsuario
+    LEFT JOIN Mesa m ON m.id = v.idMesa
     WHERE v.estado <> -1
       AND (c.razonSocial + u.usuario + v.numeroTransaccion)
           LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
@@ -225,67 +326,28 @@ AS
     ORDER BY dv.id ASC;
 GO
 
--- 6. DATOS DE PRUEBA (OPTIMIZADO Y AUMENTADO)
+-- 5. DATOS DE PRUEBA 
 
 -- --- CATEGORÍAS ---
 INSERT INTO Categoria (nombre) VALUES ('Platos Fuertes');             -- ID 1
 INSERT INTO Categoria (nombre) VALUES ('Postres');                    -- ID 2
 INSERT INTO Categoria (nombre) VALUES ('Acompañamientos y Entradas'); -- ID 3
 INSERT INTO Categoria (nombre) VALUES ('Bebidas');                    -- ID 4
-GO
 
--- --- PRODUCTOS ---
+-- --- INFRAESTRUCTURA ---
+INSERT INTO Sala (nombre) VALUES ('Salón Principal'), ('Terraza Exterior');
+INSERT INTO Mesa (idSala, numero, capacidad, estadoMesa) VALUES 
+(1, 'Mesa 1', 4, 'OCUPADA'),
+(1, 'Mesa 2', 2, 'DISPONIBLE'),
+(2, 'Mesa 3', 6, 'OCUPADA');
 
--- CATEGORÍA: PLATOS FUERTES (ID 1)
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta) VALUES
-(1, 'PROD-CEV001', 'Ceviche', 'Pescado marinado en jugo de limón, ají picante y sal. Servido con lechuga, cebolla, maíz y cochayuyo.', 50.00, 35.00),
-(1, 'PROD-LOM002', 'Lomo Saltado', 'Fusión peruano-china. Filete de carne, cebollas, tomates y papas fritas salteadas al wok. Con arroz.', 50.00, 38.00),
-(1, 'PROD-AJI003', 'Ají de Gallina', 'Pollo deshilachado en crema de ají amarillo, nueces, queso y leche. Servido con papas y arroz.', 50.00, 28.00),
-(1, 'PROD-ARR005', 'Arroz con Pato', 'Pato marinado en cerveza negra y especias, cocinado lentamente con arroz al culantro. Estilo norteño.', 30.00, 42.00),
-(1, 'PROD-CUY006', 'Cuy al Horno', 'Plato tradicional andino. Cuy cocinado en horno de leña, acompañado de papas y tallarines.', 20.00, 65.00),
-(1, 'PROD-POL007', 'Pollo a la Brasa', 'Pollo marinado (soya, ajo, comino) cocinado a las brasas. Servido con papas fritas y ensalada.', 100.00, 25.00),
-(1, 'PROD-ROC008', 'Rocoto Relleno', 'Plato arequipeño. Rocoto picante relleno de carne salteada y verduras, cubierto con queso derretido.', 40.00, 30.00),
-(1, 'PROD-SEC010', 'Seco de Carne', 'Guiso de carne con chicha de jora y cilantro fresco. Acompañado de frijoles y arroz blanco.', 50.00, 32.00),
-(1, 'PROD-PAC011', 'Pachamanca', 'Carnes y verduras marinadas con huacatay, cocinadas bajo tierra con piedras calientes.', 15.00, 55.00),
-(1, 'PROD-CAR012', 'Carapulcra', 'Guiso afroperuano de papa seca, carne de cerdo y pollo, pimientos, clavo de olor y ajo.', 40.00, 28.00),
-(1, 'PROD-CHI013', 'Chicharrón de Cerdo', 'Panceta de cerdo frita en su propia grasa. Servido con papas fritas, choclo y salsa criolla.', 45.00, 30.00),
-(1, 'PROD-EST015', 'Estofado de Pollo', 'Pollo guisado con zanahorias, arvejas y papas en salsa de ají panca, tomate y vino tinto.', 50.00, 24.00),
-(1, 'PROD-OLL016', 'Olluquito con charqui', 'Olluco picado con charqui (carne seca de alpaca o llama) sazonado con ají amarillo.', 35.00, 26.00),
-(1, 'PROD-MAR017', 'Arroz con mariscos', 'Arroz sazonado y cocinado con mariscos selectos, guisantes, zanahoria y un toque de queso parmesano.', 40.00, 40.00),
-(1, 'PROD-CHR018', 'Chiriuchu', 'Plato bandera de Cusco. Mezcla fría de algas, huevera, gallina, charqui, cuy, morcilla y maíz.', 15.00, 60.00),
-(1, 'PROD-JUA019', 'Juane', 'Plato amazónico de arroz, pollo y especias envuelto en hojas de bijao y cocinado al vapor.', 30.00, 22.00),
-(1, 'PROD-TAC020', 'Tacacho con Cecina', 'Plátano verde frito y machacado con chicharrón, servido típicamente en forma de esferas.', 30.00, 25.00),
-(1, 'PROD-CHF021', 'Arroz Chaufa', 'Fusión Chifa. Arroz salteado a fuego alto con cebolla china, jengibre, sillao y trozos de carne.', 80.00, 22.00),
-(1, 'PROD-ADB022', 'Adobo Arequipeño', 'Guiso dominical picante de cerdo marinado en ají panca y chicha de jora.', 25.00, 28.00),
-(1, 'PROD-CAU024', 'Cau Cau', 'Guiso tradicional de mondongo (o pollo) y papas en cuadraditos con palillo, ají amarillo y menta.', 45.00, 20.00),
-(1, 'PROD-APO025', 'Arroz con Pollo', 'Pollo cocinado con arroz sazonado con cilantro (culantro), ajo, pimientos y alverjas.', 60.00, 22.00),
-(1, 'PROD-TAR026', 'Guiso de Tarwi', 'Superalimento andino. Tarwi mezclado con queso, leche, mantequilla y ajo molido.', 25.00, 24.00);
+-- --- MÉTODOS DE PAGO ---
+INSERT INTO MetodoPago (nombre) VALUES ('Efectivo'), ('Tarjeta de Débito'), ('QR');
 
--- CATEGORÍA: POSTRES (ID 2)
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta) VALUES
-(2, 'POST-PIC001', 'Picarones', 'Anillos fritos de masa de calabaza y camote, bañados en dulce miel de chancaca.', 80.00, 10.00),
-(2, 'POST-SUS002', 'Suspiro a la Limeña', 'Crema suave de leche condensada y evaporada, coronada con merengue al oporto y canela.', 40.00, 12.00),
-(2, 'POST-MAZ003', 'Mazamorra Morada', 'Postre gelatinoso de maíz morado cocinado con piña, ciruelas y espesado con chuño.', 60.00, 8.00),
-(2, 'POST-ALE004', 'Arroz con Leche', 'Arroz cocinado en leche aromatizada con canela y cáscara de limón, endulzado al punto.', 60.00, 8.00),
-(2, 'POST-TUR005', 'Turrón de Doña Pepa', 'Masa horneada con aroma a anís, dispuesta en capas con jarabe de frutas y grageas de colores.', 30.00, 15.00),
-(2, 'POST-CHO006', 'Chocotejas', 'Dulces de Ica rellenos de manjar blanco y frutos secos (pecanas/guindones), cubiertos de chocolate.', 100.00, 4.00);
-
--- CATEGORÍA: ACOMPAÑAMIENTOS Y ENTRADAS (ID 3)
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta) VALUES
-(3, 'ENTR-CAU004', 'Causa Rellena', 'Puré de papa amarilla con limón y ají amarillo, relleno de pollo, atún o mariscos con palta.', 50.00, 18.00),
-(3, 'ENTR-ANT009', 'Anticuchos', 'Brochetas de corazón de ternera marinado en ají panca, ajo y comino, cocinadas a la parrilla.', 70.00, 20.00),
-(3, 'ENTR-PPA014', 'Papa a la Huancaína', 'Papas cocidas bañadas en crema de queso fresco, ají amarillo y galletas. Adornado con huevo y aceituna.', 65.00, 14.00),
-(3, 'ENTR-SOL023', 'Solterito Arequipeño', 'Ensalada fresca de habas, maíz (choclo), tomate, cebolla, aceitunas negras y queso fresco.', 40.00, 15.00);
-
--- CATEGORÍA: BEBIDAS (ID 4)
-INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta) VALUES
-(4, 'BEB-CHI001', 'Chicha de Jora', 'Bebida milenaria andina elaborada a base de maíz fermentado, usada tradicionalmente en ceremonias y guisos.', 50.00, 10.00),
-(4, 'BEB-CHM002', 'Chicha Morada', 'Bebida refrescante tradicional preparada a base de maíz morado hervido con piña, manzana, canela, clavo de olor y limón.', 120.00, 8.00),
-(4, 'BEB-PIS003', 'Pisco Sour', 'El cóctel bandera del Perú. Elaborado a base de pisco, jugo de limón, jarabe de goma, clara de huevo y unas gotas de amargo de angostura.', 60.00, 22.00),
-(4, 'BEB-INC004', 'Inca Kola', 'La gaseosa más popular del Perú, de color dorado y sabor dulce único, ideal para acompañar el Chifa y otros platos criollos.', 150.00, 6.00),
-(4, 'BEB-MAT005', 'Mate de Coca', 'Infusión tradicional andina elaborada con hojas de coca naturales, muy conocida por sus propiedades digestivas y energizantes.', 80.00, 5.00),
-(4, 'BEB-EMO006', 'Emoliente', 'Bebida medicinal y reconfortante que se sirve caliente o fría, preparada a base de cebada tostada, linaza, alfalfa y jugo de limón.', 70.00, 5.00);
-GO
+-- --- PROVEEDORES Y COMPRAS ---
+INSERT INTO Proveedor (nit, razonSocial, contacto, telefono) VALUES ('1029384022', 'Distribuidora Altiplano', 'Pedro Murillo', 60012345);
+-- Compra inicial simulada por usuario administrador (Prontamente ID 2)
+-- Para que corra lineal, insertamos empleados y usuarios primero
 
 -- --- EMPLEADOS ---
 INSERT INTO Empleado (cedulaIdentidad, nombres, primerApellido, segundoApellido, fechaNacimiento, direccion, celular, cargo)
@@ -293,114 +355,138 @@ VALUES ('1234567', 'Jhoselin', 'Figueroa', 'Colque', '1990-05-15', 'Av. 6 de Ago
 
 INSERT INTO Empleado (cedulaIdentidad, nombres, primerApellido, segundoApellido, fechaNacimiento, direccion, celular, cargo)
 VALUES ('7654321', 'Elizabeth', 'Diaz', 'Canchari', '1988-03-20', 'Calle Potosí 456', 76543210, 'Administrador');
-GO
 
 -- --- USUARIOS ---
-INSERT INTO Usuario (idEmpleado, usuario, clave) VALUES (1, 'jhoselin', 'I0HCOO/NSSY6WOS9POP5XW==');
-INSERT INTO Usuario (idEmpleado, usuario, clave) VALUES (2, 'elizabet', 'I0HCOO/NSSY6WOS9POP5XW==');
-GO
+INSERT INTO Usuario (idEmpleado, usuario, clave) VALUES (1, 'jhoselin', 'I0HCOO/NSSY6WOS9POP5XW=='); -- ID 1
+INSERT INTO Usuario (idEmpleado, usuario, clave) VALUES (2, 'elizabet', 'I0HCOO/NSSY6WOS9POP5XW=='); -- ID 2
+
+-- --- PRODUCTOS (IDs Correlativos Automáticos 1 al 34) ---
+INSERT INTO Producto (idCategoria, codigo, nombre, descripcion, stock, precioVenta) VALUES
+(1, 'PROD-CEV001', 'Ceviche', 'Pescado marinado.', 50.00, 35.00), -- ID 1
+(1, 'PROD-LOM002', 'Lomo Saltado', 'Filete de carne salteada.', 50.00, 38.00), -- ID 2
+(1, 'PROD-AJI003', 'Ají de Gallina', 'Pollo en crema de ají.', 50.00, 28.00), -- ID 3
+(1, 'PROD-ARR005', 'Arroz con Pato', 'Pato marinado en cerveza.', 30.00, 42.00), -- ID 4
+(1, 'PROD-CUY006', 'Cuy al Horno', 'Cuy en horno de leña.', 20.00, 65.00), -- ID 5
+(1, 'PROD-POL007', 'Pollo a la Brasa', 'Pollo a las brasas.', 100.00, 25.00), -- ID 6
+(1, 'PROD-ROC008', 'Rocoto Relleno', 'Rocoto picante relleno.', 40.00, 30.00), -- ID 7
+(1, 'PROD-SEC010', 'Seco de Carne', 'Guiso de carne y cilantro.', 50.00, 32.00), -- ID 8
+(1, 'PROD-PAC011', 'Pachamanca', 'Carnes bajo tierra.', 15.00, 55.00), -- ID 9
+(1, 'PROD-CAR012', 'Carapulcra', 'Guiso de papa seca.', 40.00, 28.00), -- ID 10
+(1, 'PROD-CHI013', 'Chicharrón de Cerdo', 'Panceta frita.', 45.00, 30.00), -- ID 11
+(1, 'PROD-EST015', 'Estofado de Pollo', 'Pollo guisado.', 50.00, 24.00), -- ID 12
+(1, 'PROD-OLL016', 'Olluquito con charqui', 'Olluco con carne seca.', 35.00, 26.00), -- ID 13
+(1, 'PROD-MAR017', 'Arroz con mariscos', 'Arroz con mariscos.', 40.00, 40.00), -- ID 14
+(1, 'PROD-CHR018', 'Chiriuchu', 'Mezcla fría tradicional.', 15.00, 60.00), -- ID 15
+(1, 'PROD-JUA019', 'Juane', 'Arroz envuelto en bijao.', 30.00, 22.00), -- ID 16
+(1, 'PROD-TAC020', 'Tacacho con Cecina', 'Plátano con chicharrón.', 30.00, 25.00), -- ID 17
+(1, 'PROD-CHF021', 'Arroz Chaufa', 'Arroz salteado wok.', 80.00, 22.00), -- ID 18
+(1, 'PROD-ADB022', 'Adobo Arequipeño', 'Guiso de cerdo.', 25.00, 28.00), -- ID 19
+(1, 'PROD-CAU024', 'Cau Cau', 'Guiso de mondongo.', 45.00, 20.00), -- ID 20
+(2, 'POST-PIC001', 'Picarones', 'Anillos fritos de calabaza.', 80.00, 10.00), -- ID 21
+(2, 'POST-SUS002', 'Suspiro a la Limeña', 'Crema suave de leche.', 40.00, 12.00), -- ID 22
+(2, 'POST-MAZ003', 'Mazamorra Morada', 'Postre de maíz morado.', 60.00, 8.00), -- ID 23
+(2, 'POST-ALE004', 'Arroz con Leche', 'Arroz dulce con leche.', 60.00, 8.00), -- ID 24
+(2, 'POST-TUR005', 'Turrón de Doña Pepa', 'Masa con jarabe.', 30.00, 15.00), -- ID 25
+(2, 'POST-CHO006', 'Chocotejas', 'Chocolates con manjar.', 100.00, 4.00), -- ID 26
+(3, 'ENTR-CAU004', 'Causa Rellena', 'Puré de papa con pollo.', 50.00, 18.00), -- ID 27
+(3, 'ENTR-ANT009', 'Anticuchos', 'Brochetas de corazón.', 70.00, 20.00), -- ID 28
+(3, 'ENTR-PPA014', 'Papa a la Huancaína', 'Papas en crema de queso.', 65.00, 14.00), -- ID 29
+(3, 'ENTR-SOL023', 'Solterito Arequipeño', 'Ensalada de habas.', 40.00, 15.00), -- ID 30
+(4, 'BEB-CHI001', 'Chicha de Jora', 'Maíz fermentado.', 50.00, 10.00), -- ID 31
+(4, 'BEB-CHM002', 'Chicha Morada', 'Bebida de maíz morado.', 120.00, 8.00), -- ID 32
+(4, 'BEB-PIS003', 'Pisco Sour', 'Cóctel de pisco.', 60.00, 22.00), -- ID 33
+(4, 'BEB-INC004', 'Inca Kola', 'Gaseosa dorada.', 150.00, 6.00), -- ID 34
+(4, 'BEB-MAT005', 'Mate de Coca', 'Infusión de coca.', 80.00, 5.00), -- ID 35
+(4, 'BEB-EMO006', 'Emoliente', 'Bebida de cebada.', 70.00, 5.00); -- ID 36
+
+-- --- COMPRA DE INVENTARIO ---
+INSERT INTO Compra (idProveedor, idUsuario, nroFacturaNota, totalCompra) VALUES (1, 2, 'FAC-9921', 300.00);
+INSERT INTO DetalleCompra (idCompra, idProducto, cantidad, precioCosto) VALUES (1, 1, 10.00, 30.00);
 
 -- --- CLIENTES ---
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('6543210', 'Juan Carlos Perez');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('1234567', 'Maria Elena Rodriguez');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('8765432101', 'Corporación Textil S.A.');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('9876543', 'Carlos Lopez Justiniano');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('4561230', 'Sonia Vargas Osinaga');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('0', 'SIN NOMBRE');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('5264567', 'Juan Pérez');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('7876003012', 'Empresa ABC S.R.L.');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('4859621', 'Alejandro Viscarra Marín');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('1020304', 'Claudia Arce Justiniano');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('3344556', 'Fernando Torrico Terceros');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('2050809', 'Patricia Benavides Vega');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('8844112201', 'Inversiones Gastronómicas del Sur');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('7412589', 'Ricardo Gareca Naranjo');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('9632587', 'Luciana Salazar Flores');
-INSERT INTO Cliente (ciNit, razonSocial) VALUES ('5566778811', 'Hotelería San José S.R.L.');
-GO
+INSERT INTO Cliente (ciNit, razonSocial) VALUES 
+('0', 'CLIENTE GENERAL'),          -- ID 1
+('1234567', 'Maria Elena Rodriguez'),     -- ID 2
+('8765432101', 'Corporación Textil S.A.'),-- ID 3
+('9876543', 'Carlos Lopez Justiniano'),   -- ID 4
+('4561230', 'Sonia Vargas Osinaga'),      -- ID 5
+('6543210', 'Juan Carlos Perez'),                       -- ID 6
+('5264567', 'Juan Pérez'),                 -- ID 7
+('7876003012', 'Empresa ABC S.R.L.'),     -- ID 8
+('4859621', 'Alejandro Viscarra Marín'),  -- ID 9
+('1020304', 'Claudia Arce Justiniano'),   -- ID 10
+('3344556', 'Fernando Torrico Terceros'), -- ID 11
+('2050809', 'Patricia Benavides Vega'),   -- ID 12
+('8844112201', 'Inversiones Gastronómicas del Sur'), -- ID 13
+('7412589', 'Ricardo Gareca Naranjo'),    -- ID 14
+('9632587', 'Luciana Salazar Flores'),     -- ID 15
+('5566778811', 'Hotelería San José S.R.L.');-- ID 16
 
--- --- VENTAS ---
--- Venta 1: Registrada por Jhoselin (Usuario 1) para Juan Carlos Perez (Cliente 1)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (1, 1);
--- Venta 2: Registrada por Elizabeth (Usuario 2) para Maria Elena Rodriguez (Cliente 2)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (2, 2);
--- Venta 3 (Aumentada): Registrada por Jhoselin (Usuario 1) para Empresa ABC S.R.L. (Cliente 8)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (8, 1);
--- Venta 4 (Aumentada): Registrada por Elizabeth (Usuario 2) para el cliente rápido SIN NOMBRE (Cliente 6)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (6, 2);
-
--- --- DETALLES DE VENTA ---
--- Detalles de la Venta 1 (2 Ceviches y 1 Lomo Saltado)
+-- --- VENTAS (Corregido mapeo real de IDs y Mesas) ---
+-- Venta 1: Juan Carlos Perez, Jhoselin, Mesa 1
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (1, 1, 1, 'MESA');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (1, 1, 2, 35.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (1, 2, 1, 38.00);
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (1, 1, 108.00); -- Pagó con Efectivo
 
--- Detalles de la Venta 2 (3 Ajíes de Gallina y 2 Arroz con Pato)
+-- Venta 2: Maria Elena Rodriguez, Elizabeth, Llevar
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (2, 2, NULL, 'LLEVAR');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (2, 3, 3, 28.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (2, 4, 2, 42.00);
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (2, 3, 168.00); -- Pagó con QR
 
--- Detalles de la Venta 3 (Mesa corporativa: 2 Pachamancas, 1 Ronda de Pisco Sour, 1 Chicha Morada)
--- IDs de productos correspondientes en orden de inserción: Pachamanca (ID 9), Pisco Sour (ID 33), Chicha Morada (ID 32)
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 9, 2, 55.00);
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 33, 4, 22.00);
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 32, 1, 8.00);
+-- Venta 3: Empresa ABC, Jhoselin, Mesa 3
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (8, 1, 3, 'MESA');
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 9, 2, 55.00);  -- Pachamanca
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 33, 4, 22.00); -- Pisco Sour
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 32, 1, 8.00);  -- Chicha Morada
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (3, 2, 206.00); -- Pagó con Tarjeta
 
--- Detalles de la Venta 4 (Venta de mostrador rápida: 1 Pollo a la Brasa, 1 Inca Kola)
--- IDs de productos correspondientes: Pollo a la brasa (ID 6), Inca Kola (ID 34)
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 6, 1, 25.00);
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 34, 1, 6.00);
-GO
+-- Venta 4: SIN NOMBRE, Elizabeth, Delivery
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (6, 2, NULL, 'DELIVERY');
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 6, 1, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 34, 1, 6.00);  -- Inca Kola
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (4, 1, 31.00);
 
--- --- VENTA 5: Atendida por Jhoselin (Usuario 1) para Alejandro Viscarra (Cliente 9)
--- Pedido: 1 Lomo Saltado (ID 2), 1 Causa Rellena (ID 27), 2 Inca Kolas (ID 34)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (9, 1);
+-- Ventas 5 a 10 secuenciales en orden de IDs generados sin fallas
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (9, 1, NULL, 'LLEVAR');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (5, 2, 1.00, 38.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (5, 27, 1.00, 18.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (5, 34, 2.00, 6.00);
 
--- --- VENTA 6: Atendida por Elizabeth (Usuario 2) para Claudia Arce (Cliente 10)
--- Pedido: 1 Ají de Gallina (ID 3), 1 Papa a la Huancaína (ID 29), 1 Chicha Morada (ID 32)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (10, 2);
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (10, 2, 2, 'MESA');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 3, 1.00, 28.00);
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 4, 1.00, 14.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 29, 1.00, 14.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 32, 1.00, 8.00);
 
--- --- VENTA 7: Atendida por Jhoselin (Usuario 1) para Fernando Torrico (Cliente 11)
--- Pedido: 1 Pollo a la Brasa (ID 6), 1 Porción de Picarones (ID 21), 1 Inca Kola (ID 34)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (11, 1);
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (11, 1, NULL, 'DELIVERY');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (7, 6, 1.00, 25.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (7, 21, 1.00, 10.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (7, 34, 1.00, 6.00);
 
--- --- VENTA 8: Atendida por Elizabeth (Usuario 2) para Inversiones Gastronómicas (Cliente 13)
--- Pedido de Negocios: 3 Arroz con Mariscos (ID 14), 3 Pisco Sours (ID 33), 3 Suspiros a la Limeña (ID 22)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (13, 2);
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (13, 2, 3, 'MESA');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (8, 14, 3.00, 40.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (8, 33, 3.00, 22.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (8, 22, 3.00, 12.00);
 
--- --- VENTA 9: Atendida por Jhoselin (Usuario 1) para el cliente rápido "SIN NOMBRE" (Cliente 6)
--- Pedido al paso: 2 Anticuchos (ID 28), 2 Chichas de Jora (ID 31)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (6, 1);
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (6, 1, NULL, 'LLEVAR');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (9, 28, 2.00, 20.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (9, 31, 2.00, 10.00);
 
--- --- VENTA 10: Atendida por Elizabeth (Usuario 2) para Hotelería San José (Cliente 16)
--- Evento corporativo: 5 Arroz Chaufa (ID 18), 5 Chicharrón de Cerdo (ID 11), 2 Jarras de Chicha Morada (ID 32)
-INSERT INTO Venta (idCliente, idUsuario) VALUES (16, 2);
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (16, 2, 1, 'MESA');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (10, 18, 5.00, 22.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (10, 11, 5.00, 30.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (10, 32, 2.00, 8.00);
 GO
 
--- 7. CONSULTAS DE PRUEBA
-
-SELECT * FROM Categoria;
-SELECT * FROM Producto;
-SELECT * FROM Empleado;
-SELECT * FROM Cliente;
-SELECT * FROM Usuario;
-SELECT * FROM Venta;
-SELECT * FROM DetalleVenta;
+-- 6. CONSULTAS DE PRUEBA
+SELECT * FROM Sala;
+SELECT * FROM Mesa;
+SELECT * FROM Compra;
+SELECT * FROM DetalleCompra;
+SELECT * FROM MetodoPago;
+SELECT * FROM PagoVenta;
 
 EXEC paCategoriaListar '';
 EXEC paProductoListar '';
@@ -408,3 +494,4 @@ EXEC paClienteListar '';
 EXEC paEmpleadoListar '';
 EXEC paUsuarioListar '';
 EXEC paVentaListar '';
+GO

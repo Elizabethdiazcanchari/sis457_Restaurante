@@ -10,17 +10,21 @@
 namespace CadRestaurante
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class paVentaListar_Result
+    public partial class DetalleCompra
     {
         public long id { get; set; }
-        public string numeroTransaccion { get; set; }
-        public string cliente { get; set; }
-        public string Usuario { get; set; }
-        public string mesa { get; set; }
-        public string tipoPedido { get; set; }
+        public long idCompra { get; set; }
+        public int idProducto { get; set; }
+        public decimal cantidad { get; set; }
+        public decimal precioCosto { get; set; }
+        public Nullable<decimal> subtotal { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
         public short estado { get; set; }
+    
+        public virtual Compra Compra { get; set; }
+        public virtual Producto Producto { get; set; }
     }
 }

@@ -12,31 +12,27 @@ namespace CadRestaurante
     using System;
     using System.Collections.Generic;
     
-    public partial class Venta
+    public partial class Compra
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Venta()
+        public Compra()
         {
-            this.DetalleVenta = new HashSet<DetalleVenta>();
-            this.PagoVenta = new HashSet<PagoVenta>();
+            this.DetalleCompra = new HashSet<DetalleCompra>();
         }
     
         public long id { get; set; }
-        public int idCliente { get; set; }
+        public int idProveedor { get; set; }
         public int idUsuario { get; set; }
-        public Nullable<int> idMesa { get; set; }
-        public string tipoPedido { get; set; }
-        public string numeroTransaccion { get; set; }
+        public string nroFacturaNota { get; set; }
+        public System.DateTime fechaCompra { get; set; }
+        public decimal totalCompra { get; set; }
         public string usuarioRegistro { get; set; }
         public System.DateTime fechaRegistro { get; set; }
         public short estado { get; set; }
     
-        public virtual Cliente Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleVenta> DetalleVenta { get; set; }
-        public virtual Mesa Mesa { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PagoVenta> PagoVenta { get; set; }
+        public virtual Proveedor Proveedor { get; set; }
         public virtual Usuario Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleCompra> DetalleCompra { get; set; }
     }
 }
