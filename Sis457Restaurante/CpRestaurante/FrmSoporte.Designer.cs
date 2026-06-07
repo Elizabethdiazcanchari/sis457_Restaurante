@@ -169,6 +169,7 @@
             this.tbcSoporte.SelectedIndex = 0;
             this.tbcSoporte.Size = new System.Drawing.Size(580, 306);
             this.tbcSoporte.TabIndex = 57;
+            this.tbcSoporte.SelectedIndexChanged += new System.EventHandler(this.tbcSoporte_SelectedIndexChanged);
             // 
             // tabPage1
             // 

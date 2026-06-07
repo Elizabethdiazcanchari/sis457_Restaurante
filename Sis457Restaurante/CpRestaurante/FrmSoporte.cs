@@ -10,6 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 
 namespace CpRestaurante
 {
@@ -19,6 +22,7 @@ namespace CpRestaurante
         public FrmSoporte()
         {
             InitializeComponent();
+            tbcSoporte.SelectedIndexChanged += tbcSoporte_SelectedIndexChanged;
             // Asociamos el evento de cambio de selección de las preguntas frecuentes
             lstPreguntas.SelectedIndexChanged += LstPreguntas_SelectedIndexChanged;
             cbPrioridad.SelectedIndexChanged += CbPrioridad_SelectedIndexChanged; // Evento opcional para cambiar color dinámicamente
@@ -65,20 +69,32 @@ namespace CpRestaurante
         private void btnWhatsapp_Click(object sender, EventArgs e)
         {
             string urlWhatsapp = "https://wa.me/59175647380?text=Hola,%20necesito%20soporte%20con%20el%20sistema%20POS";
-            Process.Start(new ProcessStartInfo(urlWhatsapp) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = urlWhatsapp,
+                UseShellExecute = true
+            });
         }
 
         // 2. Interacción para abrir el gestor de correo electrónico predeterminado
         private void lnkCorreo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string mailto = "mailto:soporte@restaurant.com?subject=Soporte%20Sistema%20Restaurante";
-            Process.Start(new ProcessStartInfo(mailto) { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = mailto,
+                UseShellExecute = true
+            });
         }
 
-        // 3. Interacción para ejecutar la llamada telefónica (si el sistema tiene app de marcado)
+        // 3. Interacción para ejecutar la llamada telefónica
         private void lnkTelefono_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo("tel:+59175647380") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "tel:+59175647380",
+                UseShellExecute = true
+            });
         }
 
         // 4. Lógica del Acordeón/Visualizador de Preguntas Frecuentes
@@ -111,7 +127,7 @@ namespace CpRestaurante
         }
 
         // 5. Envío del formulario técnico con validación de ComboBoxes
-        private void btnEnviarReporte_Click(object sender, EventArgs e)
+        private async void btnEnviarReporte_Click(object sender, EventArgs e)
         {
             // Validación 1: Verificar si seleccionó un módulo válido
             if (cbModulo.SelectedIndex == 0)
@@ -137,18 +153,95 @@ namespace CpRestaurante
                 return;
             }
 
-            // Captura de datos listos para enviar a ClnRestaurante
+            // Captura de datos listos
             string moduloAfectado = cbModulo.SelectedItem.ToString();
             string prioridadTickets = cbPrioridad.SelectedItem.ToString();
             string descripcionProblema = txtDescripcion.Text.Trim();
 
-            // Lógica de guardado...
-            MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte en Sucre con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // --- CONFIGURACIÓN Y ENVÍO DE EMAIL CON MAILKIT ---
 
-            // Limpiar el formulario y regresar a los estados por defecto
-            txtDescripcion.Clear();
-            cbModulo.SelectedIndex = 0;
-            cbPrioridad.SelectedIndex = 0;
+            // Cambiar el cursor a "Espera" para avisar al usuario que se está procesando
+            Cursor = Cursors.WaitCursor;
+
+            var mensaje = new MimeMessage();
+            // Remitente (El correo que envía, idealmente una cuenta del sistema)
+            mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", "notificaciones.sistema.pos@gmail.com"));
+            // Destinatario (Tu correo de soporte que se ve en la barra lateral izquierda)
+            mensaje.To.Add(new MailboxAddress("Soporte Técnico", "soporte@restaurant.com"));
+
+            // Asunto dinámico basado en lo que seleccionó el usuario
+            mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
+
+            // Cuerpo del correo formateado elegantemente en HTML
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = $@"
+        <h2>Nuevo Informe de Soporte Técnico</h2>
+        <hr/>
+        <p><strong>Módulo Afectado:</strong> {moduloAfectado}</p>
+        <p><strong>Nivel de Prioridad:</strong> {prioridadTickets}</p>
+        <p><strong>Fecha/Hora del Reporte:</strong> {DateTime.Now:dd/MM/yyyy HH:mm:ss}</p>
+        <hr/>
+        <h3>Descripción del Problema:</h3>
+        <p style='background-color: #f4f4f4; padding: 15px; border-left: 4px solid #ef4040; font-family: sans-serif;'>
+            {descripcionProblema.Replace("\n", "<br/>")}
+        </p>
+        <br/>
+        <small>Este es un correo automático generado por el módulo de soporte desde Sucre, Bolivia.</small>";
+
+            mensaje.Body = bodyBuilder.ToMessageBody();
+
+            using (var clienteSmtp = new SmtpClient())
+            {
+                try
+                {
+                    // Conexión al servidor SMTP (Ejemplo con Gmail, puerto 587)
+                    await clienteSmtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+
+                    // Autenticación: Recuerda usar una "Contraseña de aplicación" si es Gmail o Outlook
+                    await clienteSmtp.AuthenticateAsync("notificaciones.sistema.pos@gmail.com", "tu_contraseña_o_token_aqui");
+
+                    // Enviar de forma asíncrona
+                    await clienteSmtp.SendAsync(mensaje);
+                    await clienteSmtp.DisconnectAsync(true);
+
+                    // Si todo sale bien, mostramos el mensaje de éxito original
+                    MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte en Sucre con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Limpiar el formulario y regresar a los estados por defecto
+                    txtDescripcion.Clear();
+                    cbModulo.SelectedIndex = 0;
+                    cbPrioridad.SelectedIndex = 0;
+                }
+                catch (Exception ex)
+                {
+                    // Si el servidor SMTP falla, le avisamos al usuario sin tumbar la app
+                    MessageBox.Show($"No se pudo enviar el correo de soporte automáticamente.\nDetalles del error: {ex.Message}", "Error de Conexión SMTP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    // Devolver el cursor a su estado normal pase lo que pase
+                    Cursor = Cursors.Default;
+                }
+            }
+        }
+
+        private void tbcSoporte_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Evaluamos el índice de la pestaña seleccionada actualmente
+            switch (tbcSoporte.SelectedIndex)
+            {
+                case 0:
+                    // LADO: REPORTAR INCIDENCIA (Índice 0)
+                    // Aquí puedes poner la lógica que desees cuando entren a este lado
+                    cbModulo.Focus(); // Por ejemplo, mandar el foco al primer combobox
+                    break;
+
+                case 1:
+                    // LADO: PREGUNTAS FRECUENTES (Índice 1)
+                    // Aquí puedes limpiar o reestablecer el estado de las FAQ
+                    txtRespuestaFAQ.Text = "Seleccione una pregunta para ver la solución detallada.";
+                    break;
+            }
         }
     }
 }
