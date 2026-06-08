@@ -127,10 +127,10 @@
             this.lnkCorreo.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
             this.lnkCorreo.Location = new System.Drawing.Point(39, 100);
             this.lnkCorreo.Name = "lnkCorreo";
-            this.lnkCorreo.Size = new System.Drawing.Size(210, 20);
+            this.lnkCorreo.Size = new System.Drawing.Size(281, 20);
             this.lnkCorreo.TabIndex = 2;
             this.lnkCorreo.TabStop = true;
-            this.lnkCorreo.Text = "✉ soporte@restaurant.com";
+            this.lnkCorreo.Text = "✉ jhoselinfigueroacolque@gmail.com";
             this.lnkCorreo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkCorreo_LinkClicked);
             // 
             // lnkTelefono
@@ -144,7 +144,7 @@
             this.lnkTelefono.Size = new System.Drawing.Size(206, 20);
             this.lnkTelefono.TabIndex = 1;
             this.lnkTelefono.TabStop = true;
-            this.lnkTelefono.Text = "📞 Central: +591 75647380";
+            this.lnkTelefono.Text = "📞 Central: +591 71806340";
             this.lnkTelefono.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkTelefono_LinkClicked);
             // 
             // lblTituloContacto

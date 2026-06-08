@@ -43,14 +43,14 @@ namespace CpRestaurante
             if (Util.usuario != null && !string.IsNullOrEmpty(Util.usuario.usuario1))
             {
                 // Reemplaza 'lblUsuario' por el Name real del Label que pusiste encima de "XXXXXX"
-                txtUsuario.Text = Util.usuario.usuario1;
+                lblUsuario.Text = Util.usuario.usuario1;
 
                 // Tip opcional: Si quieres mostrar el rol al lado o abajo:
                 // lblRol.Text = Util.usuario.rol; 
             }
             else
             {
-                txtUsuario.Text = "INVITADO";
+                lblUsuario.Text = "INVITADO";
             }
         }
 
