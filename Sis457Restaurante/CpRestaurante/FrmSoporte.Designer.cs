@@ -163,36 +163,40 @@
             this.tbcSoporte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbcSoporte.Controls.Add(this.tabPage1);
             this.tbcSoporte.Controls.Add(this.tabPage2);
+            this.tbcSoporte.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.tbcSoporte.Font = new System.Drawing.Font("Segoe UI Black", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbcSoporte.ItemSize = new System.Drawing.Size(288, 30);
             this.tbcSoporte.Location = new System.Drawing.Point(396, 84);
             this.tbcSoporte.Name = "tbcSoporte";
             this.tbcSoporte.SelectedIndex = 0;
             this.tbcSoporte.Size = new System.Drawing.Size(580, 306);
+            this.tbcSoporte.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tbcSoporte.TabIndex = 57;
             this.tbcSoporte.SelectedIndexChanged += new System.EventHandler(this.tbcSoporte_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.tabPage1.Controls.Add(this.btnEnviarReporte);
             this.tabPage1.Controls.Add(this.txtDescripcion);
             this.tabPage1.Controls.Add(this.cbPrioridad);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.cbModulo);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.ForeColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(572, 278);
+            this.tabPage1.Size = new System.Drawing.Size(572, 268);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "REPORTAR INCIDENCIA";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btnEnviarReporte
             // 
             this.btnEnviarReporte.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(36)))), ((int)(((byte)(56)))));
             this.btnEnviarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnviarReporte.ForeColor = System.Drawing.Color.White;
-            this.btnEnviarReporte.Location = new System.Drawing.Point(333, 225);
+            this.btnEnviarReporte.Location = new System.Drawing.Point(333, 228);
             this.btnEnviarReporte.Name = "btnEnviarReporte";
             this.btnEnviarReporte.Size = new System.Drawing.Size(215, 31);
             this.btnEnviarReporte.TabIndex = 36;
@@ -206,7 +210,7 @@
             this.txtDescripcion.Multiline = true;
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescripcion.Size = new System.Drawing.Size(530, 105);
+            this.txtDescripcion.Size = new System.Drawing.Size(530, 121);
             this.txtDescripcion.TabIndex = 35;
             // 
             // cbPrioridad
@@ -227,7 +231,7 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(363, 24);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
@@ -256,7 +260,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
+            this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(70, 24);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
@@ -266,15 +270,16 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.tabPage2.Controls.Add(this.lstPreguntas);
             this.tabPage2.Controls.Add(this.txtRespuestaFAQ);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.ForeColor = System.Drawing.Color.Transparent;
+            this.tabPage2.Location = new System.Drawing.Point(4, 34);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(572, 278);
+            this.tabPage2.Size = new System.Drawing.Size(572, 268);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "PREGUNTAS FRECUENTES";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // lstPreguntas
             // 
@@ -284,7 +289,7 @@
             "1. ¿Qué hacer si la ticketera térmica no imprime?",
             "2. ¿Cómo corregir un pedido mal registrado?",
             "3. El sistema no calcula el cambio o vuelto."});
-            this.lstPreguntas.Location = new System.Drawing.Point(21, 22);
+            this.lstPreguntas.Location = new System.Drawing.Point(21, 24);
             this.lstPreguntas.Name = "lstPreguntas";
             this.lstPreguntas.Size = new System.Drawing.Size(530, 49);
             this.lstPreguntas.TabIndex = 40;

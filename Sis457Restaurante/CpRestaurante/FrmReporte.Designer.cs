@@ -36,6 +36,12 @@
             this.lblPedidos = new System.Windows.Forms.Label();
             this.pnListaProductos = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaFin = new System.Windows.Forms.DateTimePicker();
+            this.btnAnular = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pctBuscar)).BeginInit();
             this.pnListaProductos.SuspendLayout();
@@ -45,17 +51,17 @@
             // 
             this.btnVerDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVerDetalle.BackColor = System.Drawing.Color.Transparent;
-            this.btnVerDetalle.FlatAppearance.BorderSize = 0;
-            this.btnVerDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.btnVerDetalle.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnVerDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnVerDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerDetalle.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVerDetalle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnVerDetalle.Image = ((System.Drawing.Image)(resources.GetObject("btnVerDetalle.Image")));
             this.btnVerDetalle.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVerDetalle.Location = new System.Drawing.Point(855, 57);
+            this.btnVerDetalle.Location = new System.Drawing.Point(703, 75);
             this.btnVerDetalle.Margin = new System.Windows.Forms.Padding(0);
             this.btnVerDetalle.Name = "btnVerDetalle";
-            this.btnVerDetalle.Size = new System.Drawing.Size(141, 30);
+            this.btnVerDetalle.Size = new System.Drawing.Size(141, 36);
             this.btnVerDetalle.TabIndex = 40;
             this.btnVerDetalle.Text = "VER DETALLE";
             this.btnVerDetalle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -72,12 +78,12 @@
             this.dgvReporte.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvReporte.BackgroundColor = System.Drawing.Color.SlateGray;
             this.dgvReporte.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvReporte.Location = new System.Drawing.Point(5, 96);
+            this.dgvReporte.Location = new System.Drawing.Point(5, 116);
             this.dgvReporte.Name = "dgvReporte";
             this.dgvReporte.ReadOnly = true;
             this.dgvReporte.RowHeadersWidth = 51;
             this.dgvReporte.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReporte.Size = new System.Drawing.Size(1024, 462);
+            this.dgvReporte.Size = new System.Drawing.Size(1024, 442);
             this.dgvReporte.TabIndex = 53;
             this.dgvReporte.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvReporte_CellDoubleClick);
             // 
@@ -85,7 +91,7 @@
             // 
             this.txtBuscar.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscar.ForeColor = System.Drawing.Color.DimGray;
-            this.txtBuscar.Location = new System.Drawing.Point(161, 65);
+            this.txtBuscar.Location = new System.Drawing.Point(68, 84);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(268, 13);
             this.txtBuscar.TabIndex = 55;
@@ -94,7 +100,7 @@
             // 
             this.pctBuscar.Image = ((System.Drawing.Image)(resources.GetObject("pctBuscar.Image")));
             this.pctBuscar.InitialImage = null;
-            this.pctBuscar.Location = new System.Drawing.Point(156, 56);
+            this.pctBuscar.Location = new System.Drawing.Point(63, 75);
             this.pctBuscar.Name = "pctBuscar";
             this.pctBuscar.Size = new System.Drawing.Size(301, 30);
             this.pctBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -129,18 +135,94 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(73, 59);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(59, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 25);
+            this.label1.Size = new System.Drawing.Size(175, 21);
             this.label1.TabIndex = 57;
-            this.label1.Text = "Buscar:";
+            this.label1.Text = "CRITERIO (BUSCADOR):";
+            // 
+            // dtpFechaInicio
+            // 
+            this.dtpFechaInicio.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dtpFechaInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaInicio.Location = new System.Drawing.Point(431, 78);
+            this.dtpFechaInicio.Name = "dtpFechaInicio";
+            this.dtpFechaInicio.Size = new System.Drawing.Size(100, 20);
+            this.dtpFechaInicio.TabIndex = 58;
+            // 
+            // dtpFechaFin
+            // 
+            this.dtpFechaFin.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaFin.Location = new System.Drawing.Point(554, 77);
+            this.dtpFechaFin.Name = "dtpFechaFin";
+            this.dtpFechaFin.Size = new System.Drawing.Size(100, 20);
+            this.dtpFechaFin.TabIndex = 59;
+            // 
+            // btnAnular
+            // 
+            this.btnAnular.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAnular.BackColor = System.Drawing.Color.Transparent;
+            this.btnAnular.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnAnular.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnAnular.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnular.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnular.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnAnular.Image = ((System.Drawing.Image)(resources.GetObject("btnAnular.Image")));
+            this.btnAnular.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAnular.Location = new System.Drawing.Point(861, 75);
+            this.btnAnular.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAnular.Name = "btnAnular";
+            this.btnAnular.Size = new System.Drawing.Size(128, 36);
+            this.btnAnular.TabIndex = 60;
+            this.btnAnular.Text = "ANULAR";
+            this.btnAnular.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAnular.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(445, 51);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 21);
+            this.label2.TabIndex = 61;
+            this.label2.Text = "DESDE:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(707, 51);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 21);
+            this.label3.TabIndex = 62;
+            this.label3.Text = "ACCIONES:";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(568, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 21);
+            this.label4.TabIndex = 63;
+            this.label4.Text = "HASTA:";
             // 
             // FrmReporte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1034, 561);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.btnAnular);
+            this.Controls.Add(this.dtpFechaFin);
+            this.Controls.Add(this.dtpFechaInicio);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pnListaProductos);
             this.Controls.Add(this.btnVerDetalle);
@@ -169,5 +251,11 @@
         private System.Windows.Forms.Label lblPedidos;
         private System.Windows.Forms.Panel pnListaProductos;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker dtpFechaInicio;
+        private System.Windows.Forms.DateTimePicker dtpFechaFin;
+        private System.Windows.Forms.Button btnAnular;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

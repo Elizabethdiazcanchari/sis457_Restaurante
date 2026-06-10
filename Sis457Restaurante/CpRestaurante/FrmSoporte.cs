@@ -19,13 +19,18 @@ namespace CpRestaurante
     public partial class FrmSoporte : Form
     {
         public DetalleVenta DetalleSeleccionado { get; private set; }
+
         public FrmSoporte()
         {
             InitializeComponent();
+
+            // 1. Enlaces para el cambio de pestañas y repintado de color custom
             tbcSoporte.SelectedIndexChanged += tbcSoporte_SelectedIndexChanged;
+            tbcSoporte.DrawItem += tbcSoporte_DrawItem; // <-- Agregamos el manejador del dibujo
+
             // Asociamos el evento de cambio de selección de las preguntas frecuentes
             lstPreguntas.SelectedIndexChanged += LstPreguntas_SelectedIndexChanged;
-            cbPrioridad.SelectedIndexChanged += CbPrioridad_SelectedIndexChanged; // Evento opcional para cambiar color dinámicamente
+            cbPrioridad.SelectedIndexChanged += CbPrioridad_SelectedIndexChanged;
 
             ConfigurarComboBoxes();
         }
@@ -41,7 +46,7 @@ namespace CpRestaurante
             cbModulo.Items.Add("Empleados (Roles / Turnos / Personal)");
             cbModulo.Items.Add("Clientes (Historial / Datos de Facturación)");
             cbModulo.Items.Add("Reportes (Estadísticas / Cierres de Caja)");
-            cbModulo.SelectedIndex = 0; // Muestra el texto por defecto
+            cbModulo.SelectedIndex = 0;
 
             // 2. Configuración del ComboBox de Prioridad
             cbPrioridad.Items.Clear();
@@ -49,10 +54,10 @@ namespace CpRestaurante
             cbPrioridad.Items.Add("Alta (Caja Inoperable / Bloqueante)");
             cbPrioridad.Items.Add("Media (Falla intermitente en el flujo)");
             cbPrioridad.Items.Add("Baja (Consulta técnica / Duda general)");
-            cbPrioridad.SelectedIndex = 0; // Fuerza a mostrar el texto por defecto
+            cbPrioridad.SelectedIndex = 0;
         }
 
-        // Evento visual: Cambia el color del texto si seleccionan la prioridad Alta para mantener la estética web
+        // Evento visual: Cambia el color del texto si seleccionan la prioridad Alta
         private void CbPrioridad_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbPrioridad.SelectedIndex == 1) // Alta
@@ -129,7 +134,6 @@ namespace CpRestaurante
         // 5. Envío del formulario técnico con validación de ComboBoxes
         private async void btnEnviarReporte_Click(object sender, EventArgs e)
         {
-            // Validación 1: Verificar si seleccionó un módulo válido
             if (cbModulo.SelectedIndex == 0)
             {
                 MessageBox.Show("Por favor, seleccione el módulo afectado por la incidencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -137,7 +141,6 @@ namespace CpRestaurante
                 return;
             }
 
-            // Validación 2: Verificar si seleccionó una prioridad válida
             if (cbPrioridad.SelectedIndex == 0)
             {
                 MessageBox.Show("Por favor, seleccione el nivel de prioridad de la operación.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -145,7 +148,6 @@ namespace CpRestaurante
                 return;
             }
 
-            // Validación 3: Descripción vacía
             if (string.IsNullOrWhiteSpace(txtDescripcion.Text))
             {
                 MessageBox.Show("Por favor, describa el incidente técnico antes de enviar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -153,26 +155,17 @@ namespace CpRestaurante
                 return;
             }
 
-            // Captura de datos listos
             string moduloAfectado = cbModulo.SelectedItem.ToString();
             string prioridadTickets = cbPrioridad.SelectedItem.ToString();
             string descripcionProblema = txtDescripcion.Text.Trim();
 
-            // --- CONFIGURACIÓN Y ENVÍO DE EMAIL CON MAILKIT ---
-
-            // Cambiar el cursor a "Espera" para avisar al usuario que se está procesando
             Cursor = Cursors.WaitCursor;
 
             var mensaje = new MimeMessage();
-            // Remitente (El correo que envía, idealmente una cuenta del sistema)
             mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", "notificaciones.sistema.pos@gmail.com"));
-            // Destinatario (Tu correo de soporte que se ve en la barra lateral izquierda)
             mensaje.To.Add(new MailboxAddress("Soporte Técnico", "soporte@restaurant.com"));
-
-            // Asunto dinámico basado en lo que seleccionó el usuario
             mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
 
-            // Cuerpo del correo formateado elegantemente en HTML
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.HtmlBody = $@"
         <h2>Nuevo Informe de Soporte Técnico</h2>
@@ -194,32 +187,23 @@ namespace CpRestaurante
             {
                 try
                 {
-                    // Conexión al servidor SMTP (Ejemplo con Gmail, puerto 587)
                     await clienteSmtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-
-                    // Autenticación: Recuerda usar una "Contraseña de aplicación" si es Gmail o Outlook
                     await clienteSmtp.AuthenticateAsync("notificaciones.sistema.pos@gmail.com", "tu_contraseña_o_token_aqui");
-
-                    // Enviar de forma asíncrona
                     await clienteSmtp.SendAsync(mensaje);
                     await clienteSmtp.DisconnectAsync(true);
 
-                    // Si todo sale bien, mostramos el mensaje de éxito original
                     MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte en Sucre con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    // Limpiar el formulario y regresar a los estados por defecto
                     txtDescripcion.Clear();
                     cbModulo.SelectedIndex = 0;
                     cbPrioridad.SelectedIndex = 0;
                 }
                 catch (Exception ex)
                 {
-                    // Si el servidor SMTP falla, le avisamos al usuario sin tumbar la app
                     MessageBox.Show($"No se pudo enviar el correo de soporte automáticamente.\nDetalles del error: {ex.Message}", "Error de Conexión SMTP", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    // Devolver el cursor a su estado normal pase lo que pase
                     Cursor = Cursors.Default;
                 }
             }
@@ -227,21 +211,56 @@ namespace CpRestaurante
 
         private void tbcSoporte_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Evaluamos el índice de la pestaña seleccionada actualmente
+            // OBLIGATORIO: Fuerza al control a redibujarse para aplicar el cambio de color dinámico
+            tbcSoporte.Invalidate();
+
             switch (tbcSoporte.SelectedIndex)
             {
                 case 0:
-                    // LADO: REPORTAR INCIDENCIA (Índice 0)
-                    // Aquí puedes poner la lógica que desees cuando entren a este lado
-                    cbModulo.Focus(); // Por ejemplo, mandar el foco al primer combobox
+                    cbModulo.Focus();
                     break;
 
                 case 1:
-                    // LADO: PREGUNTAS FRECUENTES (Índice 1)
-                    // Aquí puedes limpiar o reestablecer el estado de las FAQ
                     txtRespuestaFAQ.Text = "Seleccione una pregunta para ver la solución detallada.";
                     break;
             }
+        }
+
+        // CORRECCIÓN INTERFAZ MODERNA: Evento encargado de pintar las pestañas manualmente
+        private void tbcSoporte_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Rectangle tabPageArea = tbcSoporte.GetTabRect(e.Index);
+            TabPage page = tbcSoporte.TabPages[e.Index];
+
+            // Colores institucionales de tu menú y workspace
+            Color backColorSelected = Color.FromArgb(26, 34, 54);     // Azul oscuro activo
+            Color backColorUnselected = Color.FromArgb(15, 23, 42);   // Gris muy oscuro inactivo
+
+            Color textColorSelected = Color.FromArgb(56, 189, 248);       // Celeste brillante
+            Color textColorUnselected = Color.FromArgb(148, 163, 184);   // Gris tenue
+
+            Brush backBrush = new SolidBrush(tbcSoporte.SelectedIndex == e.Index ? backColorSelected : backColorUnselected);
+            Brush textBrush = new SolidBrush(tbcSoporte.SelectedIndex == e.Index ? textColorSelected : textColorUnselected);
+
+            // Pintamos el fondo de la pestaña actual
+            e.Graphics.FillRectangle(backBrush, tabPageArea);
+
+            // Fuente estilizada (Negrita para la activa)
+            Font fontTab = new Font("Segoe UI", 10, tbcSoporte.SelectedIndex == e.Index ? FontStyle.Bold : FontStyle.Regular);
+
+            StringFormat stringFormat = new StringFormat
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
+
+            // Dibujamos el texto centrado
+            e.Graphics.DrawString(page.Text, fontTab, textBrush, tabPageArea, stringFormat);
+
+            // Liberación de recursos de dibujo
+            backBrush.Dispose();
+            textBrush.Dispose();
+            fontTab.Dispose();
         }
     }
 }
