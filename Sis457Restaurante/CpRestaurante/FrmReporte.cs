@@ -29,7 +29,13 @@ namespace CpRestaurante
             {
                 // Obtenemos el texto de forma segura
                 string criterio = txtBuscar.Text.Trim();
-                var lista = VentaCln.listarPa(criterio);
+
+                // 1. Extraemos las fechas de los controles ignorando las horas (solo la fecha pura)
+                DateTime fechaInicio = dtpFechaInicio.Value.Date;
+                DateTime fechaFin = dtpFechaFin.Value.Date;
+
+                // 2. Invocamos al nuevo método de la CLN pasándole el criterio de texto y el rango temporal
+                var lista = VentaCln.listarPa(criterio, fechaInicio, fechaFin);
 
                 dgvReporte.DataSource = lista;
 
@@ -62,10 +68,32 @@ namespace CpRestaurante
             dgvReporte.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvReporte.MultiSelect = false;
 
+            // 3. Inicialización inteligente: Mostrar por defecto las ventas del mes actual
+            DateTime hoy = DateTime.Now;
+            dtpFechaInicio.Value = new DateTime(hoy.Year, hoy.Month, 1);
+            dtpFechaFin.Value = hoy;
+
             listar();
 
             txtBuscar.TextChanged += txtBuscar_TextChanged;
+
+            // 4. Enlazamos el evento ValueChanged para que el filtro sea automático al cambiar las fechas
+            dtpFechaInicio.ValueChanged += DtpFechas_ValueChanged;
+            dtpFechaFin.ValueChanged += DtpFechas_ValueChanged;
+
             dgvReporte.CellDoubleClick += dgvReporte_CellDoubleClick;
+        }
+
+        // 5. Manejador de eventos reactivo para cambios de fecha
+        private void DtpFechas_ValueChanged(object sender, EventArgs e)
+        {
+            // Validación lógica básica: si el rango está al revés, no consultamos la base de datos
+            if (dtpFechaInicio.Value.Date > dtpFechaFin.Value.Date)
+            {
+                return;
+            }
+
+            listar();
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)

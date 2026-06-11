@@ -114,15 +114,13 @@ namespace ClnRestaurante
             }
         }
 
-        public static List<paVentaListarPorFecha_Result> listarPa(string parametro)
+        public static List<paVentaListarPorFecha_Result> listarPa(string parametro, DateTime? fechaInicio = null, DateTime? fechaFin = null)
         {
             using (var context = new LabRestauranteEntities())
             {
-                return context.paVentaListarPorFecha(parametro).ToList();
+                return context.paVentaListarPorFecha(parametro, fechaInicio, fechaFin).ToList();
             }
         }
-
-        // NUEVO: obtener cabecera del pedido por id
         public static Venta obtenerUno(int id)
         {
             using (var context = new LabRestauranteEntities())
@@ -130,12 +128,7 @@ namespace ClnRestaurante
                 return context.Venta.Find(id);
             }
         }
-
-        /// <summary>
-        /// Realiza la anulación de una venta (baja lógica), devolviendo el stock 
-        /// de los productos y liberando la mesa asignada de ser necesario.
-        /// </summary>
-        public static int eliminar(long id, string usuarioActive) // <-- CORREGIDO: Recibe string directo para auditoría
+        public static int eliminar(long id, string usuarioActive) 
         {
             using (var context = new LabRestauranteEntities())
             {
@@ -201,5 +194,7 @@ namespace ClnRestaurante
                 }
             }
         }
+
+
     }
 }
