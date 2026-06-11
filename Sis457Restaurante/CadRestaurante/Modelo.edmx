@@ -371,8 +371,10 @@
         <Function Name="paUsuarioListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="paVentaListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="paVentaListarPorFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
+          <Parameter Name="fechaInicio" Type="datetime" Mode="In" />
+          <Parameter Name="fechaFin" Type="datetime" Mode="In" />
         </Function>
         <EntityContainer Name="LabRestauranteModelStoreContainer">
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
@@ -916,8 +918,10 @@
           <FunctionImport Name="paUsuarioListar" ReturnType="Collection(LabRestauranteModel.paUsuarioListar_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="paVentaListar" ReturnType="Collection(LabRestauranteModel.paVentaListar_Result)">
+          <FunctionImport Name="paVentaListarPorFecha" ReturnType="Collection(LabRestauranteModel.paVentaListarPorFecha_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
+            <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="paCategoriaListar_Result">
@@ -986,16 +990,16 @@
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="paVentaListar_Result">
+        <ComplexType Name="paVentaListarPorFecha_Result">
           <Property Type="Int64" Name="id" Nullable="false" />
           <Property Type="String" Name="numeroTransaccion" Nullable="true" MaxLength="14" />
           <Property Type="String" Name="cliente" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="Usuario" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="mesa" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Usuario" Nullable="false" MaxLength="152" />
+          <Property Type="Int32" Name="mesa" Nullable="true" />
           <Property Type="String" Name="tipoPedido" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
+          <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1287,18 +1291,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="paVentaListar" FunctionName="LabRestauranteModel.Store.paVentaListar">
+          <FunctionImportMapping FunctionImportName="paVentaListarPorFecha" FunctionName="LabRestauranteModel.Store.paVentaListarPorFecha">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="LabRestauranteModel.paVentaListar_Result">
+              <ComplexTypeMapping TypeName="LabRestauranteModel.paVentaListarPorFecha_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="numeroTransaccion" ColumnName="numeroTransaccion" />
                 <ScalarProperty Name="cliente" ColumnName="cliente" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
                 <ScalarProperty Name="mesa" ColumnName="mesa" />
                 <ScalarProperty Name="tipoPedido" ColumnName="tipoPedido" />
-                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

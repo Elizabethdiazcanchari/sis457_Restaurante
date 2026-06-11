@@ -96,13 +96,21 @@ namespace CadRestaurante
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paUsuarioListar_Result>("paUsuarioListar", parametroParameter);
         }
     
-        public virtual ObjectResult<paVentaListar_Result> paVentaListar(string parametro)
+        public virtual ObjectResult<paVentaListarPorFecha_Result> paVentaListarPorFecha(string parametro, Nullable<System.DateTime> fechaInicio, Nullable<System.DateTime> fechaFin)
         {
             var parametroParameter = parametro != null ?
                 new ObjectParameter("parametro", parametro) :
                 new ObjectParameter("parametro", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paVentaListar_Result>("paVentaListar", parametroParameter);
+            var fechaInicioParameter = fechaInicio.HasValue ?
+                new ObjectParameter("fechaInicio", fechaInicio) :
+                new ObjectParameter("fechaInicio", typeof(System.DateTime));
+    
+            var fechaFinParameter = fechaFin.HasValue ?
+                new ObjectParameter("fechaFin", fechaFin) :
+                new ObjectParameter("fechaFin", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paVentaListarPorFecha_Result>("paVentaListarPorFecha", parametroParameter, fechaInicioParameter, fechaFinParameter);
         }
     }
 }

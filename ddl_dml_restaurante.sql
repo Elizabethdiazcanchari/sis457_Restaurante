@@ -49,7 +49,7 @@ DROP PROC IF EXISTS paProductoListar;
 DROP PROC IF EXISTS paClienteListar;
 DROP PROC IF EXISTS paEmpleadoListar;
 DROP PROC IF EXISTS paUsuarioListar;
-DROP PROC IF EXISTS paVentaListar;
+DROP PROC IF EXISTS paVentaListarPorFecha;
 DROP PROC IF EXISTS paDetalleVentaListar;
 GO
 
@@ -293,22 +293,36 @@ AS
     ORDER BY u.usuario ASC;
 GO
 
-CREATE PROC paVentaListar @parametro VARCHAR(100)
+CREATE PROCEDURE paVentaListarPorFecha
+    @parametro VARCHAR(50),
+    @fechaInicio DATETIME = NULL,
+    @fechaFin DATETIME = NULL
 AS
-    SELECT v.id, v.numeroTransaccion,
-           c.razonSocial AS cliente,
-           u.usuario AS Usuario,
-           ISNULL(m.numero, 'N/A') AS mesa,
-           v.tipoPedido,
-           v.usuarioRegistro, v.fechaRegistro, v.estado
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        v.id,
+        v.numeroTransaccion,
+        c.razonSocial AS cliente,
+        -- Concatenación con los nombres de columna reales de tu tabla Empleado
+        ISNULL(e.nombres, '') + ' ' + ISNULL(e.primerApellido, '') + ' ' + ISNULL(e.segundoApellido, '') AS Usuario,
+        m.id AS mesa,
+        v.tipoPedido,
+        v.fechaRegistro,
+        v.estado,
+        v.usuarioRegistro
     FROM Venta v
-    INNER JOIN Cliente c ON c.id = v.idCliente
-    INNER JOIN Usuario u ON u.id = v.idUsuario
-    LEFT JOIN Mesa m ON m.id = v.idMesa
-    WHERE v.estado <> -1
-      AND (c.razonSocial + u.usuario + v.numeroTransaccion)
-          LIKE '%' + REPLACE(@parametro, ' ', '%') + '%'
-    ORDER BY v.fechaRegistro DESC;
+    INNER JOIN Cliente c ON v.idCliente = c.id
+    INNER JOIN Usuario u ON v.idUsuario = u.id
+    INNER JOIN Empleado e ON u.idEmpleado = e.id
+    LEFT JOIN Mesa m ON v.idMesa = m.id
+    WHERE v.estado = 1
+      AND (c.razonSocial LIKE '%' + @parametro + '%' OR v.numeroTransaccion LIKE '%' + @parametro + '%')
+      AND (@fechaInicio IS NULL OR v.fechaRegistro >= @fechaInicio)
+      AND (@fechaFin IS NULL OR v.fechaRegistro <= DATEADD(SECOND, 86399, @fechaFin))
+    ORDER BY v.id DESC;
+END;
 GO
 
 CREATE PROC paDetalleVentaListar @parametro VARCHAR(100)

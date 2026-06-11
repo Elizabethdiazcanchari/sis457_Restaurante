@@ -114,11 +114,11 @@ namespace ClnRestaurante
             }
         }
 
-        public static List<paVentaListar_Result> listarPa(string parametro)
+        public static List<paVentaListarPorFecha_Result> listarPa(string parametro)
         {
             using (var context = new LabRestauranteEntities())
             {
-                return context.paVentaListar(parametro).ToList();
+                return context.paVentaListarPorFecha(parametro).ToList();
             }
         }
 

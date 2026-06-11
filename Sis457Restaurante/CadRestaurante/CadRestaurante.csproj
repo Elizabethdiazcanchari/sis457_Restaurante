@@ -113,7 +113,7 @@
     <Compile Include="paUsuarioListar_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
-    <Compile Include="paVentaListar_Result.cs">
+    <Compile Include="paVentaListarPorFecha_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Producto.cs">
