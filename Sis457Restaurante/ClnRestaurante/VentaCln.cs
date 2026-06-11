@@ -130,5 +130,76 @@ namespace ClnRestaurante
                 return context.Venta.Find(id);
             }
         }
+
+        /// <summary>
+        /// Realiza la anulación de una venta (baja lógica), devolviendo el stock 
+        /// de los productos y liberando la mesa asignada de ser necesario.
+        /// </summary>
+        public static int eliminar(long id, string usuarioActive) // <-- CORREGIDO: Recibe string directo para auditoría
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                using (var trx = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Obtener la cabecera de la venta
+                        var venta = context.Venta.Find(id);
+                        if (venta == null) return 0;
+
+                        if (venta.estado == -1) return 0; // Ya anulada
+
+                        // Aplicar baja lógica a la cabecera y registrar auditoría
+                        venta.estado = -1;
+                        venta.usuarioRegistro = usuarioActive;
+                        venta.fechaRegistro = DateTime.Now;
+
+                        // 2. Dar de baja lógica los registros de pago de esta venta
+                        var pagos = context.PagoVenta.Where(p => p.idVenta == id && p.estado != -1).ToList();
+                        foreach (var pago in pagos)
+                        {
+                            pago.estado = -1;
+                            pago.usuarioRegistro = usuarioActive;
+                        }
+
+                        // 3. Devolver stock de los productos asociados a los detalles de la venta
+                        var detalles = context.DetalleVenta.Where(d => d.idVenta == id && d.estado != -1).ToList();
+                        foreach (var det in detalles)
+                        {
+                            det.estado = -1;
+                            det.usuarioRegistro = usuarioActive;
+
+                            var producto = context.Producto.Find(det.idProducto);
+                            if (producto != null)
+                            {
+                                producto.stock += det.cantidad; // Revertimos el stock físico
+                            }
+                        }
+
+                        // 4. Liberar la mesa involucrada (Cambiar de 'OCUPADA' a 'DISPONIBLE')
+                        if (venta.idMesa.HasValue)
+                        {
+                            var mesa = context.Mesa.Find(venta.idMesa.Value);
+                            if (mesa != null && mesa.estadoMesa == "OCUPADA")
+                            {
+                                mesa.estadoMesa = "DISPONIBLE";
+                                mesa.usuarioRegistro = usuarioActive;
+                            }
+                        }
+
+                        // Guardar de manera atómica todos los cambios en la base de datos
+                        int filasAfectadas = context.SaveChanges();
+
+                        trx.Commit(); // Confirmar transacción en la DB
+                        return filasAfectadas;
+                    }
+                    catch
+                    {
+                        trx.Rollback(); // Si algo falla, no se toca nada
+                        throw;
+                    }
+                }
+            }
+        }
     }
 }

@@ -38,11 +38,17 @@ namespace CpRestaurante
                 {
                     if (dgvReporte.Columns.Contains("id")) dgvReporte.Columns["id"].Visible = false;
                     if (dgvReporte.Columns.Contains("estado")) dgvReporte.Columns["estado"].Visible = false;
-                    if (dgvReporte.Columns.Contains("usuarioRegistro")) dgvReporte.Columns["usuarioRegistro"].Visible = false;
+                    if (dgvReporte.Columns.Contains("mesa")) dgvReporte.Columns["mesa"].Visible = false;
+                    if (dgvReporte.Columns.Contains("tipoPedido")) dgvReporte.Columns["tipoPedido"].Visible = false;
+
                     if (dgvReporte.Columns.Contains("numeroTransaccion")) dgvReporte.Columns["numeroTransaccion"].HeaderText = "Nro. Transacción";
-                    if (dgvReporte.Columns.Contains("Cliente")) dgvReporte.Columns["Cliente"].HeaderText = "Cliente";
+                    if (dgvReporte.Columns.Contains("cliente")) dgvReporte.Columns["cliente"].HeaderText = "Cliente";
                     if (dgvReporte.Columns.Contains("Usuario")) dgvReporte.Columns["Usuario"].HeaderText = "Empleado";
                     if (dgvReporte.Columns.Contains("fechaRegistro")) dgvReporte.Columns["fechaRegistro"].HeaderText = "Fecha";
+                    if (dgvReporte.Columns.Contains("usuarioRegistro")) dgvReporte.Columns["usuarioRegistro"].HeaderText = "Usuario Registro";
+
+                    // Ajustar automáticamente las columnas para que llenen la pantalla limpiamente
+                    dgvReporte.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -53,8 +59,13 @@ namespace CpRestaurante
 
         private void FrmReporte_Load(object sender, EventArgs e)
         {
+            dgvReporte.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvReporte.MultiSelect = false;
+
             listar();
+
             txtBuscar.TextChanged += txtBuscar_TextChanged;
+            dgvReporte.CellDoubleClick += dgvReporte_CellDoubleClick;
         }
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -81,12 +92,12 @@ namespace CpRestaurante
 
         private int? GetIdPedidoSeleccionado()
         {
-            if (dgvReporte.CurrentRow == null) return null;
+            if (dgvReporte.SelectedRows.Count == 0) return null;
 
-            // Validación robusta de la existencia de la celda "id"
+            var filaSeleccionada = dgvReporte.SelectedRows[0];
             if (!dgvReporte.Columns.Contains("id")) return null;
 
-            var cell = dgvReporte.CurrentRow.Cells["id"];
+            var cell = filaSeleccionada.Cells["id"];
             if (cell == null || cell.Value == null) return null;
 
             return Convert.ToInt32(cell.Value);
@@ -97,7 +108,7 @@ namespace CpRestaurante
             var id = GetIdPedidoSeleccionado();
             if (id == null)
             {
-                MessageBox.Show("Seleccione un pedido.", "Aviso",
+                MessageBox.Show("Por favor, seleccione una venta de la lista para ver su detalle.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -109,7 +120,57 @@ namespace CpRestaurante
 
         private void dgvReporte_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) btnVerDetalle_Click(sender, EventArgs.Empty);
+            if (e.RowIndex >= 0)
+            {
+                btnVerDetalle_Click(sender, EventArgs.Empty);
+            }
+        }
+
+        private void btnAnular_Click(object sender, EventArgs e)
+        {
+            var id = GetIdPedidoSeleccionado();
+            if (id == null)
+            {
+                MessageBox.Show("Por favor, seleccione la venta que desea anular.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Capturamos el código exacto de la fila seleccionada por el usuario
+            string nroTransaccion = dgvReporte.SelectedRows[0].Cells["numeroTransaccion"].Value?.ToString() ?? "Seleccionada";
+
+            DialogResult result = MessageBox.Show(
+                $"¿Está completamente seguro de que desea ANULAR la transacción {nroTransaccion}?\n\nEsta acción revertirá los estados asociados.",
+                "Confirmación de Auditoría",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    int filasAfectadas = VentaCln.eliminar(id.Value, "admin");
+
+                    if (filasAfectadas > 0)
+                    {
+                        MessageBox.Show($"La venta {nroTransaccion} ha sido anulada con éxito.", "Éxito",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        listar(); // Recarga la grilla limpia
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo realizar la operación. Verifique las restricciones del registro.", "Aviso",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error en la capa de datos al intentar anular: {ex.Message}", "Error Crítico",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
