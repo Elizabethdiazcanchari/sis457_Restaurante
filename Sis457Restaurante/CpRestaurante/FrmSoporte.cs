@@ -1,8 +1,12 @@
 ﻿using CadRestaurante;
 using ClnRestaurante;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,9 +14,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
 
 namespace CpRestaurante
 {
@@ -132,6 +133,7 @@ namespace CpRestaurante
         }
 
         // 5. Envío del formulario técnico con validación de ComboBoxes
+
         private async void btnEnviarReporte_Click(object sender, EventArgs e)
         {
             if (cbModulo.SelectedIndex == 0)
@@ -155,6 +157,21 @@ namespace CpRestaurante
                 return;
             }
 
+            // --- LEER CONFIGURACIÓN DESDE EL APP.CONFIG ---
+            string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
+            string smtpPortStr = ConfigurationManager.AppSettings["SmtpPort"];
+            string smtpUser = ConfigurationManager.AppSettings["SmtpUser"];
+            string smtpPass = ConfigurationManager.AppSettings["SmtpPass"];
+
+            // Validación interna preventiva para el programador
+            if (string.IsNullOrEmpty(smtpHost) || string.IsNullOrEmpty(smtpUser) || string.IsNullOrEmpty(smtpPass))
+            {
+                MessageBox.Show("Faltan parámetros de configuración de correo (SmtpHost, SmtpUser o SmtpPass) en el archivo App.config.", "Error de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int smtpPort = int.TryParse(smtpPortStr, out int port) ? port : 587; 
+
             string moduloAfectado = cbModulo.SelectedItem.ToString();
             string prioridadTickets = cbPrioridad.SelectedItem.ToString();
             string descripcionProblema = txtDescripcion.Text.Trim();
@@ -162,7 +179,8 @@ namespace CpRestaurante
             Cursor = Cursors.WaitCursor;
 
             var mensaje = new MimeMessage();
-            mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", "notificaciones.sistema.pos@gmail.com"));
+            // Usamos la variable 'smtpUser' para asegurar coincidencia del remitente
+            mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", smtpUser));
             mensaje.To.Add(new MailboxAddress("Soporte Técnico", "soporte@restaurant.com"));
             mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
 
@@ -187,8 +205,9 @@ namespace CpRestaurante
             {
                 try
                 {
-                    await clienteSmtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
-                    await clienteSmtp.AuthenticateAsync("notificaciones.sistema.pos@gmail.com", "tu_contraseña_o_token_aqui");
+                    // Usamos las variables leídas dinámicamente desde el archivo de configuración
+                    await clienteSmtp.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls);
+                    await clienteSmtp.AuthenticateAsync(smtpUser, smtpPass);
                     await clienteSmtp.SendAsync(mensaje);
                     await clienteSmtp.DisconnectAsync(true);
 
