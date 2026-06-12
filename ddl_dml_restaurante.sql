@@ -340,6 +340,27 @@ AS
     ORDER BY dv.id ASC;
 GO
 
+CREATE PROCEDURE paProductoTopMasVendidos
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 3
+        p.id,
+        p.nombre,
+        p.imagenUrl,
+        SUM(dv.cantidad) AS totalVendido
+    FROM DetalleVenta dv
+    INNER JOIN Venta v ON dv.idVenta = v.id
+    INNER JOIN Producto p ON dv.idProducto = p.id
+    WHERE v.estado = 1       -- Solo ventas válidas (no anuladas)
+      AND dv.estado = 1      -- Detalles válidos
+      AND p.estado = 1       -- Productos activos
+    GROUP BY p.id, p.nombre, p.imagenUrl
+    ORDER BY totalVendido DESC;
+END;
+GO
+
 -- 5. DATOS DE PRUEBA 
 
 -- --- CATEGORÍAS ---
@@ -508,4 +529,5 @@ EXEC paClienteListar '';
 EXEC paEmpleadoListar '';
 EXEC paUsuarioListar '';
 EXEC paVentaListar '';
+EXEC paProductoTopMasVendidos '';
 GO

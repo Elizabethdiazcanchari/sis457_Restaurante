@@ -368,6 +368,7 @@
         <Function Name="paProductoListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="paProductoTopMasVendidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="paUsuarioListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
@@ -915,6 +916,7 @@
           <FunctionImport Name="paProductoListar" ReturnType="Collection(LabRestauranteModel.paProductoListar_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="paProductoTopMasVendidos" ReturnType="Collection(LabRestauranteModel.paProductoTopMasVendidos_Result)" />
           <FunctionImport Name="paUsuarioListar" ReturnType="Collection(LabRestauranteModel.paUsuarioListar_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
@@ -980,6 +982,12 @@
           <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="paProductoTopMasVendidos_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="imagenUrl" Nullable="true" MaxLength="300" />
+          <Property Type="Decimal" Name="totalVendido" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
         <ComplexType Name="paUsuarioListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1275,6 +1283,16 @@
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="paProductoTopMasVendidos" FunctionName="LabRestauranteModel.Store.paProductoTopMasVendidos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRestauranteModel.paProductoTopMasVendidos_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="imagenUrl" ColumnName="imagenUrl" />
+                <ScalarProperty Name="totalVendido" ColumnName="totalVendido" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

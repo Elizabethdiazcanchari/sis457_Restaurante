@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ClnRestaurante;
 
 namespace CpRestaurante
 {
@@ -15,48 +16,27 @@ namespace CpRestaurante
     {
         private Form activeForm;
         private FrmAutenticacion frmAutenticacion;
+
+        // 1. Declaramos una variable global para rastrear el botón que está marcado actualmente
+        private Button botonActivo;
+
         public FrmPrincipal()
         {
             InitializeComponent();
 
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
-            tmrReloj.Enabled = true;
-            tmrReloj.Interval = 1000;
-            tmrReloj.Tick += Timer_Tick;
             this.frmAutenticacion = new FrmAutenticacion();
 
             pnContenedor.BackColor = Color.FromArgb(241, 245, 249);
-            lblReloj.Font = new Font("Segoe UI", 20, FontStyle.Bold);
 
             this.Load += FrmPrincipal_Load;
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            CargarUsuarioActivo();
-        }
-
-        private void CargarUsuarioActivo()
-        {
-            // Validamos que el objeto de sesión global no esté vacío
-            if (Util.usuario != null && !string.IsNullOrEmpty(Util.usuario.usuario1))
-            {
-                // Reemplaza 'lblUsuario' por el Name real del Label que pusiste encima de "XXXXXX"
-                lblUsuario.Text = Util.usuario.usuario1;
-
-                // Tip opcional: Si quieres mostrar el rol al lado o abajo:
-                // lblRol.Text = Util.usuario.rol; 
-            }
-            else
-            {
-                lblUsuario.Text = "INVITADO";
-            }
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            lblReloj.Text = DateTime.Now.ToString("HH:mm:ss");
+            // Al iniciar pasamos 'btnInicio' (o btnHome) para que empiece marcado por defecto
+            MostrarInicio(btnInicio);
         }
 
         [DllImport("user32.Dll", EntryPoint = "ReleaseCapture")]
@@ -64,14 +44,47 @@ namespace CpRestaurante
         [DllImport("user32.Dll", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
 
-        private void AbrirFormulario(Form formulario)
+        // 2. Método centralizado para cambiar los estados visuales de los botones del menú
+        private void ActivarBotonMenu(object botonRemitente)
+        {
+            if (botonRemitente != null)
+            {
+                // Si ya había un botón activo anterior, lo regresamos a su diseño normal oscuro
+                if (botonActivo != (Button)botonRemitente)
+                {
+                    DesactivarBotonMenu();
+
+                    botonActivo = (Button)botonRemitente;
+
+                    // --- ESTILO DEL BOTÓN SELECCIONADO ---
+                    // Cambiamos el color de fondo a uno más claro para resaltar
+                    botonActivo.BackColor = Color.FromArgb(30, 41, 59); // Azul grisáceo pizarra oscuro
+                    botonActivo.Font = new Font("Segoe UI", 11F, FontStyle.Bold); // Texto un poco más grande y negrita
+                }
+            }
+        }
+
+        // 3. Método para limpiar el diseño de cualquier botón previamente activo
+        private void DesactivarBotonMenu()
+        {
+            if (botonActivo != null)
+            {
+                // --- REGRESAR AL ESTILO ORIGINAL ---
+                // Reemplaza por el color exacto que tengan tus botones en el diseñador (el azul marino oscuro)
+                botonActivo.BackColor = Color.FromArgb(15, 23, 42);
+                botonActivo.Font = new Font("Segoe UI", 10F, FontStyle.Regular); // Fuente normal
+            }
+        }
+
+        private void AbrirFormulario(Form formulario, object botonSender)
         {
             if (activeForm != null)
             {
                 activeForm.Close();
             }
 
-            picBanner.Visible = false;
+            // Ejecutamos el marcado visual del botón correspondiente
+            ActivarBotonMenu(botonSender);
 
             activeForm = formulario;
             formulario.TopLevel = false;
@@ -88,18 +101,11 @@ namespace CpRestaurante
             formulario.Update();
         }
 
-        private void MostrarInicio()
+        // Adaptamos el método para recibir qué botón disparó la acción de Inicio
+        private void MostrarInicio(object botonSender)
         {
-            if (activeForm != null)
-            {
-                activeForm.Close();
-                activeForm = null;
-            }
-            // Volvemos a hacer visible el hermoso banner de comida y las tarjetas
-            picBanner.Visible = true;
-            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42); // Mantiene tu color corporativo oscuro
-
-            CargarUsuarioActivo();
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
+            AbrirFormulario(new FrmInicio(), botonSender);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -150,58 +156,61 @@ namespace CpRestaurante
                 SendMessage(this.Handle, 0x112, 0xf012, 0);
             }
         }
+
+        // --- SECCIÓN DE EVENTOS CLICK ACTUALIZADA CON 'SENDER' ---
+
         private void btnHome_Click(object sender, EventArgs e)
         {
-            MostrarInicio();
+            // Pasamos 'sender' (que representa al botón clicleado)
+            MostrarInicio(sender);
+        }
+
+        private void btnInicio_Click(object sender, EventArgs e)
+        {
+            MostrarInicio(sender);
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmProducto());
+            AbrirFormulario(new FrmProducto(), sender);
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmReporte());
+            AbrirFormulario(new FrmReporte(), sender);
         }
 
         private void btnDetalleVenta_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmVenta());
+            AbrirFormulario(new FrmVenta(), sender);
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmEmpleado());
-        }
-
-        private void btnCerrarSesion_Click(object sender, EventArgs e)
-        {
-            Util.usuario = null;
-
-            this.Hide();
-            frmAutenticacion.Show();
+            AbrirFormulario(new FrmEmpleado(), sender);
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmClientes());
-        }
-
-        private void btnInicio_Click(object sender, EventArgs e)
-        {
-            MostrarInicio();
+            AbrirFormulario(new FrmClientes(), sender);
         }
 
         private void btnSoporte_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmSoporte());
+            AbrirFormulario(new FrmSoporte(), sender);
+        }
+
+        private void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Util.usuario = null;
+            this.Hide();
+            frmAutenticacion.Show();
         }
     }
 }

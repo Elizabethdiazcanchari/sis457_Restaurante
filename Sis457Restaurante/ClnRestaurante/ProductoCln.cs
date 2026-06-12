@@ -103,5 +103,13 @@ namespace ClnRestaurante
                               x.id != idActual);
             }
         }
+
+        public static List<paProductoTopMasVendidos_Result> obtenerTopMasVendidos()
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.paProductoTopMasVendidos().ToList();
+            }
+        }
     }
 }
