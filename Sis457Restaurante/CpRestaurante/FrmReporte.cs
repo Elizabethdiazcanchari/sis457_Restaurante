@@ -200,5 +200,28 @@ namespace CpRestaurante
                 }
             }
         }
+
+        private void btnRecargar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 1. Limpiamos el cuadro de texto de búsqueda
+                txtBuscar.Text = string.Empty;
+
+                // 2. Restablecemos el rango de fechas al mes actual (igual que en el FrmReporte_Load)
+                DateTime hoy = DateTime.Now;
+                dtpFechaInicio.Value = new DateTime(hoy.Year, hoy.Month, 1);
+                dtpFechaFin.Value = hoy;
+
+                // 3. Forzamos la recarga de la grilla con los datos limpios
+                listar();
+
+                txtBuscar.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al recargar el reporte: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
