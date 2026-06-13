@@ -74,7 +74,7 @@ namespace CpRestaurante
         // 1. Interacción para abrir el chat de WhatsApp desde el sistema
         private void btnWhatsapp_Click(object sender, EventArgs e)
         {
-            string urlWhatsapp = "https://wa.me/59175647380?text=Hola,%20necesito%20soporte%20con%20el%20sistema%20POS";
+            string urlWhatsapp = "https://wa.me/59171806340?text=Hola,%20necesito%20soporte%20con%20el%20sistema%20POS";
             Process.Start(new ProcessStartInfo
             {
                 FileName = urlWhatsapp,
@@ -85,7 +85,7 @@ namespace CpRestaurante
         // 2. Interacción para abrir el gestor de correo electrónico predeterminado
         private void lnkCorreo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            string mailto = "mailto:soporte@restaurant.com?subject=Soporte%20Sistema%20Restaurante";
+            string mailto = "mailto:jhoselinfigueroacolque@gmail.com?subject=Soporte%20Sistema%20Restaurante";
             Process.Start(new ProcessStartInfo
             {
                 FileName = mailto,
@@ -98,7 +98,7 @@ namespace CpRestaurante
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "tel:+59175647380",
+                FileName = "tel:+59171806340",
                 UseShellExecute = true
             });
         }
@@ -181,7 +181,7 @@ namespace CpRestaurante
             var mensaje = new MimeMessage();
             // Usamos la variable 'smtpUser' para asegurar coincidencia del remitente
             mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", smtpUser));
-            mensaje.To.Add(new MailboxAddress("Soporte Técnico", "soporte@restaurant.com"));
+            mensaje.To.Add(new MailboxAddress("Soporte Técnico", "jhoselinfigueroacolque@gmail.com"));
             mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
 
             var bodyBuilder = new BodyBuilder();

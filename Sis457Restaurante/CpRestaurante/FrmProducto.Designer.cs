@@ -419,9 +419,11 @@
             // 
             // lblProductos
             // 
+            this.lblProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblProductos.AutoSize = true;
             this.lblProductos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductos.ForeColor = System.Drawing.Color.White;
+            this.lblProductos.ForeColor = System.Drawing.Color.LemonChiffon;
             this.lblProductos.Location = new System.Drawing.Point(381, 4);
             this.lblProductos.Name = "lblProductos";
             this.lblProductos.Size = new System.Drawing.Size(346, 38);

@@ -114,7 +114,7 @@
             this.lblPedidos.AutoSize = true;
             this.lblPedidos.BackColor = System.Drawing.Color.Transparent;
             this.lblPedidos.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPedidos.ForeColor = System.Drawing.Color.White;
+            this.lblPedidos.ForeColor = System.Drawing.Color.LemonChiffon;
             this.lblPedidos.Location = new System.Drawing.Point(381, 3);
             this.lblPedidos.Name = "lblPedidos";
             this.lblPedidos.Size = new System.Drawing.Size(328, 38);

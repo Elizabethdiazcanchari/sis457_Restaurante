@@ -292,6 +292,8 @@
             // 
             // lblVentas
             // 
+            this.lblVentas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVentas.AutoSize = true;
             this.lblVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblVentas.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

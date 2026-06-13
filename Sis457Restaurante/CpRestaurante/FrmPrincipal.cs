@@ -16,8 +16,6 @@ namespace CpRestaurante
     {
         private Form activeForm;
         private FrmAutenticacion frmAutenticacion;
-
-        // 1. Declaramos una variable global para rastrear el botón que está marcado actualmente
         private Button botonActivo;
 
         public FrmPrincipal()
@@ -27,16 +25,34 @@ namespace CpRestaurante
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
 
             this.frmAutenticacion = new FrmAutenticacion();
-
             pnContenedor.BackColor = Color.FromArgb(241, 245, 249);
 
             this.Load += FrmPrincipal_Load;
+
+            // TRUCO CLAVE: Escuchar activamente cuando la ventana cambia de tamaño (Maximizar / Restaurar)
+            this.SizeChanged += FrmPrincipal_SizeChanged;
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            // Al iniciar pasamos 'btnInicio' (o btnHome) para que empiece marcado por defecto
             MostrarInicio(btnInicio);
+        }
+
+        private void FrmPrincipal_SizeChanged(object sender, EventArgs e)
+        {
+            // Si hay un formulario cargado actualmente en el contenedor
+            if (activeForm != null && !activeForm.IsDisposed)
+            {
+                // Forzamos al contenedor principal a reacomodar sus dimensiones internas
+                pnContenedor.PerformLayout();
+
+                // Si el formulario que está viendo el usuario es el de Inicio...
+                if (activeForm is FrmInicio frmInicio)
+                {
+                    // Volvemos a disparar el método para que recalcule el espacio sobrante y centre los platos
+                    frmInicio.CargarProductosMasVendidos();
+                }
+            }
         }
 
         [DllImport("user32.Dll", EntryPoint = "ReleaseCapture")]
@@ -44,35 +60,26 @@ namespace CpRestaurante
         [DllImport("user32.Dll", EntryPoint = "SendMessage")]
         private extern static void SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
 
-        // 2. Método centralizado para cambiar los estados visuales de los botones del menú
         private void ActivarBotonMenu(object botonRemitente)
         {
             if (botonRemitente != null)
             {
-                // Si ya había un botón activo anterior, lo regresamos a su diseño normal oscuro
                 if (botonActivo != (Button)botonRemitente)
                 {
                     DesactivarBotonMenu();
-
                     botonActivo = (Button)botonRemitente;
-
-                    // --- ESTILO DEL BOTÓN SELECCIONADO ---
-                    // Cambiamos el color de fondo a uno más claro para resaltar
-                    botonActivo.BackColor = Color.FromArgb(30, 41, 59); // Azul grisáceo pizarra oscuro
-                    botonActivo.Font = new Font("Segoe UI", 11F, FontStyle.Bold); // Texto un poco más grande y negrita
+                    botonActivo.BackColor = Color.FromArgb(202, 138, 4);
+                    botonActivo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
                 }
             }
         }
 
-        // 3. Método para limpiar el diseño de cualquier botón previamente activo
         private void DesactivarBotonMenu()
         {
             if (botonActivo != null)
             {
-                // --- REGRESAR AL ESTILO ORIGINAL ---
-                // Reemplaza por el color exacto que tengan tus botones en el diseñador (el azul marino oscuro)
                 botonActivo.BackColor = Color.FromArgb(15, 23, 42);
-                botonActivo.Font = new Font("Segoe UI", 10F, FontStyle.Regular); // Fuente normal
+                botonActivo.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
             }
         }
 
@@ -83,13 +90,12 @@ namespace CpRestaurante
                 activeForm.Close();
             }
 
-            // Ejecutamos el marcado visual del botón correspondiente
             ActivarBotonMenu(botonSender);
 
             activeForm = formulario;
             formulario.TopLevel = false;
             formulario.FormBorderStyle = FormBorderStyle.None;
-            formulario.Dock = DockStyle.Fill;
+            formulario.Dock = DockStyle.Fill; // Garantiza que el formulario hijo llene el pnContenedor
 
             this.pnContenedor.Controls.Add(formulario);
             this.pnContenedor.Tag = formulario;
@@ -101,11 +107,10 @@ namespace CpRestaurante
             formulario.Update();
         }
 
-        // Adaptamos el método para recibir qué botón disparó la acción de Inicio
-        private void MostrarInicio(object botonSender)
+        private void MostrarInicio(object sender)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmInicio(), botonSender);
+            AbrirFormulario(new FrmInicio(), sender);
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -157,18 +162,8 @@ namespace CpRestaurante
             }
         }
 
-        // --- SECCIÓN DE EVENTOS CLICK ACTUALIZADA CON 'SENDER' ---
-
-        private void btnHome_Click(object sender, EventArgs e)
-        {
-            // Pasamos 'sender' (que representa al botón clicleado)
-            MostrarInicio(sender);
-        }
-
-        private void btnInicio_Click(object sender, EventArgs e)
-        {
-            MostrarInicio(sender);
-        }
+        private void btnHome_Click(object sender, EventArgs e) => MostrarInicio(sender);
+        private void btnInicio_Click(object sender, EventArgs e) => MostrarInicio(sender);
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
