@@ -79,7 +79,8 @@
             // 
             // flpCatalogoProductos
             // 
-            this.flpCatalogoProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpCatalogoProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flpCatalogoProductos.AutoScroll = true;
             this.flpCatalogoProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(231)))), ((int)(((byte)(235)))));
             this.flpCatalogoProductos.Location = new System.Drawing.Point(488, 88);
