@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnCerrarSesion = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnSoporte = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnMaximizar = new System.Windows.Forms.Button();
             this.btnRestaurar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.paBarraTitulo.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +83,17 @@
             this.panel1.Size = new System.Drawing.Size(217, 650);
             this.panel1.TabIndex = 0;
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(4, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(213, 45);
+            this.label1.TabIndex = 53;
+            this.label1.Text = "LA CASONA";
+            // 
             // btnCerrarSesion
             // 
             this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -107,7 +118,7 @@
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel9.Location = new System.Drawing.Point(9, 476);
+            this.panel9.Location = new System.Drawing.Point(-9, 476);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(8, 40);
             this.panel9.TabIndex = 52;
@@ -121,7 +132,7 @@
             this.btnSoporte.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnSoporte.Image = ((System.Drawing.Image)(resources.GetObject("btnSoporte.Image")));
             this.btnSoporte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSoporte.Location = new System.Drawing.Point(1, 475);
+            this.btnSoporte.Location = new System.Drawing.Point(-17, 475);
             this.btnSoporte.Name = "btnSoporte";
             this.btnSoporte.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnSoporte.Size = new System.Drawing.Size(248, 40);
@@ -133,7 +144,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel7.Location = new System.Drawing.Point(9, 109);
+            this.panel7.Location = new System.Drawing.Point(-9, 109);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(8, 40);
             this.panel7.TabIndex = 50;
@@ -147,7 +158,7 @@
             this.btnInicio.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnInicio.Image = ((System.Drawing.Image)(resources.GetObject("btnInicio.Image")));
             this.btnInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInicio.Location = new System.Drawing.Point(0, 109);
+            this.btnInicio.Location = new System.Drawing.Point(-18, 109);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnInicio.Size = new System.Drawing.Size(250, 40);
@@ -167,7 +178,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel2.Location = new System.Drawing.Point(8, 414);
+            this.panel2.Location = new System.Drawing.Point(-10, 414);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(8, 40);
             this.panel2.TabIndex = 45;
@@ -175,7 +186,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel3.Location = new System.Drawing.Point(8, 355);
+            this.panel3.Location = new System.Drawing.Point(-10, 355);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(8, 40);
             this.panel3.TabIndex = 48;
@@ -183,7 +194,7 @@
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel8.Location = new System.Drawing.Point(8, 291);
+            this.panel8.Location = new System.Drawing.Point(-10, 291);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(8, 40);
             this.panel8.TabIndex = 44;
@@ -191,7 +202,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel5.Location = new System.Drawing.Point(8, 228);
+            this.panel5.Location = new System.Drawing.Point(-10, 228);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(8, 40);
             this.panel5.TabIndex = 43;
@@ -199,7 +210,7 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel6.Location = new System.Drawing.Point(8, 164);
+            this.panel6.Location = new System.Drawing.Point(-10, 164);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(8, 40);
             this.panel6.TabIndex = 42;
@@ -213,7 +224,7 @@
             this.btnDetalleVenta.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnDetalleVenta.Image = ((System.Drawing.Image)(resources.GetObject("btnDetalleVenta.Image")));
             this.btnDetalleVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDetalleVenta.Location = new System.Drawing.Point(1, 412);
+            this.btnDetalleVenta.Location = new System.Drawing.Point(-17, 412);
             this.btnDetalleVenta.Name = "btnDetalleVenta";
             this.btnDetalleVenta.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnDetalleVenta.Size = new System.Drawing.Size(241, 40);
@@ -231,7 +242,7 @@
             this.btnReportes.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReportes.Location = new System.Drawing.Point(1, 355);
+            this.btnReportes.Location = new System.Drawing.Point(-17, 355);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnReportes.Size = new System.Drawing.Size(243, 40);
@@ -249,7 +260,7 @@
             this.btnClientes.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(4, 289);
+            this.btnClientes.Location = new System.Drawing.Point(-14, 289);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnClientes.Size = new System.Drawing.Size(246, 40);
@@ -267,7 +278,7 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnEmpleados.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpleados.Image")));
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmpleados.Location = new System.Drawing.Point(4, 227);
+            this.btnEmpleados.Location = new System.Drawing.Point(-14, 227);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnEmpleados.Size = new System.Drawing.Size(229, 40);
@@ -285,7 +296,7 @@
             this.btnProductos.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(0, 165);
+            this.btnProductos.Location = new System.Drawing.Point(-18, 165);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnProductos.Size = new System.Drawing.Size(249, 40);
@@ -383,17 +394,6 @@
             this.btnRestaurar.UseVisualStyleBackColor = true;
             this.btnRestaurar.Visible = false;
             this.btnRestaurar.Click += new System.EventHandler(this.btnRestaurar_Click);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(1, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(213, 45);
-            this.label1.TabIndex = 53;
-            this.label1.Text = "LA CASONA";
             // 
             // FrmPrincipal
             // 

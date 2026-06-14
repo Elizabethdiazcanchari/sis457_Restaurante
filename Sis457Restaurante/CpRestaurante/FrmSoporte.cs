@@ -25,11 +25,11 @@ namespace CpRestaurante
         {
             InitializeComponent();
 
-            // 1. Enlaces para el cambio de pestañas y repintado de color custom
+            // NOTA: Si estos eventos ya están enlazados desde el Diseñador (Designer.cs), 
+            // puedes borrar estas líneas para evitar doble ejecución.
             tbcSoporte.SelectedIndexChanged += tbcSoporte_SelectedIndexChanged;
-            tbcSoporte.DrawItem += tbcSoporte_DrawItem; // <-- Agregamos el manejador del dibujo
+            tbcSoporte.DrawItem += tbcSoporte_DrawItem;
 
-            // Asociamos el evento de cambio de selección de las preguntas frecuentes
             lstPreguntas.SelectedIndexChanged += LstPreguntas_SelectedIndexChanged;
             cbPrioridad.SelectedIndexChanged += CbPrioridad_SelectedIndexChanged;
 
@@ -58,52 +58,49 @@ namespace CpRestaurante
             cbPrioridad.SelectedIndex = 0;
         }
 
-        // Evento visual: Cambia el color del texto si seleccionan la prioridad Alta
         private void CbPrioridad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbPrioridad.SelectedIndex == 1) // Alta
+            // Cambia el color del texto si seleccionan la prioridad Alta (Índice 1)
+            cbPrioridad.ForeColor = cbPrioridad.SelectedIndex == 1
+                ? Color.FromArgb(239, 64, 64)
+                : Color.Black;
+        }
+
+        // Método auxiliar seguro para abrir URLs/Protocolos en cualquier versión de .NET
+        private void AbrirEnlaceSeguro(string url)
+        {
+            try
             {
-                cbPrioridad.ForeColor = Color.FromArgb(239, 64, 64); // Rojo
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true // Requerido para URLs y protocolos como mailto/tel
+                });
             }
-            else
+            catch (Exception ex)
             {
-                cbPrioridad.ForeColor = Color.Black;
+                MessageBox.Show($"No se pudo abrir el enlace de manera automática.\nDetalles: {ex.Message}",
+                                "Error al abrir enlace", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
-        // 1. Interacción para abrir el chat de WhatsApp desde el sistema
         private void btnWhatsapp_Click(object sender, EventArgs e)
         {
             string urlWhatsapp = "https://wa.me/59171806340?text=Hola,%20necesito%20soporte%20con%20el%20sistema%20POS";
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = urlWhatsapp,
-                UseShellExecute = true
-            });
+            AbrirEnlaceSeguro(urlWhatsapp);
         }
 
-        // 2. Interacción para abrir el gestor de correo electrónico predeterminado
         private void lnkCorreo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string mailto = "mailto:jhoselinfigueroacolque@gmail.com?subject=Soporte%20Sistema%20Restaurante";
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = mailto,
-                UseShellExecute = true
-            });
+            AbrirEnlaceSeguro(mailto);
         }
 
-        // 3. Interacción para ejecutar la llamada telefónica
         private void lnkTelefono_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "tel:+59171806340",
-                UseShellExecute = true
-            });
+            AbrirEnlaceSeguro("tel:+59171806340");
         }
 
-        // 4. Lógica del Acordeón/Visualizador de Preguntas Frecuentes
         private void LstPreguntas_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (lstPreguntas.SelectedIndex)
@@ -132,10 +129,9 @@ namespace CpRestaurante
             }
         }
 
-        // 5. Envío del formulario técnico con validación de ComboBoxes
-
         private async void btnEnviarReporte_Click(object sender, EventArgs e)
         {
+            // 1. Validaciones de la Interfaz de Usuario
             if (cbModulo.SelectedIndex == 0)
             {
                 MessageBox.Show("Por favor, seleccione el módulo afectado por la incidencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -157,80 +153,85 @@ namespace CpRestaurante
                 return;
             }
 
-            // --- LEER CONFIGURACIÓN DESDE EL APP.CONFIG ---
+            // 2. Leer Configuración Externa desde el App.config
             string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
             string smtpPortStr = ConfigurationManager.AppSettings["SmtpPort"];
             string smtpUser = ConfigurationManager.AppSettings["SmtpUser"];
             string smtpPass = ConfigurationManager.AppSettings["SmtpPass"];
 
-            // Validación interna preventiva para el programador
             if (string.IsNullOrEmpty(smtpHost) || string.IsNullOrEmpty(smtpUser) || string.IsNullOrEmpty(smtpPass))
             {
                 MessageBox.Show("Faltan parámetros de configuración de correo (SmtpHost, SmtpUser o SmtpPass) en el archivo App.config.", "Error de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            int smtpPort = int.TryParse(smtpPortStr, out int port) ? port : 587; 
+            int smtpPort = int.TryParse(smtpPortStr, out int port) ? port : 587;
 
             string moduloAfectado = cbModulo.SelectedItem.ToString();
             string prioridadTickets = cbPrioridad.SelectedItem.ToString();
-            string descripcionProblema = txtDescripcion.Text.Trim();
 
+            // CORRECCIÓN MENOR: Nos aseguramos de limpiar saltos de línea crudos de Windows (\r\n) para el HTML
+            string descripcionProblema = txtDescripcion.Text.Trim().Replace("\r\n", "\n").Replace("\n", "<br/>");
+
+            // 3. Cambiar estado de la interfaz (Feedback visual)
             Cursor = Cursors.WaitCursor;
 
-            var mensaje = new MimeMessage();
-            // Usamos la variable 'smtpUser' para asegurar coincidencia del remitente
-            mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", smtpUser));
-            mensaje.To.Add(new MailboxAddress("Soporte Técnico", "jhoselinfigueroacolque@gmail.com"));
-            mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
-
-            var bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = $@"
-        <h2>Nuevo Informe de Soporte Técnico</h2>
-        <hr/>
-        <p><strong>Módulo Afectado:</strong> {moduloAfectado}</p>
-        <p><strong>Nivel de Prioridad:</strong> {prioridadTickets}</p>
-        <p><strong>Fecha/Hora del Reporte:</strong> {DateTime.Now:dd/MM/yyyy HH:mm:ss}</p>
-        <hr/>
-        <h3>Descripción del Problema:</h3>
-        <p style='background-color: #f4f4f4; padding: 15px; border-left: 4px solid #ef4040; font-family: sans-serif;'>
-            {descripcionProblema.Replace("\n", "<br/>")}
-        </p>
-        <br/>
-        <small>Este es un correo automático generado por el módulo de soporte desde Sucre, Bolivia.</small>";
-
-            mensaje.Body = bodyBuilder.ToMessageBody();
-
-            using (var clienteSmtp = new SmtpClient())
+            try
             {
-                try
+                // 4. Construcción del Mensaje con MimeKit
+                var mensaje = new MimeMessage();
+                mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", smtpUser));
+                mensaje.To.Add(new MailboxAddress("Soporte Técnico", "elizabethdiazcanchari@gmail.com"));
+                mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
+
+                var bodyBuilder = new BodyBuilder
                 {
-                    // Usamos las variables leídas dinámicamente desde el archivo de configuración
+                    HtmlBody = $@"
+            <h2>Nuevo Informe de Soporte Técnico</h2>
+            <hr/>
+            <p><strong>Módulo Afectado:</strong> {moduloAfectado}</p>
+            <p><strong>Nivel de Prioridad:</strong> {prioridadTickets}</p>
+            <p><strong>Fecha/Hora del Reporte:</strong> {DateTime.Now:dd/MM/yyyy HH:mm:ss}</p>
+            <hr/>
+            <h3>Descripción del Problema:</h3>
+            <p style='background-color: #f4f4f4; padding: 15px; border-left: 4px solid #ef4040; font-family: sans-serif; white-space: pre-wrap;'>
+                {descripcionProblema}
+            </p>
+            <br/>
+            <small>Este es un correo automático generado por el módulo de soporte desde Sucre, Bolivia.</small>"
+                };
+
+                mensaje.Body = bodyBuilder.ToMessageBody();
+
+                // 5. Envío Asíncrono con MailKit
+                using (var clienteSmtp = new SmtpClient())
+                {
                     await clienteSmtp.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls);
                     await clienteSmtp.AuthenticateAsync(smtpUser, smtpPass);
                     await clienteSmtp.SendAsync(mensaje);
                     await clienteSmtp.DisconnectAsync(true);
 
-                    MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte en Sucre con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    // 6. Limpieza de Controles tras el éxito
                     txtDescripcion.Clear();
                     cbModulo.SelectedIndex = 0;
                     cbPrioridad.SelectedIndex = 0;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"No se pudo enviar el correo de soporte automáticamente.\nDetalles del error: {ex.Message}", "Error de Conexión SMTP", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    Cursor = Cursors.Default;
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"No se pudo enviar el correo de soporte automáticamente.\nDetalles del error: {ex.Message}", "Error de Conexión SMTP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Restablecer el cursor pase lo que pase
+                Cursor = Cursors.Default;
             }
         }
 
         private void tbcSoporte_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // OBLIGATORIO: Fuerza al control a redibujarse para aplicar el cambio de color dinámico
             tbcSoporte.Invalidate();
 
             switch (tbcSoporte.SelectedIndex)
@@ -245,41 +246,37 @@ namespace CpRestaurante
             }
         }
 
-        // CORRECCIÓN INTERFAZ MODERNA: Evento encargado de pintar las pestañas manualmente
+        // CORRECCIÓN: Uso de bloques 'using' para asegurar la liberación de recursos gráficos (GDI+)
         private void tbcSoporte_DrawItem(object sender, DrawItemEventArgs e)
         {
             Rectangle tabPageArea = tbcSoporte.GetTabRect(e.Index);
             TabPage page = tbcSoporte.TabPages[e.Index];
 
-            // Colores institucionales de tu menú y workspace
-            Color backColorSelected = Color.FromArgb(26, 34, 54);     // Azul oscuro activo
-            Color backColorUnselected = Color.FromArgb(15, 23, 42);   // Gris muy oscuro inactivo
+            Color backColorSelected = Color.FromArgb(26, 34, 54);
+            Color backColorUnselected = Color.FromArgb(15, 23, 42);
 
-            Color textColorSelected = Color.FromArgb(56, 189, 248);       // Celeste brillante
-            Color textColorUnselected = Color.FromArgb(148, 163, 184);   // Gris tenue
+            Color textColorSelected = Color.FromArgb(56, 189, 248);
+            Color textColorUnselected = Color.FromArgb(148, 163, 184);
 
-            Brush backBrush = new SolidBrush(tbcSoporte.SelectedIndex == e.Index ? backColorSelected : backColorUnselected);
-            Brush textBrush = new SolidBrush(tbcSoporte.SelectedIndex == e.Index ? textColorSelected : textColorUnselected);
+            bool isSelected = tbcSoporte.SelectedIndex == e.Index;
 
-            // Pintamos el fondo de la pestaña actual
-            e.Graphics.FillRectangle(backBrush, tabPageArea);
-
-            // Fuente estilizada (Negrita para la activa)
-            Font fontTab = new Font("Segoe UI", 10, tbcSoporte.SelectedIndex == e.Index ? FontStyle.Bold : FontStyle.Regular);
-
-            StringFormat stringFormat = new StringFormat
+            using (Brush backBrush = new SolidBrush(isSelected ? backColorSelected : backColorUnselected))
+            using (Brush textBrush = new SolidBrush(isSelected ? textColorSelected : textColorUnselected))
+            using (Font fontTab = new Font("Segoe UI", 10, isSelected ? FontStyle.Bold : FontStyle.Regular))
             {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
+                // Pintamos el fondo de la pestaña actual
+                e.Graphics.FillRectangle(backBrush, tabPageArea);
 
-            // Dibujamos el texto centrado
-            e.Graphics.DrawString(page.Text, fontTab, textBrush, tabPageArea, stringFormat);
-
-            // Liberación de recursos de dibujo
-            backBrush.Dispose();
-            textBrush.Dispose();
-            fontTab.Dispose();
+                using (StringFormat stringFormat = new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                })
+                {
+                    // Dibujamos el texto centrado
+                    e.Graphics.DrawString(page.Text, fontTab, textBrush, tabPageArea, stringFormat);
+                }
+            } // Todos los recursos gráficos se liberan automáticamente aquí de forma segura
         }
     }
 }
