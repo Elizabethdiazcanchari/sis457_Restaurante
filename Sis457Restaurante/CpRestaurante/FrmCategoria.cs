@@ -14,6 +14,10 @@ namespace CpRestaurante
 {
     public partial class FrmCategoria : Form
     {
+        // Variables de control de estado para alternar entre Agregar y Editar
+        private bool esNuevo = true;
+        private int idCategoriaSeleccionada = -1;
+
         public FrmCategoria()
         {
             InitializeComponent();
@@ -28,6 +32,19 @@ namespace CpRestaurante
             lbxCategorias.ValueMember = "id";
             lbxCategorias.DisplayMember = "nombre";
         }
+
+        private void RestablecerFormulario()
+        {
+            esNuevo = true;
+            idCategoriaSeleccionada = -1;
+            txtNombreCat.Clear();
+
+            // Regresar el botón a su estado original de "Agregar"
+            btnAgregarCate.Text = "Agregar Categoría";
+            btnAgregarCate.BackColor = Color.FromArgb(37, 99, 235); // Azul acción
+            erpNombreCategoria.Clear();
+        }
+
         private void FrmCategoria_Load(object sender, EventArgs e)
         {
             this.BackColor = Color.FromArgb(243, 244, 246); // Gris claro limpio
@@ -36,6 +53,9 @@ namespace CpRestaurante
             lbxCategorias.BackColor = Color.White;
             lbxCategorias.Font = new Font("Segoe UI", 10);
             lbxCategorias.BorderStyle = BorderStyle.FixedSingle;
+
+            // EL EVENTO CLAVE: Detecta cuando el usuario hace clic en un elemento de la lista
+            lbxCategorias.SelectedIndexChanged += lbxCategorias_SelectedIndexChanged;
 
             // Ajustar estilos de los botones a la paleta moderna
             btnAgregarCate.FlatStyle = FlatStyle.Flat;
@@ -52,34 +72,77 @@ namespace CpRestaurante
 
             // Cargar datos iniciales
             CargarCategoriasListBox();
+            RestablecerFormulario();
+        }
 
+        private void lbxCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Verificamos que realmente haya una selección válida
+            if (lbxCategorias.SelectedIndex >= 0 && lbxCategorias.SelectedValue != null)
+            {
+                var categoria = (Categoria)lbxCategorias.SelectedItem;
+
+                txtNombreCat.Text = categoria.nombre;
+                idCategoriaSeleccionada = categoria.id;
+                esNuevo = false; // Cambiamos el estado a Modo Edición
+
+                // Cambiar el diseño del botón para que el usuario sepa que va a editar
+                btnAgregarCate.Text = "Guardar Cambios";
+                btnAgregarCate.BackColor = Color.FromArgb(16, 185, 129); // Verde éxito
+            }
         }
 
         private void btnAgregarCate_Click(object sender, EventArgs e)
         {
-            var categoria = new Categoria();
-            categoria.nombre = txtNombreCat.Text.Trim();
+            string nombreCat = txtNombreCat.Text.Trim();
 
-            var existe = CategoriaCln.listar().Any(c => c.nombre.Equals(categoria.nombre, StringComparison.OrdinalIgnoreCase));
+            // 1. Validación de vacíos
+            if (string.IsNullOrEmpty(nombreCat))
+            {
+                erpNombreCategoria.SetError(txtNombreCat, "El campo Nombre no debe estar Vacio");
+                return;
+            }
+
+            // 2. Validación de duplicados (ajustada para ignorar la categoría actual si se está editando)
+            var existe = CategoriaCln.listar().Any(c => c.nombre.Equals(nombreCat, StringComparison.OrdinalIgnoreCase)
+                                                    && (esNuevo || c.id != idCategoriaSeleccionada));
             if (existe)
             {
                 MessageBox.Show("Ya existe una categoría con ese nombre.", "Advertencia",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (string.IsNullOrEmpty(txtNombreCat.Text))
+
+            // 3. Decidir si se Guarda como Nuevo o se Edita
+            if (esNuevo)
             {
-                erpNombreCategoria.SetError(txtNombreCat, "El campo Nombre no debe estar Vacio");
-            }
-            else
-            {
-                categoria.estado = 1;
-                CategoriaCln.insertar(categoria);
-                txtNombreCat.Clear();
-                CargarCategoriasListBox();
+                var nuevaCategoria = new Categoria
+                {
+                    nombre = nombreCat,
+                    estado = 1
+                };
+                CategoriaCln.insertar(nuevaCategoria);
                 MessageBox.Show("Se agrego la Categoria", "::: Restaurant - Mensaje :::",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                var categoriaAEditar = (Categoria)lbxCategorias.SelectedItem;
+                categoriaAEditar.nombre = nombreCat;
+
+                // Llama al método de actualización de tu capa lógica
+                CategoriaCln.actualizar(categoriaAEditar);
+                MessageBox.Show("Se actualizaron los cambios correctamente.", "::: Restaurant - Mensaje :::",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            // 4. Limpieza y refresco desactivando temporalmente el evento para evitar errores en bucle
+            lbxCategorias.SelectedIndexChanged -= lbxCategorias_SelectedIndexChanged;
+
+            CargarCategoriasListBox();
+            RestablecerFormulario();
+
+            lbxCategorias.SelectedIndexChanged += lbxCategorias_SelectedIndexChanged;
         }
 
         private void btnEliminarCate_Click(object sender, EventArgs e)
@@ -93,7 +156,6 @@ namespace CpRestaurante
                 return;
             }
 
-
             int idCategoria = Convert.ToInt32(lbxCategorias.SelectedValue);
             string nombreCat = lbxCategorias.Text;
             DialogResult dialog = MessageBox.Show(
@@ -104,17 +166,17 @@ namespace CpRestaurante
             if (dialog == DialogResult.OK)
             {
                 CategoriaCln.eliminar(idCategoria);
+
+                lbxCategorias.SelectedIndexChanged -= lbxCategorias_SelectedIndexChanged;
                 CargarCategoriasListBox();
+                RestablecerFormulario();
+                lbxCategorias.SelectedIndexChanged += lbxCategorias_SelectedIndexChanged;
+
                 MessageBox.Show("Categoría dada de baja correctamente.",
                                 "::: Restaurant - Mensaje :::",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
             }
-        }
-
-        private void btnSalirCate_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void txtNombreCat_KeyPress(object sender, KeyPressEventArgs e)
@@ -124,6 +186,11 @@ namespace CpRestaurante
                 btnAgregarCate_Click(sender, EventArgs.Empty);
                 e.Handled = true;
             }
+        }
+
+        private void btnSalirCate_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void btnCerrar_Click(object sender, EventArgs e)
