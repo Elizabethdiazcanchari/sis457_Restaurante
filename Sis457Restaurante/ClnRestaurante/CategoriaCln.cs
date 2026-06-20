@@ -47,6 +47,30 @@ namespace ClnRestaurante
             }
         }
 
+        public static int actualizar(Categoria categoria)
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                // Buscamos el registro original directamente en la base de datos por su ID
+                var existente = context.Categoria.Find(categoria.id);
+
+                if (existente != null)
+                {
+                    // Actualizamos únicamente los campos necesarios
+                    existente.nombre = categoria.nombre;
+
+                    // Campos de auditoría para el control de modificaciones
+                    existente.usuarioRegistro = Environment.UserName;
+                    existente.fechaRegistro = DateTime.Now;
+
+                    // Guardamos los cambios y retornamos el número de filas afectadas
+                    return context.SaveChanges();
+                }
+
+                return 0; // Si no encontró la categoría a modificar
+            }
+        }
+
         public static int eliminar(int id)
         {
             using (var context = new LabRestauranteEntities())

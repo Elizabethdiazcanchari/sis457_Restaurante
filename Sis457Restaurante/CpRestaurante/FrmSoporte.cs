@@ -131,6 +131,7 @@ namespace CpRestaurante
 
         private async void btnEnviarReporte_Click(object sender, EventArgs e)
         {
+            // 1. Validaciones de la Interfaz de Usuario
             if (cbModulo.SelectedIndex == 0)
             {
                 MessageBox.Show("Por favor, seleccione el módulo afectado por la incidencia.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -152,7 +153,7 @@ namespace CpRestaurante
                 return;
             }
 
-            // --- LEER CONFIGURACIÓN DESDE EL APP.CONFIG ---
+            // 2. Leer Configuración Externa desde el App.config
             string smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
             string smtpPortStr = ConfigurationManager.AppSettings["SmtpPort"];
             string smtpUser = ConfigurationManager.AppSettings["SmtpUser"];
@@ -168,15 +169,22 @@ namespace CpRestaurante
 
             string moduloAfectado = cbModulo.SelectedItem.ToString();
             string prioridadTickets = cbPrioridad.SelectedItem.ToString();
-            string descripcionProblema = txtDescripcion.Text.Trim();
 
+            // CORRECCIÓN MENOR: Nos aseguramos de limpiar saltos de línea crudos de Windows (\r\n) para el HTML
+            string descripcionProblema = txtDescripcion.Text.Trim().Replace("\r\n", "\n").Replace("\n", "<br/>");
+
+            // 3. Cambiar estado de la interfaz (Feedback visual)
             Cursor = Cursors.WaitCursor;
 
             try
             {
+                // 4. Construcción del Mensaje con MimeKit
                 var mensaje = new MimeMessage();
                 mensaje.From.Add(new MailboxAddress("Sistema Restaurante POS", smtpUser));
+
+                // NOTA: Cambiar a 'elizabethdiazcanchari@gmail.com' si corresponde a la otra rama
                 mensaje.To.Add(new MailboxAddress("Soporte Técnico", "jhoselinfigueroacolque@gmail.com"));
+
                 mensaje.Subject = $"[INCIDENCIA] Módulo: {moduloAfectado} - Prioridad: {prioridadTickets}";
 
                 var bodyBuilder = new BodyBuilder
@@ -189,8 +197,8 @@ namespace CpRestaurante
                     <p><strong>Fecha/Hora del Reporte:</strong> {DateTime.Now:dd/MM/yyyy HH:mm:ss}</p>
                     <hr/>
                     <h3>Descripción del Problema:</h3>
-                    <p style='background-color: #f4f4f4; padding: 15px; border-left: 4px solid #ef4040; font-family: sans-serif;'>
-                        {descripcionProblema.Replace("\n", "<br/>")}
+                    <p style='background-color: #f4f4f4; padding: 15px; border-left: 4px solid #ef4040; font-family: sans-serif; white-space: pre-wrap;'>
+                        {descripcionProblema}
                     </p>
                     <br/>
                     <small>Este es un correo automático generado por el módulo de soporte desde Sucre, Bolivia.</small>"
@@ -198,6 +206,7 @@ namespace CpRestaurante
 
                 mensaje.Body = bodyBuilder.ToMessageBody();
 
+                // 5. Envío Asíncrono con MailKit
                 using (var clienteSmtp = new SmtpClient())
                 {
                     await clienteSmtp.ConnectAsync(smtpHost, smtpPort, SecureSocketOptions.StartTls);
@@ -207,6 +216,7 @@ namespace CpRestaurante
 
                     MessageBox.Show("El informe técnico ha sido registrado y enviado al equipo de soporte con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    // 6. Limpieza de Controles tras el éxito
                     txtDescripcion.Clear();
                     cbModulo.SelectedIndex = 0;
                     cbPrioridad.SelectedIndex = 0;
@@ -218,6 +228,7 @@ namespace CpRestaurante
             }
             finally
             {
+                // Restablecer el cursor pase lo que pase
                 Cursor = Cursors.Default;
             }
         }

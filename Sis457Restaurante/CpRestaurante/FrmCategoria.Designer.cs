@@ -61,6 +61,7 @@
             this.lbxCategorias.Name = "lbxCategorias";
             this.lbxCategorias.Size = new System.Drawing.Size(328, 172);
             this.lbxCategorias.TabIndex = 27;
+            this.lbxCategorias.Click += new System.EventHandler(this.lbxCategorias_SelectedIndexChanged);
             // 
             // btnEliminarCate
             // 

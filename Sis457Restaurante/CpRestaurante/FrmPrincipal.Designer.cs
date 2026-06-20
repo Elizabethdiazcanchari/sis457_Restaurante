@@ -87,7 +87,7 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -100,7 +100,7 @@
             // 
             // btnCerrarSesion
             // 
-            this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnCerrarSesion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCerrarSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.btnCerrarSesion.FlatAppearance.BorderSize = 0;
@@ -148,7 +148,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel7.Location = new System.Drawing.Point(9, 109);
+            this.panel7.Location = new System.Drawing.Point(-9, 109);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(8, 40);
             this.panel7.TabIndex = 50;
@@ -162,7 +162,7 @@
             this.btnInicio.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnInicio.Image = ((System.Drawing.Image)(resources.GetObject("btnInicio.Image")));
             this.btnInicio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInicio.Location = new System.Drawing.Point(0, 109);
+            this.btnInicio.Location = new System.Drawing.Point(-18, 109);
             this.btnInicio.Name = "btnInicio";
             this.btnInicio.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnInicio.Size = new System.Drawing.Size(250, 40);
@@ -198,7 +198,7 @@
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel8.Location = new System.Drawing.Point(8, 291);
+            this.panel8.Location = new System.Drawing.Point(-10, 291);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(8, 40);
             this.panel8.TabIndex = 44;
@@ -206,7 +206,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel5.Location = new System.Drawing.Point(8, 228);
+            this.panel5.Location = new System.Drawing.Point(-10, 228);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(8, 40);
             this.panel5.TabIndex = 43;
@@ -214,7 +214,7 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.panel6.Location = new System.Drawing.Point(8, 164);
+            this.panel6.Location = new System.Drawing.Point(-10, 164);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(8, 40);
             this.panel6.TabIndex = 42;
@@ -264,7 +264,7 @@
             this.btnClientes.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(4, 289);
+            this.btnClientes.Location = new System.Drawing.Point(-14, 289);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnClientes.Size = new System.Drawing.Size(246, 40);
@@ -282,7 +282,7 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnEmpleados.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpleados.Image")));
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEmpleados.Location = new System.Drawing.Point(4, 227);
+            this.btnEmpleados.Location = new System.Drawing.Point(-14, 227);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnEmpleados.Size = new System.Drawing.Size(229, 40);
@@ -300,7 +300,7 @@
             this.btnProductos.ForeColor = System.Drawing.Color.PapayaWhip;
             this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnProductos.Location = new System.Drawing.Point(0, 165);
+            this.btnProductos.Location = new System.Drawing.Point(-18, 165);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
             this.btnProductos.Size = new System.Drawing.Size(249, 40);
@@ -329,8 +329,8 @@
             // 
             // pnContenedor
             // 
-            this.pnContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnContenedor.AutoScroll = true;
             this.pnContenedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
