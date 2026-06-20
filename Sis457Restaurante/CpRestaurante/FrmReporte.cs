@@ -135,31 +135,44 @@ namespace CpRestaurante
                 lblProd2.Text = "Sin datos"; valP2.Text = "0"; panelBarra2.Width = 0;
                 lblProd3.Text = "Sin datos"; valP3.Text = "0"; panelBarra3.Width = 0;
 
-                // Límite de caracteres idóneo antes de chocar con tus paneles (Modifica el 13 si requieres más o menos espacio)
-                int limiteLetras = 13;
+                if (listaTop == null || listaTop.Count == 0) return;
 
+                int limiteLetras = 13;
+                int anchoMaximoPanel = 174; // El ancho límite que definiste para tu UI
+
+                // 1. Obtener la cantidad máxima (Puesto 1) para usarla como base del 100%
+                int cantMaxima = Convert.ToInt32(listaTop[0].totalVendido);
+
+                // --- PRODUCTO 1 ---
                 if (listaTop.Count >= 1)
                 {
                     lblProd1.Text = TruncarTexto(listaTop[0].nombre, limiteLetras);
-                    int cant1 = Convert.ToInt32(listaTop[0].totalVendido);
-                    valP1.Text = cant1.ToString();
-                    panelBarra1.Width = Math.Min(cant1 * 8, 174);
+                    valP1.Text = cantMaxima.ToString();
+
+                    // Si la cantidad máxima es mayor a 0, toma el ancho total asignado
+                    panelBarra1.Width = cantMaxima > 0 ? anchoMaximoPanel : 0;
                 }
 
+                // --- PRODUCTO 2 ---
                 if (listaTop.Count >= 2)
                 {
                     lblProd2.Text = TruncarTexto(listaTop[1].nombre, limiteLetras);
                     int cant2 = Convert.ToInt32(listaTop[1].totalVendido);
                     valP2.Text = cant2.ToString();
-                    panelBarra2.Width = Math.Min(cant2 * 8, 174);
+
+                    // Escalado proporcional relativo al más vendido
+                    panelBarra2.Width = cantMaxima > 0 ? (int)((double)cant2 / cantMaxima * anchoMaximoPanel) : 0;
                 }
 
+                // --- PRODUCTO 3 ---
                 if (listaTop.Count >= 3)
                 {
                     lblProd3.Text = TruncarTexto(listaTop[2].nombre, limiteLetras);
                     int cant3 = Convert.ToInt32(listaTop[2].totalVendido);
                     valP3.Text = cant3.ToString();
-                    panelBarra3.Width = Math.Min(cant3 * 8, 174);
+
+                    // Escalado proporcional relativo al más vendido
+                    panelBarra3.Width = cantMaxima > 0 ? (int)((double)cant3 / cantMaxima * anchoMaximoPanel) : 0;
                 }
             }
             catch (Exception ex)
