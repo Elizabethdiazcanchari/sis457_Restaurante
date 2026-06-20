@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LabRestauranteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LabRestauranteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categoria">
           <Key>
             <PropertyRef Name="id" />
@@ -369,6 +369,13 @@
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
         <Function Name="paProductoTopMasVendidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="paReporteFinancieroPorFecha" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parametro" Type="varchar" Mode="In" />
+          <Parameter Name="fechaInicio" Type="datetime" Mode="In" />
+          <Parameter Name="fechaFin" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="paReporteTipoPedidoGerencial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="paReporteTopProductosGerencial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="paUsuarioListar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="parametro" Type="varchar" Mode="In" />
         </Function>
@@ -449,8 +456,7 @@
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LabRestauranteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -902,29 +908,36 @@
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
           <FunctionImport Name="paCategoriaListar" ReturnType="Collection(LabRestauranteModel.paCategoriaListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
+          <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="paClienteListar" ReturnType="Collection(LabRestauranteModel.paClienteListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
+          <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="paDetalleVentaListar" ReturnType="Collection(LabRestauranteModel.paDetalleVentaListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
+          <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="paEmpleadoListar" ReturnType="Collection(LabRestauranteModel.paEmpleadoListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
+          <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="paProductoListar" ReturnType="Collection(LabRestauranteModel.paProductoListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
+          <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="paProductoTopMasVendidos" ReturnType="Collection(LabRestauranteModel.paProductoTopMasVendidos_Result)" />
           <FunctionImport Name="paUsuarioListar" ReturnType="Collection(LabRestauranteModel.paUsuarioListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
+          <Parameter Name="parametro" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="paVentaListarPorFecha" ReturnType="Collection(LabRestauranteModel.paVentaListarPorFecha_Result)">
             <Parameter Name="parametro" Mode="In" Type="String" />
             <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
             <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="paReporteFinancieroPorFecha" ReturnType="Collection(LabRestauranteModel.paReporteFinancieroPorFecha_Result)">
+            <Parameter Name="parametro" Mode="In" Type="String" />
+            <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="paReporteTipoPedidoGerencial" ReturnType="Collection(LabRestauranteModel.paReporteTipoPedidoGerencial_Result)" />
+          <FunctionImport Name="paReporteTopProductosGerencial" ReturnType="Collection(LabRestauranteModel.paReporteTopProductosGerencial_Result)" />
         </EntityContainer>
         <ComplexType Name="paCategoriaListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1008,6 +1021,25 @@
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
           <Property Type="String" Name="usuarioRegistro" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="paReporteFinancieroPorFecha_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="String" Name="numeroTransaccion" Nullable="true" MaxLength="14" />
+          <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
+          <Property Type="String" Name="cliente" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="tipoPedido" Nullable="false" MaxLength="20" />
+          <Property Type="Int16" Name="estado" Nullable="false" />
+          <Property Type="Decimal" Name="totalNeto" Nullable="false" Precision="38" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="paReporteTipoPedidoGerencial_Result">
+          <Property Type="String" Name="tipoPedido" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="cantidadOrdenes" Nullable="true" />
+          <Property Type="Decimal" Name="totalIngresos" Nullable="false" Precision="38" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="paReporteTopProductosGerencial_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="totalVendido" Nullable="true" Precision="38" Scale="2" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1321,6 +1353,37 @@
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="paReporteFinancieroPorFecha" FunctionName="LabRestauranteModel.Store.paReporteFinancieroPorFecha">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRestauranteModel.paReporteFinancieroPorFecha_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="numeroTransaccion" ColumnName="numeroTransaccion" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="tipoPedido" ColumnName="tipoPedido" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="totalNeto" ColumnName="totalNeto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="paReporteTipoPedidoGerencial" FunctionName="LabRestauranteModel.Store.paReporteTipoPedidoGerencial">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRestauranteModel.paReporteTipoPedidoGerencial_Result">
+                <ScalarProperty Name="tipoPedido" ColumnName="tipoPedido" />
+                <ScalarProperty Name="cantidadOrdenes" ColumnName="cantidadOrdenes" />
+                <ScalarProperty Name="totalIngresos" ColumnName="totalIngresos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="paReporteTopProductosGerencial" FunctionName="LabRestauranteModel.Store.paReporteTopProductosGerencial">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LabRestauranteModel.paReporteTopProductosGerencial_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="totalVendido" ColumnName="totalVendido" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

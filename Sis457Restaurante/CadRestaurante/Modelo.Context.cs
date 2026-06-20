@@ -117,5 +117,32 @@ namespace CadRestaurante
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paVentaListarPorFecha_Result>("paVentaListarPorFecha", parametroParameter, fechaInicioParameter, fechaFinParameter);
         }
+    
+        public virtual ObjectResult<paReporteFinancieroPorFecha_Result> paReporteFinancieroPorFecha(string parametro, Nullable<System.DateTime> fechaInicio, Nullable<System.DateTime> fechaFin)
+        {
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("parametro", parametro) :
+                new ObjectParameter("parametro", typeof(string));
+    
+            var fechaInicioParameter = fechaInicio.HasValue ?
+                new ObjectParameter("fechaInicio", fechaInicio) :
+                new ObjectParameter("fechaInicio", typeof(System.DateTime));
+    
+            var fechaFinParameter = fechaFin.HasValue ?
+                new ObjectParameter("fechaFin", fechaFin) :
+                new ObjectParameter("fechaFin", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paReporteFinancieroPorFecha_Result>("paReporteFinancieroPorFecha", parametroParameter, fechaInicioParameter, fechaFinParameter);
+        }
+    
+        public virtual ObjectResult<paReporteTipoPedidoGerencial_Result> paReporteTipoPedidoGerencial()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paReporteTipoPedidoGerencial_Result>("paReporteTipoPedidoGerencial");
+        }
+    
+        public virtual ObjectResult<paReporteTopProductosGerencial_Result> paReporteTopProductosGerencial()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<paReporteTopProductosGerencial_Result>("paReporteTopProductosGerencial");
+        }
     }
 }

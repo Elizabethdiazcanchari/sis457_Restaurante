@@ -428,7 +428,7 @@
             this.lblProductos.Name = "lblProductos";
             this.lblProductos.Size = new System.Drawing.Size(346, 38);
             this.lblProductos.TabIndex = 5;
-            this.lblProductos.Text = "Gestion de Productos";
+            this.lblProductos.Text = "Gestión de Productos";
             // 
             // txtBuscar
             // 

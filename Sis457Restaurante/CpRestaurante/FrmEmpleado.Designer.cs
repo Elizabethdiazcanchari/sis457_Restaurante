@@ -107,7 +107,7 @@
             this.lblEmpleados.Name = "lblEmpleados";
             this.lblEmpleados.Size = new System.Drawing.Size(366, 38);
             this.lblEmpleados.TabIndex = 5;
-            this.lblEmpleados.Text = "Gestion de Empleados";
+            this.lblEmpleados.Text = "Gestión de Empleados";
             // 
             // btnCerrarAgregar
             // 

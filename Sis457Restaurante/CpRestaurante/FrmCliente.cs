@@ -12,12 +12,12 @@ using System.Windows.Forms;
 
 namespace CpRestaurante
 {
-    public partial class FrmClientes : Form
+    public partial class FrmCliente : Form
     {
         private bool modoEdicion = false;
         private System.Threading.Timer searchTimer;
         private const int SearchDelay = 500;
-        public FrmClientes()
+        public FrmCliente()
         {
             InitializeComponent();
         }

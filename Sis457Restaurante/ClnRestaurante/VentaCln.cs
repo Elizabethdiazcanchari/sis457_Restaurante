@@ -1,6 +1,7 @@
 ﻿using CadRestaurante;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -195,6 +196,28 @@ namespace ClnRestaurante
             }
         }
 
+        public static List<paReporteFinancieroPorFecha_Result> ObtenerReporteFinanciero(string parametro, DateTime? fechaInicio = null, DateTime? fechaFin = null)
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.paReporteFinancieroPorFecha(parametro, fechaInicio, fechaFin).ToList();
+            }
+        }
 
+        public static List<paReporteTopProductosGerencial_Result> ObtenerTopProductosGerencial()
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.paReporteTopProductosGerencial().ToList();
+            }
+        }
+
+        public static List<paReporteTipoPedidoGerencial_Result> ObtenerReporteTipoPedido()
+        {
+            using (var context = new LabRestauranteEntities())
+            {
+                return context.paReporteTipoPedidoGerencial().ToList();
+            }
+        }
     }
 }

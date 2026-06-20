@@ -361,6 +361,76 @@ BEGIN
 END;
 GO
 
+-- Para reportes financieros, sumamos el total de cada detalle de venta para obtener el total neto de cada transacción
+
+CREATE PROCEDURE paReporteFinancieroPorFecha
+    @parametro VARCHAR(50),
+    @fechaInicio DATETIME = NULL,
+    @fechaFin DATETIME = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        v.id,
+        v.numeroTransaccion,
+        v.fechaRegistro,
+        c.razonSocial AS cliente,
+        v.tipoPedido,
+        v.estado,
+        -- Sumamos el total calculado del detalle de cada venta activa
+        ISNULL(SUM(dv.total), 0) AS totalNeto
+    FROM Venta v
+    INNER JOIN Cliente c ON v.idCliente = c.id
+    LEFT JOIN DetalleVenta dv ON v.id = dv.idVenta AND dv.estado = 1
+    WHERE v.estado = 1 -- Solo tomamos ventas no anuladas en general
+      AND (c.razonSocial LIKE '%' + @parametro + '%' OR v.numeroTransaccion LIKE '%' + @parametro + '%')
+      AND (@fechaInicio IS NULL OR v.fechaRegistro >= @fechaInicio)
+      AND (@fechaFin IS NULL OR v.fechaRegistro <= DATEADD(SECOND, 86399, @fechaFin))
+    GROUP BY 
+        v.id, v.numeroTransaccion, v.fechaRegistro, c.razonSocial, v.tipoPedido, v.estado
+    ORDER BY 
+        v.fechaRegistro DESC;
+END;
+GO
+
+CREATE PROCEDURE paReporteTopProductosGerencial
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 3
+        p.id,
+        p.nombre,
+        SUM(dv.cantidad) AS totalVendido
+    FROM DetalleVenta dv
+    INNER JOIN Venta v ON dv.idVenta = v.id
+    INNER JOIN Producto p ON dv.idProducto = p.id
+    WHERE v.estado = 1       -- Solo ventas válidas (no anuladas)
+      AND dv.estado = 1      -- Detalles válidos
+      AND p.estado = 1       -- Productos activos
+    GROUP BY p.id, p.nombre
+    ORDER BY totalVendido DESC;
+END;
+GO
+
+CREATE PROCEDURE paReporteTipoPedidoGerencial
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        v.tipoPedido,
+        COUNT(v.id) AS cantidadOrdenes,
+        ISNULL(SUM(dv.total), 0) AS totalIngresos
+    FROM Venta v
+    LEFT JOIN DetalleVenta dv ON v.id = dv.idVenta AND dv.estado = 1
+    WHERE v.estado = 1 -- Solo ventas válidas
+    GROUP BY v.tipoPedido
+    ORDER BY totalIngresos DESC;
+END;
+GO
+
 -- 5. DATOS DE PRUEBA 
 
 -- --- CATEGORÍAS ---

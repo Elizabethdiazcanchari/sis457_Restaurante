@@ -100,7 +100,7 @@
             this.lblPedidos.Name = "lblPedidos";
             this.lblPedidos.Size = new System.Drawing.Size(441, 38);
             this.lblPedidos.TabIndex = 5;
-            this.lblPedidos.Text = "Gestion de Soporte Técnico";
+            this.lblPedidos.Text = "Gestión de Soporte Técnico";
             // 
             // pnlContacto
             // 

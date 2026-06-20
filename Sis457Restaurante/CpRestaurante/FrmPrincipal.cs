@@ -174,7 +174,7 @@ namespace CpRestaurante
         private void btnVentas_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmReporte(), sender);
+            AbrirFormulario(new FrmListaVenta(), sender);
         }
 
         private void btnDetalleVenta_Click(object sender, EventArgs e)
@@ -192,7 +192,7 @@ namespace CpRestaurante
         private void btnClientes_Click(object sender, EventArgs e)
         {
             paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
-            AbrirFormulario(new FrmClientes(), sender);
+            AbrirFormulario(new FrmCliente(), sender);
         }
 
         private void btnSoporte_Click(object sender, EventArgs e)
@@ -206,6 +206,12 @@ namespace CpRestaurante
             Util.usuario = null;
             this.Hide();
             frmAutenticacion.Show();
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            paBarraTitulo.BackColor = Color.FromArgb(15, 23, 42);
+            AbrirFormulario(new FrmReporte(), sender);
         }
     }
 }

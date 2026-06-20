@@ -1,6 +1,6 @@
 ﻿namespace CpRestaurante
 {
-    partial class FrmClientes
+    partial class FrmCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmClientes));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCliente));
             this.erpCiNit = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpRazonSocial = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnCerrarAgregar = new System.Windows.Forms.Button();
@@ -239,7 +239,7 @@
             this.lblProductos.Name = "lblProductos";
             this.lblProductos.Size = new System.Drawing.Size(318, 38);
             this.lblProductos.TabIndex = 5;
-            this.lblProductos.Text = "Gestion de Clientes";
+            this.lblProductos.Text = "Gestión de Clientes";
             // 
             // txtBuscar
             // 
@@ -346,7 +346,7 @@
             this.label1.TabIndex = 58;
             this.label1.Text = "Buscar:";
             // 
-            // FrmClientes
+            // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -363,7 +363,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FrmClientes";
+            this.Name = "FrmCliente";
             this.Text = "FrmClientes";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmClientes_FormClosing);
             this.Load += new System.EventHandler(this.FrmClientes_Load);

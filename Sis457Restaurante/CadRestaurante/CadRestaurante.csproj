@@ -113,6 +113,15 @@
     <Compile Include="paProductoTopMasVendidos_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="paReporteFinancieroPorFecha_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="paReporteTipoPedidoGerencial_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="paReporteTopProductosGerencial_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="paUsuarioListar_Result.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
