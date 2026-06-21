@@ -39,12 +39,12 @@
             this.btnProcesar = new System.Windows.Forms.Button();
             this.pnlWorkspace = new System.Windows.Forms.Panel();
             this.pnlTopProductos = new System.Windows.Forms.Panel();
-            this.panelBarra3 = new System.Windows.Forms.Panel();
             this.valP3 = new System.Windows.Forms.Label();
-            this.panelBarra2 = new System.Windows.Forms.Panel();
             this.valP2 = new System.Windows.Forms.Label();
-            this.panelBarra1 = new System.Windows.Forms.Panel();
             this.valP1 = new System.Windows.Forms.Label();
+            this.panelBarra3 = new System.Windows.Forms.Panel();
+            this.panelBarra2 = new System.Windows.Forms.Panel();
+            this.panelBarra1 = new System.Windows.Forms.Panel();
             this.lblProd1 = new System.Windows.Forms.Label();
             this.lblProd3 = new System.Windows.Forms.Label();
             this.lblProd2 = new System.Windows.Forms.Label();
@@ -199,82 +199,82 @@
             this.pnlTopProductos.Controls.Add(this.lblProd3);
             this.pnlTopProductos.Controls.Add(this.lblProd2);
             this.pnlTopProductos.Controls.Add(this.label6);
-            this.pnlTopProductos.Location = new System.Drawing.Point(608, 166);
+            this.pnlTopProductos.Location = new System.Drawing.Point(604, 166);
             this.pnlTopProductos.Name = "pnlTopProductos";
             this.pnlTopProductos.Size = new System.Drawing.Size(338, 251);
             this.pnlTopProductos.TabIndex = 78;
             // 
-            // panelBarra3
-            // 
-            this.panelBarra3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBarra3.BackColor = System.Drawing.Color.Green;
-            this.panelBarra3.Location = new System.Drawing.Point(120, 193);
-            this.panelBarra3.Name = "panelBarra3";
-            this.panelBarra3.Size = new System.Drawing.Size(174, 24);
-            this.panelBarra3.TabIndex = 81;
-            // 
             // valP3
             // 
-            this.valP3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.valP3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.valP3.AutoSize = true;
             this.valP3.BackColor = System.Drawing.Color.Transparent;
             this.valP3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.valP3.ForeColor = System.Drawing.Color.Black;
-            this.valP3.Location = new System.Drawing.Point(300, 193);
+            this.valP3.Location = new System.Drawing.Point(248, 197);
             this.valP3.Name = "valP3";
             this.valP3.Size = new System.Drawing.Size(14, 16);
             this.valP3.TabIndex = 84;
             this.valP3.Text = "0";
             // 
-            // panelBarra2
-            // 
-            this.panelBarra2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBarra2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.panelBarra2.Location = new System.Drawing.Point(120, 136);
-            this.panelBarra2.Name = "panelBarra2";
-            this.panelBarra2.Size = new System.Drawing.Size(174, 24);
-            this.panelBarra2.TabIndex = 81;
-            // 
             // valP2
             // 
-            this.valP2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.valP2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.valP2.AutoSize = true;
             this.valP2.BackColor = System.Drawing.Color.Transparent;
             this.valP2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.valP2.ForeColor = System.Drawing.Color.Black;
-            this.valP2.Location = new System.Drawing.Point(300, 144);
+            this.valP2.Location = new System.Drawing.Point(248, 141);
             this.valP2.Name = "valP2";
             this.valP2.Size = new System.Drawing.Size(14, 16);
             this.valP2.TabIndex = 83;
             this.valP2.Text = "0";
             // 
-            // panelBarra1
-            // 
-            this.panelBarra1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.panelBarra1.Location = new System.Drawing.Point(121, 74);
-            this.panelBarra1.Name = "panelBarra1";
-            this.panelBarra1.Size = new System.Drawing.Size(174, 24);
-            this.panelBarra1.TabIndex = 80;
-            // 
             // valP1
             // 
-            this.valP1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.valP1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.valP1.AutoSize = true;
             this.valP1.BackColor = System.Drawing.Color.Transparent;
             this.valP1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.valP1.ForeColor = System.Drawing.Color.Black;
-            this.valP1.Location = new System.Drawing.Point(301, 80);
+            this.valP1.Location = new System.Drawing.Point(248, 78);
             this.valP1.Name = "valP1";
             this.valP1.Size = new System.Drawing.Size(14, 16);
             this.valP1.TabIndex = 82;
             this.valP1.Text = "0";
+            // 
+            // panelBarra3
+            // 
+            this.panelBarra3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBarra3.BackColor = System.Drawing.Color.Green;
+            this.panelBarra3.Location = new System.Drawing.Point(114, 193);
+            this.panelBarra3.Name = "panelBarra3";
+            this.panelBarra3.Size = new System.Drawing.Size(123, 24);
+            this.panelBarra3.TabIndex = 81;
+            // 
+            // panelBarra2
+            // 
+            this.panelBarra2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBarra2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.panelBarra2.Location = new System.Drawing.Point(114, 136);
+            this.panelBarra2.Name = "panelBarra2";
+            this.panelBarra2.Size = new System.Drawing.Size(123, 24);
+            this.panelBarra2.TabIndex = 81;
+            // 
+            // panelBarra1
+            // 
+            this.panelBarra1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panelBarra1.Location = new System.Drawing.Point(115, 74);
+            this.panelBarra1.Name = "panelBarra1";
+            this.panelBarra1.Size = new System.Drawing.Size(122, 24);
+            this.panelBarra1.TabIndex = 80;
             // 
             // lblProd1
             // 
             this.lblProd1.AutoSize = true;
             this.lblProd1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProd1.ForeColor = System.Drawing.Color.Gray;
-            this.lblProd1.Location = new System.Drawing.Point(24, 80);
+            this.lblProd1.Location = new System.Drawing.Point(18, 80);
             this.lblProd1.Name = "lblProd1";
             this.lblProd1.Size = new System.Drawing.Size(75, 16);
             this.lblProd1.TabIndex = 79;
@@ -285,7 +285,7 @@
             this.lblProd3.AutoSize = true;
             this.lblProd3.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProd3.ForeColor = System.Drawing.Color.Gray;
-            this.lblProd3.Location = new System.Drawing.Point(24, 201);
+            this.lblProd3.Location = new System.Drawing.Point(18, 201);
             this.lblProd3.Name = "lblProd3";
             this.lblProd3.Size = new System.Drawing.Size(75, 16);
             this.lblProd3.TabIndex = 78;
@@ -296,7 +296,7 @@
             this.lblProd2.AutoSize = true;
             this.lblProd2.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProd2.ForeColor = System.Drawing.Color.Gray;
-            this.lblProd2.Location = new System.Drawing.Point(24, 144);
+            this.lblProd2.Location = new System.Drawing.Point(18, 144);
             this.lblProd2.Name = "lblProd2";
             this.lblProd2.Size = new System.Drawing.Size(75, 16);
             this.lblProd2.TabIndex = 77;

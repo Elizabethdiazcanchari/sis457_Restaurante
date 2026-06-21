@@ -131,48 +131,70 @@ namespace CpRestaurante
             {
                 var listaTop = VentaCln.ObtenerTopProductosGerencial();
 
-                lblProd1.Text = "Sin datos"; valP1.Text = "0"; panelBarra1.Width = 0;
-                lblProd2.Text = "Sin datos"; valP2.Text = "0"; panelBarra2.Width = 0;
-                lblProd3.Text = "Sin datos"; valP3.Text = "0"; panelBarra3.Width = 0;
+                // Configuración de auto-ancho para los valores para que no se corten
+                Label[] labelsValores = { valP1, valP2, valP3 };
+                foreach (var val in labelsValores)
+                {
+                    if (val != null)
+                    {
+                        val.AutoSize = true; // Permite que el control crezca según el largo del texto
+                    }
+                }
+
+                // Reinicio de la interfaz
+                lblProd1.Text = "Sin datos"; valP1.Text = "0%"; panelBarra1.Width = 0;
+                lblProd2.Text = "Sin datos"; valP2.Text = "0%"; panelBarra2.Width = 0;
+                lblProd3.Text = "Sin datos"; valP3.Text = "0%"; panelBarra3.Width = 0;
 
                 if (listaTop == null || listaTop.Count == 0) return;
 
                 int limiteLetras = 13;
-                int anchoMaximoPanel = 174; // El ancho límite que definiste para tu UI
+                int anchoMaximoPanel = 174; // Ancho máximo de tus controles de barra
 
-                // 1. Obtener la cantidad máxima (Puesto 1) para usarla como base del 100%
-                int cantMaxima = Convert.ToInt32(listaTop[0].totalVendido);
+                // 1. Convertir cantidades de la lista de forma segura
+                int cant1 = listaTop.Count >= 1 ? Convert.ToInt32(listaTop[0].totalVendido) : 0;
+                int cant2 = listaTop.Count >= 2 ? Convert.ToInt32(listaTop[1].totalVendido) : 0;
+                int cant3 = listaTop.Count >= 3 ? Convert.ToInt32(listaTop[2].totalVendido) : 0;
+
+                // 2. Calcular la suma total de unidades vendidas del Top 3
+                int granTotalTop = cant1 + cant2 + cant3;
+
+                // Evitamos división entre cero si no hay ventas
+                if (granTotalTop == 0) return;
 
                 // --- PRODUCTO 1 ---
                 if (listaTop.Count >= 1)
                 {
                     lblProd1.Text = TruncarTexto(listaTop[0].nombre, limiteLetras);
-                    valP1.Text = cantMaxima.ToString();
 
-                    // Si la cantidad máxima es mayor a 0, toma el ancho total asignado
-                    panelBarra1.Width = cantMaxima > 0 ? anchoMaximoPanel : 0;
+                    // Calcular porcentaje respecto al total
+                    double porcentaje1 = ((double)cant1 / granTotalTop) * 100;
+
+                    // Asignamos el texto formateado: "Cantidad (Porcentaje)"
+                    valP1.Text = $"{cant1} un. */({porcentaje1:F0}%)";
+
+                    // El ancho del panel ahora depende directamente de su peso en porcentaje
+                    panelBarra1.Width = (int)((porcentaje1 / 100) * anchoMaximoPanel);
                 }
 
                 // --- PRODUCTO 2 ---
                 if (listaTop.Count >= 2)
                 {
                     lblProd2.Text = TruncarTexto(listaTop[1].nombre, limiteLetras);
-                    int cant2 = Convert.ToInt32(listaTop[1].totalVendido);
-                    valP2.Text = cant2.ToString();
+                    double porcentaje2 = ((double)cant2 / granTotalTop) * 100;
 
-                    // Escalado proporcional relativo al más vendido
-                    panelBarra2.Width = cantMaxima > 0 ? (int)((double)cant2 / cantMaxima * anchoMaximoPanel) : 0;
+                    valP2.Text = $"{cant2} un. ({porcentaje2:F0}%)";
+                    panelBarra2.Width = (int)((porcentaje2 / 100) * anchoMaximoPanel);
                 }
 
                 // --- PRODUCTO 3 ---
                 if (listaTop.Count >= 3)
                 {
                     lblProd3.Text = TruncarTexto(listaTop[2].nombre, limiteLetras);
-                    int cant3 = Convert.ToInt32(listaTop[2].totalVendido);
-                    valP3.Text = cant3.ToString();
+                    double porcentaje3 = ((double)cant3 / granTotalTop) * 100;
 
-                    // Escalado proporcional relativo al más vendido
-                    panelBarra3.Width = cantMaxima > 0 ? (int)((double)cant3 / cantMaxima * anchoMaximoPanel) : 0;
+                    valP3.Text = $"{cant3} un. ({porcentaje3:F0}%)";
+                    panelBarra3.Width = (int)((porcentaje3 / 100) * anchoMaximoPanel);
                 }
             }
             catch (Exception ex)

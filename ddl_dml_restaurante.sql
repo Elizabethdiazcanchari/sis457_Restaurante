@@ -527,59 +527,75 @@ INSERT INTO Cliente (ciNit, razonSocial) VALUES
 ('9632587', 'Luciana Salazar Flores'),     -- ID 15
 ('5566778811', 'Hotelería San José S.R.L.');-- ID 16
 
--- --- VENTAS (Corregido mapeo real de IDs y Mesas) ---
+-- --- VENTAS 1 A 10 REESTRUCTURADAS CON FECHAS DISTRIBUIDAS ---
+
+-- --- DÍA: 01/05/2026 ---
 -- Venta 1: Juan Carlos Perez, Jhoselin, Mesa 1
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (1, 1, 1, 'MESA');
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (1, 1, 1, 'MESA', '2026-05-01 12:30:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (1, 1, 2, 35.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (1, 2, 1, 38.00);
-INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (1, 1, 108.00); -- Pagó con Efectivo
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (1, 1, 108.00);
 
+-- --- DÍA: 04/05/2026 ---
 -- Venta 2: Maria Elena Rodriguez, Elizabeth, Llevar
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (2, 2, NULL, 'LLEVAR');
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (2, 2, NULL, 'LLEVAR', '2026-05-04 19:15:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (2, 3, 3, 28.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (2, 4, 2, 42.00);
-INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (2, 3, 168.00); -- Pagó con QR
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (2, 3, 168.00);
 
+-- --- DÍA: 07/05/2026 ---
 -- Venta 3: Empresa ABC, Jhoselin, Mesa 3
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (8, 1, 3, 'MESA');
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (8, 1, 3, 'MESA', '2026-05-07 14:00:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 9, 2, 55.00);  -- Pachamanca
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 33, 4, 22.00); -- Pisco Sour
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 32, 1, 8.00);  -- Chicha Morada
-INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (3, 2, 206.00); -- Pagó con Tarjeta
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (3, 32, 1, 8.00);   -- Chicha Morada
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (3, 2, 206.00);
 
+-- --- DÍA: 10/05/2026 ---
 -- Venta 4: SIN NOMBRE, Elizabeth, Delivery
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (6, 2, NULL, 'DELIVERY');
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (6, 2, NULL, 'DELIVERY', '2026-05-10 21:30:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 6, 1, 25.00);  -- Pollo a la Brasa
-INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 34, 1, 6.00);  -- Inca Kola
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (4, 34, 1, 6.00);   -- Inca Kola
 INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (4, 1, 31.00);
 
--- Ventas 5 a 10 secuenciales en orden de IDs generados sin fallas
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (9, 1, NULL, 'LLEVAR');
+-- --- DÍA: 12/05/2026 ---
+-- Venta 5: Alejandro Viscarra, Jhoselin, Llevar
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (9, 1, NULL, 'LLEVAR', '2026-05-12 13:00:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (5, 2, 1.00, 38.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (5, 27, 1.00, 18.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (5, 34, 2.00, 6.00);
 
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (10, 2, 2, 'MESA');
+-- --- DÍA: 15/05/2026 ---
+-- Venta 6: Claudia Arce, Elizabeth, Mesa 2
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (10, 2, 2, 'MESA', '2026-05-15 13:45:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 3, 1.00, 28.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 4, 1.00, 14.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 29, 1.00, 14.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (6, 32, 1.00, 8.00);
 
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (11, 1, NULL, 'DELIVERY');
+-- --- DÍA: 18/05/2026 ---
+-- Venta 7: Juan Pérez, Jhoselin, Delivery
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (11, 1, NULL, 'DELIVERY', '2026-05-18 20:20:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (7, 6, 1.00, 25.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (7, 21, 1.00, 10.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (7, 34, 1.00, 6.00);
 
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (13, 2, 3, 'MESA');
+-- --- DÍA: 20/05/2026 ---
+-- Venta 8: Inversiones Gastronómicas del Sur, Elizabeth, Mesa 3
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (13, 2, 3, 'MESA', '2026-05-20 14:10:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (8, 14, 3.00, 40.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (8, 33, 3.00, 22.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (8, 22, 3.00, 12.00);
 
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (6, 1, NULL, 'LLEVAR');
+-- --- DÍA: 22/05/2026 ---
+-- Venta 9: SIN NOMBRE, Jhoselin, Llevar
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (6, 1, NULL, 'LLEVAR', '2026-05-22 18:30:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (9, 28, 2.00, 20.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (9, 31, 2.00, 10.00);
 
-INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido) VALUES (16, 2, 1, 'MESA');
+-- --- DÍA: 24/05/2026 ---
+-- Venta 10: Hotelería San José S.R.L., Elizabeth, Mesa 1
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (16, 2, 1, 'MESA', '2026-05-24 13:15:00');
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (10, 18, 5.00, 22.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (10, 11, 5.00, 30.00);
 INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (10, 32, 2.00, 8.00);
@@ -600,4 +616,211 @@ EXEC paEmpleadoListar '';
 EXEC paUsuarioListar '';
 EXEC paVentaListar '';
 EXEC paProductoTopMasVendidos '';
+GO
+
+-- --- EXTENSIÓN DE VENTAS 11 A 20 CON FECHAS DISTRIBUIDAS ---
+
+-- --- DÍA: 25/05/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (14, 1, 2, 'MESA', '2026-05-25 13:15:00'); -- ID Venta 11
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (11, 2, 2, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (11, 28, 1, 20.00); -- Anticuchos
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (11, 33, 3, 22.00); -- Pisco Sour
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (11, 2, 162.00);
+
+-- --- DÍA: 26/05/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (15, 2, NULL, 'DELIVERY', '2026-05-26 20:45:00'); -- ID Venta 12
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (12, 27, 2, 18.00); -- Causa Rellena
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (12, 22, 2, 12.00); -- Suspiro a la Limeña
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (12, 32, 1, 8.00);  -- Chicha Morada
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (12, 3, 68.00);
+
+-- --- DÍA: 28/05/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (5, 1, 3, 'MESA', '2026-05-28 12:30:00'); -- ID Venta 13
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (13, 11, 2, 30.00); -- Chicharrón de Cerdo
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (13, 23, 2, 8.00);  -- Mazamorra Morada
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (13, 31, 2, 10.00); -- Chicha de Jora
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (13, 1, 96.00);
+
+-- --- DÍA: 29/05/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (4, 2, NULL, 'LLEVAR', '2026-05-29 19:00:00'); -- ID Venta 14
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (14, 6, 2, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (14, 34, 2, 6.00);  -- Inca Kola
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (14, 1, 62.00);
+
+-- --- DÍA: 30/05/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (10, 1, 1, 'MESA', '2026-05-30 14:15:00'); -- ID Venta 15
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (15, 1, 2, 35.00);  -- Ceviche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (15, 32, 2, 8.00);  -- Chicha Morada
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (15, 21, 3, 10.00); -- Picarones
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (15, 3, 116.00);
+
+-- --- DÍA: 01/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (11, 2, NULL, 'DELIVERY', '2026-06-01 21:00:00'); -- ID Venta 16
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (16, 2, 2, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (16, 34, 1, 6.00);  -- Inca Kola
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (16, 2, 82.00);
+
+-- --- DÍA: 03/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (12, 1, 2, 'MESA', '2026-06-03 13:45:00'); -- ID Venta 17
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (17, 3, 2, 28.00);  -- Ají de Gallina
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (17, 24, 2, 8.00);  -- Arroz con Leche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (17, 35, 2, 5.00);  -- Mate de Coca
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (17, 1, 82.00);
+
+-- --- DÍA: 04/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (3, 2, NULL, 'LLEVAR', '2026-06-04 12:00:00'); -- ID Venta 18
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (18, 2, 4, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (18, 18, 4, 22.00); -- Arroz Chaufa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (18, 32, 8, 8.00);  -- Chicha Morada
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (18, 2, 304.00);
+
+-- --- DÍA: 06/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (9, 1, NULL, 'DELIVERY', '2026-06-06 19:30:00'); -- ID Venta 19
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (19, 6, 2, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (19, 26, 5, 4.00);  -- Chocotejas
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (19, 36, 2, 5.00);  -- Emoliente
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (19, 3, 80.00);
+
+-- --- DÍA: 07/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (1, 2, 1, 'MESA', '2026-06-07 14:00:00'); -- ID Venta 20
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (20, 1, 1, 35.00);  -- Ceviche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (20, 28, 2, 20.00); -- Anticuchos
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (20, 33, 2, 22.00); -- Pisco Sour
+INSERT INTO PagoVenta (idVenta, idMetodoPago, monto) VALUES (20, 1, 119.00);
+GO
+-- --- EXTENSIÓN MASIVA DE VENTAS (VENTAS 21 A 50) ---
+-- DISTRIBUIDAS EN DIFERENTES DÍAS Y HORARIOS (JUNIO 2026)
+
+-- --- DÍA: 02/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (2, 1, 1, 'MESA', '2026-06-02 13:15:00'); -- Venta 21
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (21, 2, 2, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (21, 32, 2, 8.00);  -- Chicha Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (4, 2, NULL, 'DELIVERY', '2026-06-02 20:30:00'); -- Venta 22
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (22, 6, 1, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (22, 21, 2, 10.00); -- Picarones
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (22, 34, 1, 6.00);  -- Inca Kola
+
+-- --- DÍA: 05/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (5, 1, 3, 'MESA', '2026-06-05 12:45:00'); -- Venta 23
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (23, 1, 2, 35.00);  -- Ceviche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (23, 33, 2, 22.00); -- Pisco Sour
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (6, 2, NULL, 'LLEVAR', '2026-06-05 19:15:00'); -- Venta 24
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (24, 11, 2, 30.00); -- Chicharrón de Cerdo
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (24, 31, 3, 10.00); -- Chicha de Jora
+
+-- --- DÍA: 08/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (7, 1, 2, 'MESA', '2026-06-08 14:00:00'); -- Venta 25
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (25, 3, 2, 28.00);  -- Ají de Gallina
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (25, 23, 2, 8.00);  -- Mazamorra Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (9, 2, NULL, 'DELIVERY', '2026-06-08 21:00:00'); -- Venta 26
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (26, 2, 1, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (26, 34, 2, 6.00);  -- Inca Kola
+
+-- --- DÍA: 10/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (10, 1, 1, 'MESA', '2026-06-10 13:30:00'); -- Venta 27
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (27, 8, 2, 32.00);  -- Seco de Carne
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (27, 32, 2, 8.00);  -- Chicha Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (11, 2, NULL, 'LLEVAR', '2026-06-10 18:45:00'); -- Venta 28
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (28, 28, 3, 20.00); -- Anticuchos
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (28, 24, 2, 8.00);  -- Arroz con Leche
+
+-- --- DÍA: 12/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (12, 1, 3, 'MESA', '2026-06-12 12:15:00'); -- Venta 29
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (29, 14, 2, 40.00); -- Arroz con mariscos
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (29, 33, 4, 22.00); -- Pisco Sour
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (13, 2, NULL, 'DELIVERY', '2026-06-12 20:00:00'); -- Venta 30
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (30, 6, 2, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (30, 22, 2, 12.00); -- Suspiro a la Limeña
+
+-- --- DÍA: 14/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (14, 1, 2, 'MESA', '2026-06-14 13:00:00'); -- Venta 31
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (31, 2, 3, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (31, 32, 3, 8.00);  -- Chicha Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (15, 2, NULL, 'LLEVAR', '2026-06-14 21:15:00'); -- Venta 32
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (32, 27, 2, 18.00); -- Causa Rellena
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (32, 36, 2, 5.00);  -- Emoliente
+
+-- --- DÍA: 15/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (16, 1, 1, 'MESA', '2026-06-15 14:30:00'); -- Venta 33
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (33, 1, 3, 35.00);  -- Ceviche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (33, 33, 2, 22.00); -- Pisco Sour
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (1, 2, NULL, 'DELIVERY', '2026-06-15 19:45:00'); -- Venta 34
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (34, 18, 2, 22.00); -- Arroz Chaufa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (34, 34, 2, 6.00);  -- Inca Kola
+
+-- --- DÍA: 16/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (3, 1, 3, 'MESA', '2026-06-16 13:10:00'); -- Venta 35
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (35, 2, 2, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (35, 29, 2, 14.00); -- Papa a la Huancaína
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (5, 2, NULL, 'LLEVAR', '2026-06-16 20:20:00'); -- Venta 36
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (36, 11, 2, 30.00); -- Chicharrón de Cerdo
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (36, 31, 2, 10.00); -- Chicha de Jora
+
+-- --- DÍA: 17/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (6, 1, 2, 'MESA', '2026-06-17 12:50:00'); -- Venta 37
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (37, 4, 2, 42.00);  -- Arroz con Pato
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (37, 32, 2, 8.00);  -- Chicha Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (8, 2, NULL, 'DELIVERY', '2026-06-17 19:30:00'); -- Venta 38
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (38, 6, 3, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (38, 34, 3, 6.00);  -- Inca Kola
+
+-- --- DÍA: 18/06/2026 ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (10, 1, 1, 'MESA', '2026-06-18 13:40:00'); -- Venta 39
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (39, 1, 2, 35.00);  -- Ceviche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (39, 21, 4, 10.00); -- Picarones
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (12, 2, NULL, 'LLEVAR', '2026-06-18 20:45:00'); -- Venta 40
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (40, 2, 2, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (40, 33, 2, 22.00); -- Pisco Sour
+
+-- --- DÍA: 19/06/2026 (Ayer) ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (14, 1, 3, 'MESA', '2026-06-19 13:00:00'); -- Venta 41
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (41, 14, 2, 40.00); -- Arroz con mariscos
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (41, 32, 4, 8.00);  -- Chicha Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (15, 2, NULL, 'DELIVERY', '2026-06-19 19:10:00'); -- Venta 42
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (42, 6, 2, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (42, 25, 2, 15.00); -- Turrón de Doña Pepa
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (2, 1, 2, 'MESA', '2026-06-19 21:30:00'); -- Venta 43
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (43, 28, 4, 20.00); -- Anticuchos
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (43, 33, 4, 22.00); -- Pisco Sour
+
+-- --- DÍA: 20/06/2026 (Hoy) ---
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (4, 2, 1, 'MESA', '2026-06-20 12:30:00'); -- Venta 44
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (44, 2, 2, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (44, 34, 2, 6.00);  -- Inca Kola
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (7, 1, NULL, 'LLEVAR', '2026-06-20 13:20:00'); -- Venta 45
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (45, 1, 2, 35.00);  -- Ceviche
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (45, 32, 2, 8.00);  -- Chicha Morada
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (9, 2, NULL, 'DELIVERY', '2026-06-20 14:00:00'); -- Venta 46
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (46, 18, 3, 22.00); -- Arroz Chaufa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (46, 34, 3, 6.00);  -- Inca Kola
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (11, 1, 2, 'MESA', '2026-06-20 19:30:00'); -- Venta 47
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (47, 3, 2, 28.00);  -- Ají de Gallina
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (47, 22, 2, 12.00); -- Suspiro a la Limeña
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (13, 2, 3, 'MESA', '2026-06-20 20:15:00'); -- Venta 48
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (48, 11, 2, 30.00); -- Chicharrón de Cerdo
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (48, 31, 4, 10.00); -- Chicha de Jora
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (16, 1, NULL, 'DELIVERY', '2026-06-20 21:00:00'); -- Venta 49
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (49, 6, 2, 25.00);  -- Pollo a la Brasa
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (49, 34, 2, 6.00);  -- Inca Kola
+
+INSERT INTO Venta (idCliente, idUsuario, idMesa, tipoPedido, fechaRegistro) VALUES (1, 2, NULL, 'LLEVAR', '2026-06-20 21:45:00'); -- Venta 50
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (50, 2, 1, 38.00);  -- Lomo Saltado
+INSERT INTO DetalleVenta (idVenta, idProducto, cantidad, precioUnitario) VALUES (50, 26, 3, 4.00);  -- Chocotejas
 GO
